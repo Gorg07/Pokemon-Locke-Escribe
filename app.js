@@ -2,8 +2,8 @@
  * Solo edita las DOS constantes siguientes al desplegar.
  * No escribas jamás una clave service_role aquí.
  */
-const SUPABASE_URL = 'https://TU-PROYECTO.supabase.co';
-const SUPABASE_ANON_KEY = 'TU_CLAVE_PUBLICA_ANON';
+const SUPABASE_URL = 'https://htwoumxhjzmiwnnbempi.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_5n2Vn1GcFGMgSiTIqaHqKQ_0UsA0sqQG';
 const CONNECTED = !SUPABASE_URL.includes('TU-PROYECTO') && !SUPABASE_ANON_KEY.includes('TU_CLAVE');
 
 const BOSSES = [ ['Petra',18], ['Marcial',23], ['Érico',30], ['Candela',40], ['Norman',44], ['Alana',50], ['Vito y Leti',60], ['Plubio',70], ['Blasco',77], ['Liga Pokémon',100] ];
