@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1626" />
+  <meta name="description" content="Panel compartido Dualocke SUPER RR: Hoenn, capturas, Showdown y Pokéfichas." />
+  <title>DUALOCKE · SUPER RR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="identity" href="#inicio" aria-label="Ir al inicio">
+        <div class="identity-mark"><span>R</span><span>Ω</span></div>
+        <span><strong>DUALOCKE</strong><small>SUPER RANDOM RUBY</small></span>
+      </a>
+      <div class="sidebar-label">NAVEGACIÓN</div>
+      <nav class="nav" aria-label="Secciones">
+        <a href="#inicio" data-page="inicio"><span class="nav-icon">◈</span> Inicio</a>
+        <a href="#mapa" data-page="mapa"><span class="nav-icon">⌖</span> Mapa de capturas</a>
+        <a href="#combates" data-page="combates"><span class="nav-icon">⚔</span> Combates BO3</a>
+        <a href="#tienda" data-page="tienda"><span class="nav-icon">◉</span> Tienda</a>
+        <a href="#huevos" data-page="huevos"><span class="nav-icon">◌</span> Incubadora</a>
+        <a href="#historial" data-page="historial"><span class="nav-icon">▤</span> Historial</a>
+        <a href="#ajustes" data-page="ajustes"><span class="nav-icon">⚙</span> Ajustes</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sync-mini"><span class="dot" id="conn-dot"></span><span id="conn-label">Modo demostración</span></div>
+        <div class="sidebar-note">Dos aventuras. Una sola historia.<br/><strong>Hoenn · 3DS</strong></div>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <button class="icon-btn mobile-only" type="button" id="menu-toggle" aria-label="Mostrar menú">☰</button>
+        <div class="breadcrumbs"><span>PROYECTO /</span> <strong id="crumb">RESUMEN</strong></div>
+        <div class="top-actions">
+          <span class="pill-status"><span class="pulse"></span> SUPER RR</span>
+          <button class="button secondary compact" id="btn-import">↑ Subir main</button>
+          <button class="avatar-btn" id="btn-account" title="Acceso y sesión">?</button>
+        </div>
+      </header>
+      <main id="screen" class="screen" aria-live="polite"></main>
+      <footer>DUALOCKE SUPER RR <span>·</span> Hecho para dos entrenadores de Hoenn <span>·</span> Los datos privados no se comparten con el rival</footer>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toasts" role="status"></div>
+  <dialog id="modal" class="modal"></dialog>
+  <input id="save-file" type="file" accept=".sav,.bin,.dat,.main,application/octet-stream" hidden />
+  <script type="module" src="app.js"></script>
+</body>
+</html>
