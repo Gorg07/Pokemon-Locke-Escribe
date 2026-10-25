@@ -2,12 +2,88 @@
  * Solo edita las DOS constantes siguientes al desplegar.
  * No escribas jamás una clave service_role aquí.
  */
-const SUPABASE_URL = 'https://htwoumxhjzmiwnnbempi.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_5n2Vn1GcFGMgSiTIqaHqKQ_0UsA0sqQ';
+const SUPABASE_URL = 'https://TU-PROYECTO.supabase.co';
+const SUPABASE_ANON_KEY = 'TU_CLAVE_PUBLICA_ANON';
 const CONNECTED = !SUPABASE_URL.includes('TU-PROYECTO') && !SUPABASE_ANON_KEY.includes('TU_CLAVE');
 
 const BOSSES = [ ['Petra',18], ['Marcial',23], ['Érico',30], ['Candela',40], ['Norman',44], ['Alana',50], ['Vito y Leti',60], ['Plubio',70], ['Blasco',77], ['Liga Pokémon',100] ];
 const ROUTES = Array.from({length:34}, (_,i)=>`Ruta ${101+i}`).concat(['Pueblo Escaso','Pueblo Azuliza','Ciudad Petalia','Ciudad Férrica','Ciudad Portual','Ciudad Malvalona','Pueblo Verdegal','Pueblo Pardal','Ciudad Lavacalda','Pueblo Oromar','Ciudad Arborada','Ciudad Calagua','Ciudad Algaria','Arrecípolis','Ciudad Colosalia','Bosque Petalia','Cueva Granito','Cueva Fervergal','Túnel Fervegal','Monte Pírico','Cueva Cardumen','Caverna Abisal','Calle Victoria','Nueva Malvalona','Monte Cenizo','Cascada Meteoro','Desierto','Isla del Sur','Cueva Ancestral','Zonas SUPER RR (añadir manualmente)']);
+const HOENN_POINTS = [
+  {key:'Villa Raíz', label:'Villa Raíz', short:'VR', type:'city', x:17, y:84},
+  {key:'Ruta 101', label:'Ruta 101', short:'101', type:'route', x:24, y:82},
+  {key:'Pueblo Escaso', label:'Pueblo Escaso', short:'PE', type:'city', x:11, y:77},
+  {key:'Ruta 103', label:'Ruta 103', short:'103', type:'route', x:25, y:76},
+  {key:'Ruta 102', label:'Ruta 102', short:'102', type:'route', x:10, y:72},
+  {key:'Ciudad Petalia', label:'Ciudad Petalia', short:'CP', type:'city', x:8, y:64},
+  {key:'Bosque Petalia', label:'Bosque Petalia', short:'BP', type:'special', x:17, y:63},
+  {key:'Ruta 104', label:'Ruta 104', short:'104', type:'route', x:16, y:58},
+  {key:'Ciudad Férrica', label:'Ciudad Férrica', short:'CF', type:'city', x:18, y:49},
+  {key:'Ruta 115', label:'Ruta 115', short:'115', type:'route', x:18, y:34},
+  {key:'Pueblo Azuliza', label:'Pueblo Azuliza', short:'PA', type:'city', x:4, y:52},
+  {key:'Ruta 106', label:'Ruta 106', short:'106', type:'route', x:7, y:55},
+  {key:'Cueva Granito', label:'Cueva Granito', short:'CG', type:'special', x:2, y:42},
+  {key:'Ruta 109', label:'Ruta 109', short:'109', type:'route', x:19, y:67},
+  {key:'Ciudad Portual', label:'Ciudad Portual', short:'CT', type:'city', x:23, y:63},
+  {key:'Ruta 110', label:'Ruta 110', short:'110', type:'route', x:28, y:58},
+  {key:'Ciudad Malvalona', label:'Ciudad Malvalona', short:'CM', type:'city', x:33, y:49},
+  {key:'Nueva Malvalona', label:'Nueva Malvalona', short:'NM', type:'special', x:40, y:58},
+  {key:'Ruta 116', label:'Ruta 116', short:'116', type:'route', x:28, y:50},
+  {key:'Túnel Fervegal', label:'Túnel Fervegal', short:'TF', type:'special', x:33, y:47},
+  {key:'Ruta 117', label:'Ruta 117', short:'117', type:'route', x:27, y:43},
+  {key:'Pueblo Verdegal', label:'Pueblo Verdegal', short:'PV', type:'city', x:20, y:40},
+  {key:'Ruta 111', label:'Ruta 111', short:'111', type:'route', x:39, y:39},
+  {key:'Desierto', label:'Desierto', short:'D', type:'special', x:42, y:31},
+  {key:'Ruta 112', label:'Ruta 112', short:'112', type:'route', x:42, y:21},
+  {key:'Monte Cenizo', label:'Monte Cenizo', short:'MC', type:'special', x:47, y:15},
+  {key:'Pueblo Pardal', label:'Pueblo Pardal', short:'PP', type:'city', x:55, y:10},
+  {key:'Ruta 113', label:'Ruta 113', short:'113', type:'route', x:59, y:14},
+  {key:'Ruta 114', label:'Ruta 114', short:'114', type:'route', x:60, y:22},
+  {key:'Cascada Meteoro', label:'Cascada Meteoro', short:'CMt', type:'special', x:67, y:21},
+  {key:'Pueblo Oromar', label:'Pueblo Oromar', short:'PO', type:'city', x:49, y:30},
+  {key:'Ruta 118', label:'Ruta 118', short:'118', type:'route', x:43, y:45},
+  {key:'Ruta 119', label:'Ruta 119', short:'119', type:'route', x:48, y:41},
+  {key:'Ciudad Arborada', label:'Ciudad Arborada', short:'CA', type:'city', x:51, y:49},
+  {key:'Ruta 120', label:'Ruta 120', short:'120', type:'route', x:58, y:45},
+  {key:'Ruta 121', label:'Ruta 121', short:'121', type:'route', x:65, y:47},
+  {key:'Monte Pírico', label:'Monte Pírico', short:'MP', type:'special', x:74, y:50},
+  {key:'Ciudad Calagua', label:'Ciudad Calagua', short:'CC', type:'city', x:66, y:58},
+  {key:'Ruta 122', label:'Ruta 122', short:'122', type:'route', x:72, y:58},
+  {key:'Ruta 123', label:'Ruta 123', short:'123', type:'route', x:72, y:66},
+  {key:'Ruta 124', label:'Ruta 124', short:'124', type:'route', x:74, y:70},
+  {key:'Ciudad Algaria', label:'Ciudad Algaria', short:'CAlg', type:'city', x:81, y:75},
+  {key:'Ruta 125', label:'Ruta 125', short:'125', type:'route', x:86, y:68},
+  {key:'Ruta 126', label:'Ruta 126', short:'126', type:'route', x:79, y:67},
+  {key:'Arrecípolis', label:'Arrecípolis', short:'AR', type:'city', x:76, y:61},
+  {key:'Cueva Ancestral', label:'Cueva Ancestral', short:'CAn', type:'special', x:76, y:56},
+  {key:'Ruta 127', label:'Ruta 127', short:'127', type:'route', x:82, y:60},
+  {key:'Ruta 128', label:'Ruta 128', short:'128', type:'route', x:87, y:56},
+  {key:'Ruta 129', label:'Ruta 129', short:'129', type:'route', x:90, y:50},
+  {key:'Ruta 130', label:'Ruta 130', short:'130', type:'route', x:92, y:44},
+  {key:'Ruta 131', label:'Ruta 131', short:'131', type:'route', x:88, y:36},
+  {key:'Ruta 132', label:'Ruta 132', short:'132', type:'route', x:82, y:31},
+  {key:'Ruta 133', label:'Ruta 133', short:'133', type:'route', x:89, y:28},
+  {key:'Ruta 134', label:'Ruta 134', short:'134', type:'route', x:95, y:28},
+  {key:'Ciudad Colosalia', label:'Ciudad Colosalia', short:'COL', type:'city', x:86, y:15},
+  {key:'Calle Victoria', label:'Calle Victoria', short:'CV', type:'special', x:78, y:12},
+  {key:'Liga Pokémon', label:'Liga Pokémon', short:'LP', type:'city', x:73, y:8},
+  {key:'Isla del Sur', label:'Isla del Sur', short:'IS', type:'special', x:59, y:79}
+];
+const HOENN_LABELS = [
+  {text:'Villa Raíz', x:14, y:90},
+  {text:'Ciudad Petalia', x:2, y:67},
+  {text:'Ciudad Férrica', x:12, y:44},
+  {text:'Ciudad Portual', x:17, y:67},
+  {text:'Ciudad Malvalona', x:27, y:53},
+  {text:'Pueblo Verdegal', x:14, y:36},
+  {text:'Pueblo Pardal', x:58, y:6},
+  {text:'Ciudad Arborada', x:45, y:53},
+  {text:'Ciudad Calagua', x:59, y:62},
+  {text:'Ciudad Algaria', x:83, y:80},
+  {text:'Arrecípolis', x:71, y:64},
+  {text:'Liga Pokémon', x:67, y:3},
+  {text:'Monte Pírico', x:76, y:46},
+  {text:'Isla del Sur', x:56, y:85}
+];
 const NATURES = ['Fuerte','Huraña','Audaz','Firme','Pícara','Osada','Dócil','Plácida','Agitada','Floja','Miedosa','Activa','Seria','Alegre','Ingenua','Modesta','Afable','Mansa','Tímida','Alocada','Serena','Amable','Grosera','Cauta','Rara'];
 const SHUFFLES = [0,1,2,3, 0,1,3,2, 0,2,1,3, 0,3,1,2, 0,2,3,1, 0,3,2,1, 1,0,2,3, 1,0,3,2, 2,0,1,3, 3,0,1,2, 2,0,3,1, 3,0,2,1, 1,2,0,3, 1,3,0,2, 2,1,0,3, 3,1,0,2, 2,3,0,1, 3,2,0,1, 1,2,3,0, 1,3,2,0, 2,1,3,0, 3,1,2,0, 2,3,1,0, 3,2,1,0, 0,1,2,3, 0,1,3,2, 0,2,1,3, 0,3,1,2, 0,2,3,1, 0,3,2,1, 1,0,2,3, 1,0,3,2];
 const $ = sel => document.querySelector(sel);
@@ -39,166 +115,25 @@ function pcolor(n){return n===1?'red':'blue'}
 function ensurePage(){const valid=['inicio','mapa','combates','tienda','huevos','historial','ajustes'];state.page=valid.includes(location.hash.slice(1))?location.hash.slice(1):'inicio';$$('nav a');}
 function $$(s){return [...document.querySelectorAll(s)]}
 function render(){if(typeof document==='undefined')return;ensurePage();$$('nav a').forEach(a=>a.classList.toggle('active',a.dataset.page===state.page));$('#crumb').textContent={inicio:'RESUMEN',mapa:'MAPA DE HOENN',combates:'COMBATES',tienda:'TIENDA',huevos:'INCUBADORA',historial:'HISTORIAL',ajustes:'CONFIGURACIÓN'}[state.page];$('#conn-label').textContent=CONNECTED ? state.account ? 'Sesión segura · Supabase' : 'Acceso requerido' : 'Vista previa · Sin sincronizar';$('#conn-dot').classList.toggle('online',CONNECTED&&!!state.account);$('#btn-account').textContent=state.account?(own()?.display_name||'✓').charAt(0).toUpperCase():'?';const sections={inicio:renderHome,mapa:renderMap,combates:renderBattles,tienda:renderShop,huevos:renderEggs,historial:renderHistory,ajustes:renderSettings};$('#screen').innerHTML=sections[state.page]();bindPage();}
-function renderHome(){const first = prog(1),second=prog(2);const panels=[first,second].map((p,i)=>{const n=i+1,life=conf('life_limit')-Number(p.deaths||0);if(!state.progress.some(row=>row.player_id===player(n).user_id))return `<article class="card trainer-card ${pcolor(n)}"><div class="trainer-line"><div><div class="eyebrow">ENTRENADOR 0${n}</div><div class="trainer-name">${esc(player(n).display_name||`Jugador ${n}`)}</div></div><span class="badge">Sin partida</span></div><div class="rule-note mt-3">Este jugador todavía no ha importado ningún guardado. Sus vidas, medallas, capturas y Pokéfichas aparecerán cuando se incorpore.</div></article>`;return `<article class="card trainer-card ${pcolor(n)}"><div class="trainer-line"><div><div class="eyebrow">ENTRENADOR 0${n}</div><div class="trainer-name">${esc(pname(n))}</div></div><span class="trainer-badge">${i?'ZAFIRO':'RUBÍ'}</span></div><div class="trainer-grid"><div class="trainer-metric"><small>VIDAS RESTANTES</small><div class="large-stat">${life}<small> / ${conf('life_limit')}</small></div>${bar(life,conf('life_limit'))}</div><div class="trainer-metric"><small>POKÉFICHAS</small><div class="large-stat accent-gold">${balance(player(n).user_id)} <small>PF</small></div></div><div class="trainer-metric"><small>MEDALLAS</small><div class="large-stat">${p.badges||0}<small> / 8</small></div></div><div class="trainer-metric"><small>BAJAS</small><div class="large-stat accent-red">${p.deaths||0}</div></div></div><div class="trainer-bottom"><span>⌖ ${esc(p.map_label||'Mapa interno sin identificar')}</span><span>↻ ${esc(fmt(p.updated_at))}</span></div></article>`}).join('');const gym=Math.min(Number(first.badges||0),Number(second.badges||0)),next=BOSSES[Math.min(gym,7)];return `${detailHead('REGIÓN DE HOENN · DOS ENTRENADORES','Estado del Dualocke','Toda la aventura en un mismo lugar. La información secreta de los equipos nunca aparece en este panel.',`<button class="button" data-action="import">↑ Importar partida</button>`)}<div class="grid-2">${panels}</div><div class="metric-strip section-gap">${[["PRÓXIMO LÍMITE",next[1]+' Nv.','accent-red'],['PRÓXIMO JEFE',next[0],'accent-blue'],['COMBATES REGISTRADOS',state.series.filter(s=>s.status==='finished').length,'accent-gold']].map(([label,value,cl])=>`<div class="card"><div class="kicker">${label}</div><div class="stat-value ${cl}">${esc(value)}</div></div>`).join('')}</div><div class="columns-main section-gap">${card('Progreso de la aventura',BOSSES.map(([name,cap],i)=>`<div class="boss-line"><div class="flex"><span class="monogram">${i+1}</span><div><strong>${esc(name)}</strong><div class="small">Límite: nivel ${cap}</div></div></div><div>${pBadge(i<gym?'Superado':i===gym?'Próximo':'Pendiente',i<gym?'green':i===gym?'amber':'')}</div></div>`).join(''))}${card('Tu siguiente paso',`<p class="muted mb-3">Importa los dos guardados para activar el seguimiento de vidas, medallas, capturas y huevos. Los combates completados pueden añadirse con enlaces de replay.</p><div class="stack"><button class="button secondary full" data-action="import">↑ Subir mi archivo main</button><button class="button secondary full" data-go="combates">⚔ Registrar un BO3</button><button class="button secondary full" data-go="huevos">◌ Abrir un huevo</button><div class="rule-note">40 vidas iniciales, modificables en Ajustes. Las cajas 30 y 31 cuentan como cementerios; los huevos no cuentan como bajas.</div></div>`)}</div>`}
+function renderHome(){const first = prog(1),second=prog(2);const panels=[first,second].map((p,i)=>{const n=i+1,life=conf('life_limit')-Number(p.deaths||0);return `<article class="card trainer-card ${pcolor(n)}"><div class="trainer-line"><div><div class="eyebrow">ENTRENADOR 0${n}</div><div class="trainer-name">${esc(pname(n))}</div></div><span class="trainer-badge">${i?'ZAFIRO':'RUBÍ'}</span></div><div class="trainer-grid"><div class="trainer-metric"><small>VIDAS RESTANTES</small><div class="large-stat">${life}<small> / ${conf('life_limit')}</small></div>${bar(life,conf('life_limit'))}</div><div class="trainer-metric"><small>POKÉFICHAS</small><div class="large-stat accent-gold">${balance(player(n).user_id)} <small>PF</small></div></div><div class="trainer-metric"><small>MEDALLAS</small><div class="large-stat">${p.badges||0}<small> / 8</small></div></div><div class="trainer-metric"><small>BAJAS</small><div class="large-stat accent-red">${p.deaths||0}</div></div></div><div class="trainer-bottom"><span>⌖ ${esc(p.map_label||'Mapa interno sin identificar')}</span><span>↻ ${esc(fmt(p.updated_at))}</span></div></article>`}).join('');const gym=Math.min(Number(first.badges||0),Number(second.badges||0)),next=BOSSES[Math.min(gym,7)];return `${detailHead('REGIÓN DE HOENN · DOS ENTRENADORES','Estado del Dualocke','Toda la aventura en un mismo lugar. La información secreta de los equipos nunca aparece en este panel.',`<button class="button" data-action="import">↑ Importar partida</button>`)}<div class="grid-2">${panels}</div><div class="metric-strip section-gap">${[["PRÓXIMO LÍMITE",next[1]+' Nv.','accent-red'],['PRÓXIMO JEFE',next[0],'accent-blue'],['COMBATES REGISTRADOS',state.series.filter(s=>s.status==='finished').length,'accent-gold']].map(([label,value,cl])=>`<div class="card"><div class="kicker">${label}</div><div class="stat-value ${cl}">${esc(value)}</div></div>`).join('')}</div><div class="columns-main section-gap">${card('Progreso de la aventura',BOSSES.map(([name,cap],i)=>`<div class="boss-line"><div class="flex"><span class="monogram">${i+1}</span><div><strong>${esc(name)}</strong><div class="small">Límite: nivel ${cap}</div></div></div><div>${pBadge(i<gym?'Superado':i===gym?'Próximo':'Pendiente',i<gym?'green':i===gym?'amber':'')}</div></div>`).join(''))}${card('Tu siguiente paso',`<p class="muted mb-3">Importa los dos guardados para activar el seguimiento de vidas, medallas, capturas y huevos. Los combates completados pueden añadirse con enlaces de replay.</p><div class="stack"><button class="button secondary full" data-action="import">↑ Subir mi archivo main</button><button class="button secondary full" data-go="combates">⚔ Registrar un BO3</button><button class="button secondary full" data-go="huevos">◌ Abrir un huevo</button><div class="rule-note">40 vidas iniciales, modificables en Ajustes. Las cajas 30 y 31 cuentan como cementerios; los huevos no cuentan como bajas.</div></div>`)}</div>`}
 function routeState(id,zone){return state.routes.find(r=>r.owner_id===id && r.zone_key===zone)}
-// Posiciones geográficas orientativas sobre el mapa libre de Hoenn (Ztash, CC0).
-// No son coordenadas internas del juego ni determinan el letrero de captura.
-// Zonas de SUPER RR: siguen disponibles en la lista aunque no tengan marcador.
-const HOENN_PINS={
- 'Ruta 101':[28,65],'Ruta 102':[20,60],'Ruta 103':[38,53],'Ruta 104':[10,52],
- 'Ruta 105':[12,73],'Ruta 106':[18,79],'Ruta 107':[34,85],'Ruta 108':[41,82],
- 'Ruta 109':[48,76],'Ruta 110':[50,57],'Ruta 111':[52,34],'Ruta 112':[42,34],
- 'Ruta 113':[35,19],'Ruta 114':[19,17],'Ruta 115':[9,25],'Ruta 116':[18,43],
- 'Ruta 117':[42,46],'Ruta 118':[59,45],'Ruta 119':[69,35],'Ruta 120':[75,32],
- 'Ruta 121':[86,42],'Ruta 122':[80,52],'Ruta 123':[77,56],'Ruta 124':[91,51],
- 'Ruta 125':[90,41],'Ruta 126':[86,61],'Ruta 127':[94,67],'Ruta 128':[92,75],
- 'Ruta 129':[90,81],'Ruta 130':[86,88],'Ruta 131':[82,85],'Ruta 132':[70,79],
- 'Ruta 133':[59,76],'Ruta 134':[48,71],
- 'Villa Raíz':[28,71],'Pueblo Escaso':[28,59],'Ciudad Petalia':[12,60],
- 'Ciudad Férrica':[8,43],'Pueblo Azuliza':[19,88],'Ciudad Portual':[49,69],
- 'Ciudad Malvalona':[52,47],'Pueblo Verdegal':[29,47],'Pueblo Pardal':[23,16],
- 'Ciudad Lavacalda':[34,32],'Ciudad Arborada':[70,23],'Ciudad Calagua':[95,34],
- 'Ciudad Algaria':[93,57],'Arrecípolis':[83,65],'Ciudad Colosalia':[96,85],
- 'Pueblo Oromar':[88,76], 'Bosque Petalia':[9,49], 'Cueva Granito':[17,85],
- 'Cascada Meteoro':[12,28],'Monte Cenizo':[29,23],'Desierto':[52,28],
- 'Senda Ígnea':[40,32],'Monte Pírico':[82,54], 'Cueva Cardumen':[91,37],
- 'Caverna Abisal':[88,72],'Cueva Ancestral':[83,65],'Calle Victoria':[96,82],
- 'Nueva Malvalona':[54,49],'Malvamar':[47,67],'Pilar Celeste':[80,85],
- 'Isla del Sur':[64,80], 'Zona Safari':[82,35]
-};
-const MAP_IMAGE='https://upload.wikimedia.org/wikipedia/commons/a/a4/Hoenn_Map.png';
-function publicRouteStatus(zone,slot){return routeState(player(slot).user_id,zone)?.status||'unknown'}
-function mapPinClass(zone){
-  const statuses=[1,2].map(n=>publicRouteStatus(zone,n));
-  if(statuses.every(x=>x==='captured'))return 'both-captured';
-  if(statuses.includes('captured'))return 'one-captured';
-  if(statuses.includes('free'))return 'some-free';
-  return 'unknown';
-}
-function mapStatusLabel(status){return status==='captured'?'Capturada':status==='free'?'Disponible':'Sin verificar'}
-function isConfirmedLocation(label){return !!label && !/^Mapa interno\s+\d+/i.test(label) && label!=='Sin datos'}
-function renderCurrentLocation(){
- const cards=[1,2].map(n=>{
-  const p=prog(n),isLoaded=state.progress.some(x=>x.player_id===player(n).user_id);
-  const current=isLoaded?(isConfirmedLocation(p.map_label)?p.map_label:`Mapa interno #${p.map_code??'?'} · sin nombre asignado`):'Sin partida importada';
-  return `<div class="location-player"><div class="kicker">${esc(pname(n))}</div><div class="location-player-name">${esc(current)}</div>${isLoaded?`<span class="small">ID interno: ${p.map_code??'?'}</span>`:''}</div>`;
- }).join('');
- return `<section class="card current-location-card"><div class="between"><h2>Ubicación de los entrenadores</h2><div class="map-actions"><button type="button" class="button secondary compact" data-action="zone-add">+ Zona SUPER RR</button>${own()&&state.progress.some(x=>x.player_id===own().user_id)?'<button type="button" class="button secondary compact" data-action="location-edit">Asignar mi ubicación</button>':''}</div></div><div class="grid-2 mt-2">${cards}</div><p class="small mt-2">El ID del mapa donde se guarda la partida no es el mismo que el ID de obtención de Pokémon. Puedes asignar su nombre una vez; al importar de nuevo el mismo mapa se conservará. Si cambia el ID, se pedirá verificarlo.</p></section>`;
-}
 function renderMap(){
- const zones=unique([...ROUTES,...state.routes.map(r=>r.zone_key)]).filter(Boolean);
- const selected=state.selectedRoute;
- const search=(state.mapSearch||'').toLocaleLowerCase('es');
- const filter=state.selectedMapFilter||'all';
- function visible(z){
-  if(search&&!z.toLocaleLowerCase('es').includes(search))return false;
-  if(filter==='captured'&&!([1,2].some(n=>publicRouteStatus(z,n)==='captured')))return false;
-  if(filter==='free'&&!([1,2].some(n=>publicRouteStatus(z,n)==='free')))return false;
-  if(filter==='unknown'&&!([1,2].some(n=>publicRouteStatus(z,n)==='unknown')))return false;
-  return true;
- }
- const visibleZones=zones.filter(visible);
- const pins=visibleZones.filter(z=>HOENN_PINS[z]).map(z=>{
-  const [x,y]=HOENN_PINS[z];
-  const statuses=[1,2].map(n=>`J${n}: ${mapStatusLabel(publicRouteStatus(z,n))}`).join(' · ');
-  return `<button class="hoenn-pin ${mapPinClass(z)} ${selected===z?'active':''}" type="button" data-route="${esc(z)}" style="--pin-x:${x}%;--pin-y:${y}%" title="${esc(z+' · '+statuses)}" aria-label="${esc(z+' · '+statuses)}" aria-pressed="${selected===z}"></button>`;
- }).join('');
- const details=[1,2].map(n=>{
-  const r=routeState(player(n).user_id,selected);
-  return `<div class="card" style="padding:15px"><div class="between mb-2"><strong>${esc(pname(n))}</strong>${pBadge(mapStatusLabel(r?.status),r?.status==='captured'?'green':'')}</div><div class="small">${r?.status==='captured'?`${esc(r.nickname||'Sin apodo')} · ${r.stat_total==null?'Stats por confirmar':r.stat_total+' stats al capturar'}`:'Sin captura confirmada'}</div></div>`;
- }).join('');
- const list=visibleZones.map(z=>`<button type="button" class="route-item ${selected===z?'selected':''}" data-route="${esc(z)}"><span><strong>${esc(z)}</strong><small>${HOENN_PINS[z]?'Con marcador en el mapa':'Sin marcador geográfico'}</small></span><span class="route-row">${[1,2].map(n=>{const r=routeState(player(n).user_id,z);return `<span class="badge ${r?.status==='captured'?'green':''}">J${n} ${r?.status==='captured'?'✓':r?.status==='free'?'○':'?'}</span>`}).join('')}</span></button>`).join('');
- return `${detailHead('REGIÓN DE HOENN','Mapa de capturas','Rutas de Hoenn con marcadores orientativos. La captura se decide por el nombre exacto del letrero del juego, nunca por las coordenadas del mapa.')}${renderCurrentLocation()}<div class="route-layout section-gap"><div class="stack">
- ${card('Zona seleccionada',`<div class="between mb-3"><h2>${esc(selected)}</h2><button class="button secondary compact" data-action="route-edit">Editar estado</button></div><div class="grid-2">${details}</div><p class="small mt-2">Solo se comparten apodos y total de estadísticas originales. Las nuevas zonas de SUPER RR pueden registrarse sin marcador.</p>`)}
- <div class="card"><div class="hoenn-map-box"><div class="hoenn-map-canvas" role="group" aria-label="Mapa interactivo de Hoenn"><img class="hoenn-map-image" src="${MAP_IMAGE}" alt="Mapa geográfico de Hoenn, recreación de Ztash" loading="lazy"/><div class="hoenn-map-overlay">${pins}</div><span class="hoenn-map-title">HOENN <small>Rutas y capturas</small></span></div></div><div class="map-legend"><span><i class="map-key both"></i> Dos capturas</span><span><i class="map-key one"></i> Una captura</span><span><i class="map-key free"></i> Ruta libre</span><span><i class="map-key unknown"></i> Sin verificar</span></div><p class="small mt-2">Los marcadores son aproximados. Mapa: <a href="https://commons.wikimedia.org/wiki/File:Hoenn_Map.png" target="_blank" rel="noopener noreferrer">Ztash (CC0)</a>. En caso de duda prevalece el nombre del letrero del juego.</p></div>
- </div>${card('Zonas y rutas',`<div class="route-controls"><input id="route-search" class="field" type="search" placeholder="Buscar ruta o zona..." aria-label="Buscar ruta o zona" value="${esc(state.mapSearch||'')}"><select id="map-filter" class="select" aria-label="Filtrar zonas">${[['all','Todas'],['captured','Con captura'],['free','Disponibles'],['unknown','Sin verificar']].map(([val,label])=>`<option value="${val}" ${filter===val?'selected':''}>${label}</option>`).join('')}</select></div><div class="small mb-2">${visibleZones.length} zonas mostradas · ${zones.length} registradas</div><div class="route-list">${list||'<div class="empty">No hay coincidencias</div>'}</div>`)}</div>`;
+  const allZones=unique([...ROUTES,...HOENN_POINTS.map(p=>p.key),...state.routes.map(r=>r.zone_key)]).filter(Boolean);
+  const selected=state.selectedRoute;
+  const selectedPoint=HOENN_POINTS.find(p=>p.key===selected);
+  const pins=HOENN_POINTS.map(p=>`<button class="hoenn-marker ${p.type} ${selected===p.key?'active':''}" title="${esc(p.label)}" data-route="${esc(p.key)}" style="left:${p.x}%;top:${p.y}%" aria-label="${esc(p.label)}"><span>${esc(p.short||p.label)}</span></button>`).join('');
+  const labels=HOENN_LABELS.map(l=>`<div class="hoenn-label" style="left:${l.x}%;top:${l.y}%">${esc(l.text)}</div>`).join('');
+  const details=[1,2].map(n=>{const r=routeState(player(n).user_id,selected);return `<div class="card" style="padding:15px"><div class="between mb-2"><strong>${esc(pname(n))}</strong>${pBadge(r?.status==='captured'?'Capturada':r?.status==='free'?'Libre':'Sin verificar',r?.status==='captured'?'green':'')}</div><div class="small">${r?.status==='captured'?`${esc(r.nickname||'Sin apodo')} · ${r.stat_total==null?'Stats por confirmar':r.stat_total+' stats al capturar'}`:'Sin captura confirmada'}</div></div>`}).join('');
+  const filtered=allZones.filter(z=>!state.mapSearch||z.toLowerCase().includes(state.mapSearch.toLowerCase()));
+  const list=filtered.map(z=>{const point=HOENN_POINTS.find(p=>p.key===z);const type=point?.type||'route';const typeLabel=type==='city'?'Ciudad':type==='special'?'Lugar especial':'Ruta';return `<div class="route-item ${selected===z?'selected':''}" data-route="${esc(z)}"><div><strong>${esc(z)}</strong><small>${typeLabel}</small></div><div class="route-row">${[1,2].map(n=>{const r=routeState(player(n).user_id,z);return `<span class="badge ${r?.status==='captured'?'green':''}">J${n} ${r?.status==='captured'?'✓':r?.status==='free'?'○':'?'}</span>`}).join('')}</div></div>`}).join('');
+  const selectedType=selectedPoint?.type==='city'?'Ciudad':selectedPoint?.type==='special'?'Lugar especial':'Ruta';
+  return `${detailHead('REGIÓN DE HOENN','Mapa de capturas','Una captura normal por nombre de zona que aparece en el letrero del juego. Ciudades, rutas y lugares especiales se distinguen por forma.')}<div class="route-layout"><div class="stack">${card('Zona seleccionada',`<div class="between mb-3"><div><h2>${esc(selected)}</h2><div class="small">${selectedType}</div></div><button class="button secondary compact" data-action="route-edit">Editar estado</button></div><div class="grid-2">${details}</div><p class="small mt-2">Solo se comparten apodos y total de estadísticas de captura. Si una zona no aparece en el mapa, seguirá estando disponible en la lista de la derecha.</p>`)}<div class="card"><div class="hoenn-map"><div class="hoenn-map-title">HOENN · MAPA EN ESPAÑOL</div><svg class="hoenn-svg" viewBox="0 0 1000 760" aria-hidden="true" preserveAspectRatio="none"><rect width="1000" height="760" rx="18" fill="#2f77a4"/><path d="M153 668 C116 628,108 571,140 528 C98 470,97 412,137 362 C113 311,125 254,162 217 C210 169,274 146,341 161 C388 125,445 104,500 109 C547 76,630 70,694 95 C756 108,807 148,824 189 C873 210,905 254,892 311 C937 350,943 416,900 470 C917 533,892 592,845 626 C809 677,753 710,678 704 C625 736,554 732,494 710 C430 740,360 733,307 700 C250 714,190 702,153 668Z" fill="#79b96a" stroke="#d7dca7" stroke-width="18"/><path d="M289 270 C327 251,374 257,402 286 C367 307,338 333,312 375 C282 360,260 327,257 296 C259 284,271 276,289 270Z" fill="#9bc56f" opacity="0.92"/><path d="M569 213 C610 184,661 176,704 193 C686 225,688 259,707 286 C650 308,608 345,580 397 C538 358,514 320,508 280 C514 258,532 231,569 213Z" fill="#8ec173" opacity="0.96"/><path d="M741 565 C772 546,814 546,842 571 C827 603,800 626,769 638 C744 624,726 601,725 585 C725 576,731 569,741 565Z" fill="#9bc56f" opacity="0.94"/><path d="M554 625 C575 612,608 614,632 631 C622 651,603 668,581 678 C558 666,544 649,543 637 C543 632,548 628,554 625Z" fill="#8ec173" opacity="0.94"/><path d="M47 419 C69 405,99 408,119 425 C111 448,96 465,76 474 C56 466,43 451,41 436 C40 429,43 423,47 419Z" fill="#85b77c"/><path d="M809 157 C823 146,843 146,856 156 C850 171,839 182,825 187 C812 181,804 171,802 161 C802 159,805 158,809 157Z" fill="#85b77c"/><path d="M911 132 C927 122,947 122,961 132 C956 147,945 158,929 163 C916 157,907 147,905 138 C905 135,907 134,911 132Z" fill="#85b77c"/></svg><div class="hoenn-grid"></div><div class="hoenn-labels">${labels}</div><div class="hoenn-markers">${pins}</div><div class="hoenn-legend"><span><i class="city"></i> Ciudad</span><span><i class="route"></i> Ruta</span><span><i class="special"></i> Lugar especial</span></div></div><div class="small mt-2">Los nombres del mapa están en español y los marcadores se han calibrado manualmente. Puedes seguir usando la lista si alguna zona de SUPER RR no aparece representada.</div></div></div>${card('Zonas y rutas',`<div class="route-controls"><input id="route-search" class="field" type="search" placeholder="Buscar ruta o zona..." value="${esc(state.mapSearch||'')}"></div><div class="route-list">${list||'<div class="empty">No hay coincidencias</div>'}</div>`)}</div>`
 }
-function renderBattles(){const latest=[...state.series].sort((a,b)=>String(b.created_at).localeCompare(String(a.created_at)));const current=latest.find(s=>s.status==='open');const cards=latest.map(s=>{const games=state.games.filter(g=>g.series_id===s.id).sort((a,b)=>a.game_no-b.game_no);return `<div class="card"><div class="between mb-2"><h3>BO3 · ${fmt(s.created_at)}</h3>${pBadge(s.status==='finished'?'Finalizado':'En curso',s.status==='finished'?'green':'amber')}</div><div class="flex mb-2">${games.map(g=>`<span class="badge">#${g.game_no} · ${esc(g.winner_name||'—')} · ${Number(g.kos_1||0)}–${Number(g.kos_2||0)} KO</span>`).join('')}</div>${games.map(g=>`<p class="small"><a href="${esc(g.replay_url)}" target="_blank" rel="noopener">Repetición ${g.game_no} ↗</a></p>`).join('')}<p class="small mt-2">${s.status==='finished'?'Recompensas entregadas.':'Se cerrará cuando haya dos victorias de un jugador.'}</p></div>`}).join('');const reveals= [1,2].map(n=>{const monMap=new Map();state.games.forEach(g=>(g.reveals||[]).filter(r=>Number(r.player_slot)===n).forEach(r=>{const k=(r.nickname||r.species||'').toLowerCase()+'|'+(r.species||'').toLowerCase();if(!k.trim())return;const ex=monMap.get(k)||{...r,moves:[]};ex.moves=unique([...(ex.moves||[]),...(r.moves||[])]);ex.ability=r.ability||ex.ability;ex.item=r.item||ex.item;monMap.set(k,ex)}));const mons=[...monMap.values()].slice(-18);return `<div class="card"><div class="between mb-3"><h3>Pokémon revelados · ${esc(pname(n))}</h3>${pBadge(mons.length+' conocidos','blue')}</div><div class="reveal-grid">${mons.length?mons.map(m=>`<div class="reveal-mon"><div class="monogram">${esc((m.species||'?').slice(0,1))}</div><h4>${esc(m.species||'Desconocido')}</h4><div class="details">${m.nickname?esc(m.nickname)+' · ':''}${esc((m.moves||[]).join(', ')||'Movimientos ?')}</div><div class="details">Habilidad: ${esc(m.ability||'?')} · Objeto: ${esc(m.item||'?')}</div></div>`).join(''):'<div class="empty" style="grid-column:1/-1">Aún no hay Pokémon revelados.</div>'}</div></div>`}).join('');return `${detailHead('PVP · MEJOR DE TRES','Arena Showdown','Introduce los enlaces de replay cuando terminéis las partidas. La web extrae resultados, KO e información pública de combate.',`<button class="button" data-action="new-series">+ Nuevo BO3</button>`)}<div class="grid-3 mb-3">${[['COMBATES FINALIZADOS',latest.filter(x=>x.status==='finished').length],['SERIES PENDIENTES',latest.filter(x=>x.status!=='finished').length],['RECOMPENSA POR SERIE','+1 captura · +1 huevo al ganador']].map(([a,b])=>`<div class="card"><div class="kicker">${a}</div><div class="stat-value">${esc(b)}</div></div>`).join('')}</div>${card('Importar replay',`<p class="muted mb-3">Usa el enlace público <strong>replay.pokemonshowdown.com/…</strong>. Las salas psim.us/r no son replays permanentes.</p><form id="replay-form" class="stack"><div class="form-grid"><div><label class="form-label">Serie</label><select class="select" id="replay-series" required>${latest.filter(x=>x.status==='open').map(s=>`<option value="${esc(s.id)}">BO3 · ${fmt(s.created_at)}</option>`).join('')}</select></div><div><label class="form-label">Partida del BO3</label><select id="replay-number" class="select">${[1,2,3].map(n=>`<option>${n}</option>`).join('')}</select></div></div><div><label class="form-label">Enlace</label><input class="field" style="width:100%" id="replay-url" type="url" placeholder="https://replay.pokemonshowdown.com/gen6ou-…" required></div><button class="button" type="submit" ${!current?'disabled':''}>Importar y analizar combate</button></form>`) }<div class="grid-2 section-gap">${reveals}</div><div class="section-gap"><div class="between mb-3"><h2>Historial de series</h2></div><div class="grid-2">${cards||'<div class="empty" style="grid-column:1/-1">Todavía no habéis registrado ningún BO3.</div>'}</div></div>`}
-function renderShop(){const cats=unique(state.catalog.map(i=>i.category));const chosen=state.selectedCategory;const matches=state.catalog.filter(i=>(chosen==='Todas'||i.category===chosen)&&(!state.shopQuery||String(i.name).toLowerCase().includes(state.shopQuery.toLowerCase())));return `${detailHead('SISTEMA ECONÓMICO','Mercado de Pokéfichas','Artículos ilimitados, sin medicinas ni Caramelos Raros. El precio queda registrado en cada compra.',`<span class="badge amber">Stock ilimitado</span>`)}<div class="grid-2 mb-3">${[1,2].map(n=>`<div class="card between"><div><div class="kicker">${esc(pname(n))}</div><div class="stat-value accent-gold">${balance(player(n).user_id)} PF</div></div><div class="shop-icon">◉</div></div>`).join('')}</div><div class="card"><div class="shop-controls"><input class="field" id="shop-search" placeholder="Buscar cualquier objeto, MT, megapiedra…" value="${esc(state.shopQuery)}" /><select id="shop-cat" class="select"><option>Todas</option>${cats.map(c=>`<option ${chosen===c?'selected':''}>${esc(c)}</option>`).join('')}</select></div><div class="shop-grid">${matches.slice(0,200).map(i=>`<article class="shop-item"><div class="between"><span class="shop-icon">${i.category?.includes('Mega')?'◇':i.category==='MT'?'▣':i.category?.includes('Ball')?'◉':'✦'}</span><span class="small">${esc(i.category)}</span></div><h3>${esc(i.name)}</h3><div class="small">${Number(i.quantity)>1?`Lote de ${i.quantity}`:'1 unidad'} · Sin límite de existencias</div><div class="shop-item-bottom"><span class="shop-price">${i.price} <small>PF</small></span><button class="button secondary compact" data-buy="${esc(i.id)}">Comprar</button></div></article>`).join('')||'<div class="empty">No hay artículos que coincidan.</div>'}</div>${matches.length>200?`<p class="small mt-3">Mostrando los primeros 200 de ${matches.length}; utiliza el buscador.</p>`:''}</div>`}
-function renderEggs(){const mine=own();const playerId=mine?.user_id;const owns=(state.pokemon||[]).filter(p=>p.owner_id===playerId && p.is_egg&&p.present&&!p.claimed);const otherIds=[1,2];return `${detailHead('INCUBADORA · SUPER RR','Huevos ponderados','La probabilidad de cada huevo varía según las vidas y la calidad de las plantillas. Nunca se revela su contenido.',`<span class="badge amber">Sorteo irreversible</span>`)}<div class="grid-2 mb-3">${otherIds.map(n=>`<div class="card"><div class="kicker">${esc(pname(n))}</div><div class="between mt-2"><div><div class="stat-value">${credits(player(n).user_id,'egg')}</div><div class="small">Créditos para abrir</div></div><div class="shop-icon">◌</div></div></div>`).join('')}</div><div class="egg-layout">${card('Tu siguiente huevo',`<div class="egg-podium"><div class="egg-art" aria-hidden="true"></div><div class="egg-result">${state.claims.filter(c=>c.player_id===playerId)[0]?`Caja ${state.claims.filter(c=>c.player_id===playerId).slice(-1)[0].box_num} · Posición ${state.claims.filter(c=>c.player_id===playerId).slice(-1)[0].slot_num}`:'Identidad desconocida'}</div><p class="small mt-2">${mine?`Huevos pendientes: ${owns.length}`:'Inicia sesión para consultar tus huevos'}</p></div><button class="button full mt-3" data-action="draw-egg">Sortear un huevo</button><div class="notice mt-3">Una vez confirmado el sorteo, no podrás repetirlo para escoger otro. Solo se muestra la ubicación.</div>`)}${card('Cómo se decide',`<ol class="steps"><li>Se comprueban las vidas restantes de ambos jugadores.</li><li>Se evalúan las seis mejores criaturas vivas de cada uno.</li><li>Se valora cada huevo elegible por su BST y distribución estadística, sin penalizar Ausente.</li><li>El jugador en desventaja recibe más posibilidades de huevos fuertes, sin garantizar ninguno.</li><li>El sistema guarda caja y posición del elegido sin revelar especie, IV ni naturaleza.</li></ol><div class="rule-note">Quedan excluidos los huevos cuyo Pokémon supera 601 BST, salvo Slaking. También los que ya se hayan asignado.</div>`)}</div><div class="section-gap">${card('Historial de sorteos',state.claims.length?`<div class="table-wrap"><table class="data-table"><thead><tr><th>Jugador</th><th>Resultado</th><th>Fecha</th></tr></thead><tbody>${state.claims.map(c=>`<tr><td>${esc(state.players.find(p=>p.user_id===c.player_id)?.display_name||'Jugador')}</td><td>Caja ${c.box_num}, posición ${c.slot_num}</td><td>${fmt(c.created_at)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Ningún huevo sorteado todavía.</div>')}</div>`}
-function renderHistory(){const entries=[...state.economy.map(x=>({when:x.created_at,heading:`${Number(x.amount)>0?'+':''}${x.amount} PF · ${x.kind}`,desc:state.players.find(p=>p.user_id===x.player_id)?.display_name||'Jugador'})),...state.series.map(s=>({when:s.created_at,heading:'Enfrentamiento BO3 · '+(s.status==='finished'?'finalizado':'en curso'),desc:'Pokémon Showdown'})),...state.progress.filter(p=>p.updated_at).map(p=>({when:p.updated_at,heading:'Partida actualizada',desc:p.trainer_name||'Entrenador'}))].sort((a,b)=>String(b.when).localeCompare(String(a.when)));return `${detailHead('REGISTRO DE EVENTOS','Historial compartido','Evolución de partidas, ganancias, compras y combates registrados en la web.')}<div class="card">${entries.length?`<div class="timeline">${entries.slice(0,120).map(e=>`<div class="event"><h3>${esc(e.heading)}</h3><p>${esc(e.desc)} · ${fmt(e.when)}</p></div>`).join('')}</div>`:'<div class="empty">Todavía no hay actividad registrada.</div>'}</div>`}
-function renderSettings(){return `${detailHead('REGLAS Y ACCESO','Configuración','Parámetros centrales del Dualocke. Los cambios afectan a cálculos posteriores sin alterar compras ya realizadas.')}<div class="grid-2">${card('Reglas generales',`<form id="rules-form"><div class="config-row"><div><strong>Vidas iniciales</strong><div class="small">Por jugador, editables después</div></div><input class="field" type="number" name="life_limit" min="1" max="999" value="${conf('life_limit')}"></div><div class="config-row"><div><strong>Pokéfichas por medalla</strong></div><input class="field" type="number" name="gym_pf" min="0" value="${conf('gym_pf')}"></div><div class="config-row"><div><strong>Pokéfichas por KO</strong></div><input class="field" type="number" name="ko_pf" min="0" value="${conf('ko_pf')}"></div><div class="config-row"><div><strong>BST máximo normal</strong><div class="small">Slaking siempre es excepción</div></div><input class="field" type="number" name="cap_bst" min="1" value="${conf('cap_bst')}"></div><div class="config-row"><div><strong>Precio de huevo</strong></div><input class="field" type="number" name="egg_price" min="1" value="${conf('egg_price')}"></div><button class="button full mt-3" type="submit">Guardar reglas</button></form>`)}${card('Conexión',`<div class="rule-note mb-3">${CONNECTED?'Proyecto Supabase configurado.':'Vista previa: configura URL pública y clave anon en app.js; ejecuta database.sql en Supabase.'}</div><div class="stack"><p class="small">Cuenta actual: <strong>${esc(state.account?.email||'Sin sesión')}</strong></p><p class="small">Jugador asociado: <strong>${esc(own()?.display_name||'Pendiente')}</strong></p><button class="button secondary" data-action="account">${state.account?'Cerrar sesión':'Iniciar sesión'}</button><button class="button secondary" data-action="import">Subir un archivo main</button><button class="button ghost" data-action="export">Exportar datos visibles (JSON)</button></div><div class="line"></div><p class="small">Privacidad real: las especies, habilidades, movimientos y huevos de cada jugador se guardan en una tabla con Row Level Security. Ninguna cuenta puede consultar la tabla privada del rival.</p>`)}</div><div class="section-gap">${card('Reglas de progresión',`<div class="table-wrap"><table class="data-table"><thead><tr><th>Enfrentamiento</th><th>Límite nivel</th></tr></thead><tbody>${BOSSES.map(([n,c])=>`<tr><td>${esc(n)}</td><td>${c}</td></tr>`).join('')}</tbody></table></div><div class="rule-note mt-3">Los niveles de jefes son límites obligatorios. Excederlos no resta automáticamente vidas. Las cajas 30/31 son el cementerio.</div>`)}</div>`}
-function bindPage(){$$('[data-action]').forEach(b=>b.onclick=()=>actions(b.dataset.action));$$('[data-go]').forEach(b=>b.onclick=()=>location.hash=b.dataset.go);$$('[data-route]').forEach(b=>b.onclick=()=>{state.selectedRoute=b.dataset.route;render()});$('#route-search')?.addEventListener('input',e=>{const pos=e.target.selectionStart;state.mapSearch=e.target.value;render();const f=$('#route-search');f?.focus();f?.setSelectionRange(pos,pos)});$('#map-filter')?.addEventListener('change',e=>{state.selectedMapFilter=e.target.value;render()});$('#shop-search')?.addEventListener('input',e=>{const pos=e.target.selectionStart;state.shopQuery=e.target.value;render();const f=$('#shop-search');f?.focus();f?.setSelectionRange(pos,pos)});$('#shop-cat')?.addEventListener('change',e=>{state.selectedCategory=e.target.value;render()});$$('[data-buy]').forEach(b=>b.onclick=()=>buyItem(b.dataset.buy));$('#replay-form')?.addEventListener('submit',importReplay);$('#rules-form')?.addEventListener('submit',saveRules);}
-/* --- Supabase REST + GoTrue: no secrets stored in GitHub Pages --- */
-async function api(path,{method='GET',body,auth=true,headers={}}={}){
-  if(!CONNECTED)throw Error('Falta configurar Supabase');
-  const token=state.session?.access_token;
-  const opt={method,headers:{apikey:SUPABASE_ANON_KEY,'Content-Type':'application/json',...headers}};
-  if(auth&&token)opt.headers.Authorization=`Bearer ${token}`;
-  if(body!==undefined)opt.body=JSON.stringify(body);
-  let res=await fetch(`${SUPABASE_URL}${path}`,opt);
-  if(res.status===401&&auth&&state.session?.refresh_token){await refreshSession();opt.headers.Authorization=`Bearer ${state.session.access_token}`;res=await fetch(`${SUPABASE_URL}${path}`,opt);}
-  const raw=await res.text();let data;try{data=raw?JSON.parse(raw):null}catch{data=raw}
-  if(!res.ok)throw Error(data?.message||data?.error_description||data?.error||`Error ${res.status}`);
-  return data;
-}
-function db(table,query=''){return api(`/rest/v1/${table}${query}`)}
-function rpc(name,body={}){return api(`/rest/v1/rpc/${name}`,{method:'POST',body})}
-async function refreshSession(){const data=await api(`/auth/v1/token?grant_type=refresh_token`,{method:'POST',auth:false,body:{refresh_token:state.session.refresh_token}});state.session=data;sessionStorage.setItem('dualocke_session',JSON.stringify(data))}
-function loginModal(){const d=modal('Entrar al Dualocke',`<p>Inicia sesión con una de las dos cuentas autorizadas. Ambas veréis la misma interfaz, con datos secretos separados.</p><form id="signin-form"><label class="form-label">Correo electrónico</label><input class="field" type="email" name="email" autocomplete="username" required><label class="form-label">Contraseña</label><input class="field" type="password" name="password" autocomplete="current-password" required><button class="button full">Entrar</button></form><div class="small mt-3">Las cuentas se crean en Supabase Authentication y se asocian manualmente a los dos jugadores en la tabla <code>players</code>.</div>`);$('#signin-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.currentTarget);try{const ss=await api('/auth/v1/token?grant_type=password',{method:'POST',auth:false,body:{email:f.get('email'),password:f.get('password')}});state.session=ss;sessionStorage.setItem('dualocke_session',JSON.stringify(ss));await loadShared();d.close();toast('Sesión iniciada','success');render()}catch(err){toast(err.message,'error')}}}
-async function loadShared(){if(!CONNECTED||!state.session?.access_token){render();return}const user=await api('/auth/v1/user');state.account={id:user.id,email:user.email};try{
-  const requests=[['players','?select=*&order=slot.asc'],['shared_progress','?select=*'],['route_states','?select=*'],['shop_catalog','?select=*&order=category,name'],['combat_series','?select=*&order=created_at.desc'],['replay_games','?select=*&order=created_at.desc'],['money_events','?select=*&order=created_at.desc'],['reward_credits','?select=*'],['egg_claims','?select=*&order=created_at.asc'],['config','?select=*']];
-  const data=await Promise.all(requests.map(async([table,q])=>{try{return await db(table,q)}catch(e){console.warn('No se pudo leer',table,e.message);return[]}}));
-  [state.players,state.progress,state.routes,state.catalog,state.series,state.games,state.economy,state.credits,state.claims]=data.slice(0,9);
-  const cfg=data[9].find(x=>x.id===1);state.settings={...defaults,...(cfg||{})};
-  const account=own();if(!account){toast('Esta cuenta aún no está asignada a uno de los dos jugadores.','error');state.pokemon=[]}else state.pokemon=await db('private_pokemon',`?owner_id=eq.${account.user_id}&select=*`);
- }catch(err){toast(err.message,'error')}
- render();}
-async function saveRules(e){e.preventDefault();if(!guard())return;const f=new FormData(e.currentTarget);const allowed=['life_limit','gym_pf','ko_pf','cap_bst','egg_price'];const updates={};for(const k of allowed){const v=Number(f.get(k));if(!Number.isInteger(v)||v<0)throw Error('Valor no válido');updates[k]=v}try{await api('/rest/v1/config?id=eq.1',{method:'PATCH',body:updates,headers:{Prefer:'return=minimal'}});toast('Reglas guardadas','success');await loadShared()}catch(err){toast(err.message,'error')}}
-async function buyItem(itemId){const i=state.catalog.find(it=>String(it.id)===String(itemId));if(!i)return;if(!guard())return;const d=modal('Confirmar compra',`<p><strong>${esc(i.name)}</strong> (${i.quantity} ${i.quantity>1?'unidades':'unidad'}) por <strong>${i.price} Pokéfichas</strong>.</p><p>El objeto deberá introducirse en el juego con PKHeX. El saldo se descontará una única vez.</p><button class="button full" id="do-buy">Confirmar compra</button>`);$('#do-buy').onclick=async()=>{try{await rpc('buy_shop_item',{p_item_id:i.id});d.close();toast('Compra registrada. Recuerda añadir el objeto al juego.','success');await loadShared()}catch(err){toast(err.message,'error')}}}
-async function drawEgg(){if(!guard())return;const d=modal('Sorteo irreversible',`<p>Se seleccionará un huevo entre los disponibles y permitidos usando las vidas y calidad de plantilla de ambos jugadores.</p><div class="notice mb-3">El resultado quedará registrado y no se podrá repetir para escoger otro.</div><button id="do-draw" class="button full">Confirmar sorteo ponderado</button>`);$('#do-draw').onclick=async()=>{try{const drawResponse=await rpc('draw_weighted_egg');const r=Array.isArray(drawResponse)?drawResponse[0]:drawResponse;d.innerHTML=`<header><h2>Huevo asignado</h2><button data-close="1">×</button></header><div class="egg-podium"><div class="egg-art"></div><div class="egg-result">Caja ${Number(r.box_num)} · Posición ${Number(r.slot_num)}</div></div><p>El huevo está reservado. No se mostrará su especie.</p><button class="button full" data-close="1">Entendido</button>`;d.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>d.close());await loadShared()}catch(err){toast(err.message,'error')}}}
-async function createSeries(){if(!guard())return;try{await api('/rest/v1/combat_series',{method:'POST',body:{status:'open'},headers:{Prefer:'return=minimal'}});toast('Nueva serie BO3 creada','success');await loadShared()}catch(err){toast(err.message,'error')}}
-async function editRoute(){
-  if(!guard())return;
-  const me=own();if(!me)return;
-  try{await loadDex()}catch(err){toast('No se pudo cargar la Pokédex: '+err.message,'error')}
-  const r=routeState(me.user_id,state.selectedRoute);
-  const candidates=state.pokemon.filter(pk=>!pk.is_egg && locationName(pk.met_location)===state.selectedRoute);
-  const options=candidates.map((pk,i)=>`<option value="${i}">${esc(pk.nickname)} · ${esc(state.dex[pk.species]?.name||`#${pk.species}`)}${pk.present?'':' (histórico)'}</option>`).join('');
-  const d=modal('Estado de '+state.selectedRoute,`<form id="route-form">
-    ${candidates.length>1?'<div class="notice mb-3">Hay varios Pokémon obtenidos en esta zona. Elige cuál consumió la captura normal; la web no puede decidirlo automáticamente.</div>':''}
-    ${candidates.length?`<label class="form-label">Elegir Pokémon de tu guardado (información privada)</label><select class="select" id="route-candidate"><option value="">— Introducción manual —</option>${options}</select>`:''}
-    <label class="form-label">Estado de tu captura</label><select class="select" name="status"><option value="unknown" ${!r||r.status==='unknown'?'selected':''}>Sin verificar</option><option value="free" ${r?.status==='free'?'selected':''}>Disponible (confirmada)</option><option value="captured" ${r?.status==='captured'?'selected':''}>Capturada</option></select>
-    <label class="form-label">Apodo (visible para el rival)</label><input class="field" name="nickname" value="${esc(r?.nickname||'')}">
-    <label class="form-label">Total de estadísticas al capturar (0 EV)</label><input class="field" name="stat_total" type="number" min="1" value="${r?.stat_total??''}">
-    <p class="small mt-2">Si evolucionó antes de su primera importación, revisa su etapa al capturarlo: el cálculo automático podría no ser exacto.</p>
-    <button class="button full mt-3">Guardar estado</button>
-  </form>`);
-  $('#route-candidate')?.addEventListener('change',e=>{
-    const i=e.target.value;if(i==='')return;
-    const pk=candidates[Number(i)];
-    const species=pk.original_species||pk.species;
-    const stats=calcStats(state.dex[species]?.baseStats,pk.met_level,pk.ivs,pk.nature);
-    const form=$('#route-form');
-    form.elements.status.value='captured';form.elements.nickname.value=pk.nickname;
-    form.elements.stat_total.value=stats?stats.reduce((a,b)=>a+b,0):'';
-    if(!stats)toast('Faltan datos para calcular las estadísticas; introduce el total manualmente.','error');
-  });
-  $('#route-form').onsubmit=async e=>{
-    e.preventDefault();const f=new FormData(e.currentTarget);const v=f.get('stat_total');
-    try{
-      await api('/rest/v1/route_states?on_conflict=owner_id,zone_key',{
-        method:'POST',body:{owner_id:me.user_id,zone_key:state.selectedRoute,status:f.get('status'),nickname:String(f.get('nickname')||''),stat_total:v?Number(v):null},
-        headers:{Prefer:'resolution=merge-duplicates,return=minimal'}
-      });d.close();toast('Zona revisada y guardada','success');await loadShared();
-    }catch(err){toast(err.message,'error')}
-  };
-}
-
-function actions(a){if(a==='import')$('#save-file').click();if(a==='account'){if(state.account){state.session=null;state.account=null;sessionStorage.removeItem('dualocke_session');location.reload()}else loginModal()}if(a==='new-series')createSeries();if(a==='route-edit')editRoute();if(a==='location-edit')editCurrentLocation();if(a==='zone-add')addCustomZone();if(a==='draw-egg')drawEgg();if(a==='export'){const ownId=own()?.user_id;const out={players:state.players,progress:state.progress,routes:state.routes,series:state.series,games:state.games,economy:state.economy,claims:state.claims,own_private_creatures:state.pokemon.filter(p=>p.owner_id===ownId)};const link=document.createElement('a');link.href=URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:'application/json'}));link.download='dualocke_export.json';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1500)}}
-
-/* --- Decodificador PK6 y archivos main ORAS (0x76000 bytes) --- */
-const read16=(b,i)=>b[i]|b[i+1]<<8;
-const read32=(b,i)=>(b[i]|(b[i+1]<<8)|(b[i+2]<<16)|(b[i+3]<<24))>>>0;
-function decodeText(buf,offset,len){let result='';for(let i=offset;i<offset+len;i+=2){const c=read16(buf,i);if(!c||c===0xffff)break;result+=String.fromCharCode(c)}return result.replace(/[\u0000-\u001f]/g,'').trim()}
-function checksum(buf){let v=0;for(let k=8;k<232;k+=2)v=(v+read16(buf,k))&65535;return v}
-function decodePK6(bytes){if(bytes.length!==232&&bytes.length!==260)throw Error('Registro PK6 de longitud no reconocida');if(!read32(bytes,0))return null;let b=new Uint8Array(bytes),expected=read16(b,6);
-  if(checksum(b)!==expected){let seed=read32(b,0),x=8;for(;x<232;x+=2){seed=(Math.imul(seed,0x41c64e6d)+0x6073)>>>0;const out=read16(b,x)^(seed>>>16);b[x]=out&255;b[x+1]=out>>>8;}
     // La zona suplementaria del equipo se cifra por separado con la misma semilla.
     if(b.length===260){seed=read32(b,0);for(let k=232;k<260;k+=2){seed=(Math.imul(seed,0x41c64e6d)+0x6073)>>>0;const out=read16(b,k)^(seed>>>16);b[k]=out&255;b[k+1]=out>>>8;}}
     const sv=(read32(b,0)>>>13)&31;const blocks=b.slice(8,232),res=b.slice();for(let i=0;i<4;i++){res.set(blocks.subarray(SHUFFLES[sv*4+i]*56,SHUFFLES[sv*4+i]*56+56),8+i*56);}b=res;
     if(checksum(b)!==expected)return null;
-  }
+  
   const species=read16(b,8);if(species<1||species>721)return null;
   const pid=read32(b,0x18),ec=read32(b,0),iv32=read32(b,0x74);
   const ivs=[0,5,10,20,25,15].map(shift=>(iv32>>>shift)&31);
@@ -206,70 +141,12 @@ function decodePK6(bytes){if(bytes.length!==232&&bytes.length!==260)throw Error(
   const isEgg=Boolean(iv32&0x40000000);const ownMet=read16(b,0xda);const n=(b[0x1c]%25);const nick=decodeText(b,0x40,26)||`#${species}`;
   const isParty=b.length===260;
   return {pokemon_key:`${ec.toString(16).padStart(8,'0')}-${pid.toString(16).padStart(8,'0')}-${read32(b,0x0c).toString(16)}`,species, nickname:nick,pid,ec,is_egg:isEgg,gender:(b[0x1d]>>1)&3,form:b[0x1d]>>3,ability:b[0x14],nature:n,ivs,evs:[b[0x1e],b[0x1f],b[0x20],b[0x22],b[0x23],b[0x21]],moves,met_level:b[0xdd]&127,met_location:ownMet,egg_location:read16(b,0xd8),level:isParty?b[0xec]:null, stats:isParty?[read16(b,0xf2),read16(b,0xf4),read16(b,0xf6),read16(b,0xfa),read16(b,0xfc),read16(b,0xf8)]:null};
-}
 
-async function addCustomZone(){
- if(!guard())return;const me=own();if(!me)return;
- const d=modal('Añadir zona de SUPER RR',`<form id="zone-add-form"><p>Escribe exactamente el nombre que aparece en el letrero del juego. Si ya existe una zona con ese nombre, no la duplicaremos.</p><label for="new-zone-name" class="form-label">Nombre de la zona</label><input id="new-zone-name" class="field" maxlength="70" required autocomplete="off" placeholder="Ej.: Zona secreta"><button type="submit" class="button full mt-3">Guardar zona compartida</button></form>`);
- $('#zone-add-form').onsubmit=async e=>{
-  e.preventDefault();const z=String($('#new-zone-name').value||'').trim();
-  if(z.length<2||z.length>70){toast('Nombre inválido (2–70 caracteres).','error');return;}
-  const known=unique([...ROUTES,...state.routes.map(r=>r.zone_key)]);
-  const match=known.find(x=>x.toLocaleLowerCase('es')===z.toLocaleLowerCase('es'));
-  if(match){state.selectedRoute=match;d.close();toast('La zona ya existe; la hemos seleccionado.');render();return;}
-  try{
-   await api('/rest/v1/route_states',{method:'POST',body:{owner_id:me.user_id,zone_key:z,status:'unknown',nickname:'',stat_total:null},headers:{Prefer:'return=minimal'}});
-   d.close();state.selectedRoute=z;state.mapSearch='';state.selectedMapFilter='all';toast('Nueva zona añadida.','success');await loadShared();
-  }catch(err){toast(err.message,'error')}
- };
-}
-async function editCurrentLocation(){
- if(!guard())return;
- const me=own();if(!me)return;
- const row=state.progress.find(p=>p.player_id===me.user_id);
- if(!row){toast('Importa primero tu archivo main.','error');return;}
- const known=unique([...ROUTES,...state.routes.map(r=>r.zone_key)]).filter(Boolean);
- const options=known.map(zone=>`<option value="${esc(zone)}"></option>`).join('');
- const label=isConfirmedLocation(row.map_label)?row.map_label:'';
- const d=modal('Asignar ubicación actual',`<form id="location-form"><p>El último archivo main indica el mapa interno <strong>#${Number(row.map_code)}</strong>. Escribe el nombre que muestra el letrero emergente cuando entras en esa zona.</p><label class="form-label" for="location-label">Nombre en el juego</label><input class="field" id="location-label" name="label" list="known-locations" maxlength="90" value="${esc(label)}" placeholder="Ej.: Ruta 102" required autocomplete="off"><datalist id="known-locations">${options}</datalist><div class="rule-note">Solo se publicará el nombre de la zona, no los datos privados de tus Pokémon. Si importas otro main en el mismo mapa, se mantendrá este nombre.</div><button class="button full mt-3" type="submit">Guardar ubicación</button></form>`);
- $('#location-form').onsubmit=async e=>{
-  e.preventDefault();
-  const value=String(new FormData(e.currentTarget).get('label')||'').trim();
-  if(value.length<2||value.length>90){toast('Escribe un nombre de ubicación válido.','error');return;}
-  try{
-   await api(`/rest/v1/shared_progress?player_id=eq.${encodeURIComponent(me.user_id)}`,{method:'PATCH',body:{map_label:value},headers:{Prefer:'return=minimal'}});
-   d.close();toast('Ubicación guardada y compartida.','success');await loadShared();
-  }catch(err){toast(err.message,'error')}
- };
-}
+
 function locationName(n){
   if(n>=204&&n<=270&&n%2===0)return `Ruta ${101+(n-204)/2}`;
-  // IDs de lugar de obtención de Pokémon (PK6), NO IDs de mapa donde se guardó.
-  // El catálogo es conservador: no asignamos capturas automáticamente si falta traducción.
-  const map={170:'Villa Raíz',172:'Pueblo Escaso',174:'Pueblo Azuliza',176:'Pueblo Lavacalda',178:'Pueblo Pardal',180:'Pueblo Verdegal',182:'Pueblo Oromar',184:'Ciudad Petalia',186:'Ciudad Portual',188:'Ciudad Malvalona',190:'Ciudad Férrica',192:'Ciudad Arborada',194:'Ciudad Calagua',196:'Ciudad Algaria',198:'Arrecípolis',200:'Ciudad Colosalia',202:'Liga Pokémon',
-    272:'Cascada Meteoro',274:'Túnel Fervergal',280:'Cueva Granito',282:'Bosque Petalia',284:'Monte Cenizo',286:'Desfiladero',288:'Senda Ígnea',290:'Monte Pírico',294:'Caverna Abisal',296:'Cueva Ancestral',298:'Calle Victoria',300:'Cueva Cardumen',302:'Nueva Malvalona',304:'Malvamar',316:'Pilar Celeste',320:'Isla del Sur',324:'Zona Safari'};
+  const map={170:'Villa Raíz',172:'Pueblo Escaso',174:'Pueblo Azuliza',176:'Ciudad Lavacalda',178:'Pueblo Pardal',180:'Pueblo Verdegal',182:'Pueblo Oromar',184:'Ciudad Petalia',186:'Ciudad Portual',188:'Ciudad Malvalona',190:'Ciudad Férrica',192:'Ciudad Arborada',194:'Ciudad Calagua',196:'Ciudad Algaria',198:'Arrecípolis',200:'Ciudad Colosalia',202:'Liga Pokémon'};
   return map[n]||`Lugar #${n}`;
-}
-
-// La primera importación no debe adivinar cuál de dos Pokémon de una misma
-// ruta es la captura legal. Conservamos la zona pendiente de verificación.
-function planCaptureRoutes(save,knownZones,dex){
-  const grouped=new Map();
-  for(const pk of [...save.party,...save.pc]){
-    if(pk.is_egg)continue;
-    const zone_key=locationName(pk.met_location);
-    if(zone_key.startsWith('Lugar #')||knownZones.has(zone_key))continue;
-    if(!grouped.has(zone_key))grouped.set(zone_key,[]);
-    grouped.get(zone_key).push(pk);
-  }
-  const proposals=[];
-  for(const [zone_key,items] of grouped){
-    if(items.length!==1){proposals.push({zone_key,status:'unknown',nickname:'',stat_total:null});continue;}
-    const pk=items[0];const mon=dex[pk.species];
-    const computed=calcStats(mon?.baseStats,pk.met_level,pk.ivs,pk.nature);
-    proposals.push({zone_key,status:computed?'captured':'unknown',nickname:computed?pk.nickname:'',stat_total:computed?computed.reduce((a,b)=>a+b,0):null});
-  }
-  return proposals;
 }
 
 function parseSave(input){const buf=input instanceof Uint8Array?input:new Uint8Array(input);if(buf.length!==0x76000)throw Error(`Formato de save incorrecto: ${buf.length} bytes. Se esperan 483.328 bytes (main ORAS).`);
@@ -291,7 +168,7 @@ async function loadDex(){if(state.dexReady)return;const res=await fetch('https:/
 async function handleSave(file){if(!file)return;if(!guard())return;try{
   if(file.size!==0x76000)throw Error('Elige el archivo main extraído de Pokémon Rubí Omega (472 KiB).');
   const raw=await file.arrayBuffer();const save=parseSave(raw);await loadDex();state.preview=save;
-  const d=modal('Validar importación',`<p>El lector ha descifrado el archivo localmente. No se subirá el archivo binario.</p><div class="grid-2"><div class="trainer-metric"><small>ENTRENADOR</small><strong>${esc(save.trainer)}</strong></div><div class="trainer-metric"><small>MEDALLAS</small><strong>${save.badges}/8</strong></div><div class="trainer-metric"><small>EQUIPO</small><strong>${save.party.length} Pokémon</strong></div><div class="trainer-metric"><small>HUEVOS / BAJAS</small><strong>${save.eggs} / ${save.deaths}</strong></div></div><div class="notice mt-3">Después de importar, asigna tu ubicación en el apartado Mapa. Se conservará mientras el ID interno no cambie. Verifica capturas de Pokémon que evolucionaron antes de su primera importación.</div><button class="button full mt-3" id="confirm-save">Publicar actualización compartida</button>`);
+  const d=modal('Validar importación',`<p>El lector ha descifrado el archivo localmente. No se subirá el archivo binario.</p><div class="grid-2"><div class="trainer-metric"><small>ENTRENADOR</small><strong>${esc(save.trainer)}</strong></div><div class="trainer-metric"><small>MEDALLAS</small><strong>${save.badges}/8</strong></div><div class="trainer-metric"><small>EQUIPO</small><strong>${save.party.length} Pokémon</strong></div><div class="trainer-metric"><small>HUEVOS / BAJAS</small><strong>${save.eggs} / ${save.deaths}</strong></div></div><div class="notice mt-3">La ubicación se presenta como identificador interno hasta disponer de una tabla fiable de nombres. Verifica capturas de Pokémon que evolucionaron antes de su primera importación.</div><button class="button full mt-3" id="confirm-save">Publicar actualización compartida</button>`);
   $('#confirm-save').onclick=async()=>{try{$('#confirm-save').disabled=true;await publishSave(save);d.close();toast('Guardado importado correctamente','success');await loadShared()}catch(err){toast(err.message,'error');$('#confirm-save').disabled=false}};
  }catch(err){toast(err.message,'error')}finally{$('#save-file').value=''}}
 async function publishSave(save){const acc=own();if(!acc)throw Error('Esta cuenta no está asignada a uno de los dos jugadores.');const owner_id=acc.user_id;const existing=new Map(state.pokemon.map(p=>[p.pokemon_key,p]));const all=[...save.party,...save.pc];const privateRows=all.map(pk=>{
@@ -302,24 +179,14 @@ async function publishSave(save){const acc=own();if(!acc)throw Error('Esta cuent
   for(let i=0;i<privateRows.length;i+=100)await api('/rest/v1/private_pokemon?on_conflict=owner_id,pokemon_key',{method:'POST',body:privateRows.slice(i,i+100),headers:{Prefer:'resolution=merge-duplicates,return=minimal'}});
   const current=new Set(privateRows.map(p=>p.pokemon_key));for(const old of state.pokemon){if(!current.has(old.pokemon_key))await api(`/rest/v1/private_pokemon?owner_id=eq.${owner_id}&pokemon_key=eq.${encodeURIComponent(old.pokemon_key)}`,{method:'PATCH',body:{present:false},headers:{Prefer:'return=minimal'}})}
   // Conservamos solo datos que corresponden al contrato público de información.
-  const before=state.progress.find(x=>x.player_id===owner_id);
-  const useManual=before && Number(before.map_code)===save.mapId && isConfirmedLocation(before.map_label);
-  const effectiveMapLabel=useManual?before.map_label:save.map_label;
-  await api('/rest/v1/shared_progress?on_conflict=player_id',{method:'POST',body:{player_id:owner_id,trainer_name:save.trainer,badges:save.badges,deaths:save.deaths,map_label:effectiveMapLabel,map_code:save.mapId,team_count:save.party.length,updated_at:new Date().toISOString()},headers:{Prefer:'resolution=merge-duplicates,return=minimal'}});
+  await api('/rest/v1/shared_progress?on_conflict=player_id',{method:'POST',body:{player_id:owner_id,trainer_name:save.trainer,badges:save.badges,deaths:save.deaths,map_label:save.map_label,map_code:save.mapId,team_count:save.party.length,updated_at:new Date().toISOString()},headers:{Prefer:'resolution=merge-duplicates,return=minimal'}});
   // No adjudicar ingresos solo por detectar medallas en un save: la transacción en servidor es idempotente.
   await rpc('award_new_badges',{p_badges:save.badges});
-  // Distintos Pokémon con el mismo lugar de obtención requieren elección privada.
-  // No sobrescribimos zonas que el jugador ya haya revisado manualmente.
-  const known=new Set(state.routes.filter(r=>r.owner_id===owner_id).map(r=>r.zone_key));
-  const proposals=planCaptureRoutes(save,known,state.dex);
-  for(const route of proposals){
-    await api('/rest/v1/route_states?on_conflict=owner_id,zone_key',{
-      method:'POST',body:{owner_id,...route},
-      headers:{Prefer:'resolution=ignore-duplicates,return=minimal'}
-    });
+  // La ruta se registra como ID de met location; la correspondencia con el cartel puede corregirse manualmente.
+  const known=new Set(state.routes.filter(r=>r.owner_id===owner_id&&r.status==='captured').map(r=>r.zone_key));
+  for(const pk of all.filter(p=>!p.is_egg)){const previous=existing.get(pk.pokemon_key);const loc=locationName(pk.met_location);if(known.has(loc))continue;const dex=state.dex[previous?.original_species||pk.species];const est=calcStats(dex?.baseStats,pk.met_level,pk.ivs,pk.nature);if(!est)continue;
+    await api('/rest/v1/route_states?on_conflict=owner_id,zone_key',{method:'POST',body:{owner_id,zone_key:loc,status:'captured',nickname:pk.nickname,stat_total:est.reduce((a,b)=>a+b,0)},headers:{Prefer:'resolution=ignore-duplicates,return=minimal'}});known.add(loc);
   }
-  const pending=proposals.filter(r=>r.status==='unknown').length;
-  if(pending)toast(`${pending} zona(s) con captura pendiente de verificar. Revísalas en Mapa.`, 'error');
 }
 
 /* --- Pokémon Showdown: los replays solo contienen información pública --- */
@@ -399,4 +266,4 @@ if(typeof document!=='undefined'){
     if(CONNECTED){if(state.session){try{await loadShared()}catch(err){toast('Sesión caducada; vuelve a iniciar sesión.','error');state.session=null;sessionStorage.removeItem('dualocke_session');loginModal()}}else loginModal()}
   });
 }
-export {parseSave,decodePK6,calcStats,interpretReplay,getReplayId,locationName,planCaptureRoutes};
+export {parseSave,decodePK6,calcStats,interpretReplay,getReplayId};
