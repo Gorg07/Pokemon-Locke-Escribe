@@ -1507,3 +1507,55 @@ footer span {
 @media(max-width:1170px){.le16-layout{grid-template-columns:minmax(0,1fr) 280px}}
 @media(max-width:900px){.le16-layout{grid-template-columns:minmax(0,1fr)}.le16-board{width:1100px;max-width:none;min-width:1100px}.le16-map-head h2{font-size:19px}}
 @media(max-width:620px){.le16-map-card{padding:11px}.le16-map-head{gap:8px}.le16-selected-name{padding:8px;max-width:46%}.le16-board{width:1050px;min-width:1050px}.le16-controls{gap:12px}}
+
+/* Locke Escribe v1.7 · mapa más fiel al ORAS y lectura por capturas */
+.le16-map-card{background:linear-gradient(180deg,#19324b,#132b43);border-color:#3c6581}
+.le16-map-head{margin-bottom:12px}
+.le16-selected-name{background:#132f48;border-color:#5481a0}
+.le16-view-switch{display:inline-flex;gap:6px;padding:6px;border-radius:14px;border:1px solid #42647d;background:#10283d;margin-bottom:14px}
+.le16-view-switch .seg-btn{border:0;background:transparent;color:#b8d5e9;padding:10px 14px;border-radius:10px;font:700 13px/1 'DM Sans',sans-serif;cursor:pointer;transition:background .15s,color .15s,transform .15s}
+.le16-view-switch .seg-btn.active{background:#315c79;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.le16-view-switch .seg-btn:hover{color:#fff;transform:translateY(-1px)}
+.le16-board-wrap{background:#15466a;border-color:#4f7b95;padding:10px}
+.le16-board{min-width:980px}
+.le16-topography{filter:none}
+.le16-terrain-lines path{stroke:#d9f7e7;stroke-width:2.2;stroke-opacity:.12}
+.le16-board-title text:first-child{font:800 48px 'Space Grotesk',sans-serif;fill:#edf9ff;letter-spacing:5px}
+.le16-board-title text:last-child{font:700 11px 'DM Sans',sans-serif;fill:#e0f5ff;letter-spacing:2.6px}
+.le16-watermark{font:700 10px 'DM Sans',sans-serif;fill:#d8f4ff;opacity:.48;letter-spacing:2.8px}
+.le16-zone{transition:transform .12s ease,filter .12s ease}
+.le16-zone text{fill:#f8fbff;text-shadow:0 1px 2px rgba(0,0,0,.28)}
+.le16-zone .le16-route-text{font-size:12px;font-weight:800;letter-spacing:.3px}
+.le16-zone .le16-city-text{font-size:12px;font-weight:800}
+.le16-zone .le16-special-text{font-size:18px;font-weight:900}
+.le16-zone rect{stroke-width:1.8;pointer-events:all}
+.le16-route rect{shape-rendering:geometricPrecision}
+.le16-city rect,.le16-special rect{shape-rendering:geometricPrecision}
+.le16-board[data-map-focus="all"] .le16-zone rect{fill:#5c6873;stroke:#b1bbc4;opacity:.98}
+.le16-board[data-map-focus="all"] .le16-zone.state-one rect{fill:#2f84b5;stroke:#a8e1ff}
+.le16-board[data-map-focus="all"] .le16-zone.state-both rect{fill:#34a16d;stroke:#baf7d1}
+.le16-board[data-map-focus="1"] .le16-zone rect,
+.le16-board[data-map-focus="2"] .le16-zone rect{fill:#5c6873;stroke:#b1bbc4;opacity:.97}
+.le16-board[data-map-focus="1"] .le16-zone.state-player.le16-route rect,
+.le16-board[data-map-focus="2"] .le16-zone.state-player.le16-route rect{fill:#a9ad32;stroke:#efe895}
+.le16-board[data-map-focus="1"] .le16-zone.state-player.le16-city rect,
+.le16-board[data-map-focus="2"] .le16-zone.state-player.le16-city rect{fill:#d96785;stroke:#ffd4e3}
+.le16-board[data-map-focus="1"] .le16-zone.state-player.le16-special rect,
+.le16-board[data-map-focus="2"] .le16-zone.state-player.le16-special rect{fill:#28a24a;stroke:#baf8bf}
+.le16-board[data-map-focus="1"] .le16-zone.state-both rect,
+.le16-board[data-map-focus="2"] .le16-zone.state-both rect{filter:drop-shadow(0 0 8px rgba(190,255,214,.4))}
+.le16-zone:hover,.le16-zone:focus-visible{transform:translateY(-1px)}
+.le16-zone:hover rect,.le16-zone:focus-visible rect{stroke:#ffffff;stroke-width:3;filter:drop-shadow(0 0 8px rgba(255,255,255,.35))}
+.le16-zone.active rect{stroke:#ffffff;stroke-width:3.5;filter:drop-shadow(0 0 10px rgba(255,255,255,.5))}
+.le16-zone.active text{fill:#ffffff}
+.map-key{width:11px;height:11px;border-radius:3px;border:1px solid rgba(255,255,255,.72)}
+.map-key.none{background:#5c6873}
+.map-key.one{background:#2f84b5}
+.map-key.both{background:#34a16d}
+.map-key.slot1{background:#d96785}
+.map-key.slot2{background:#a9ad32}
+.le16-controls{gap:14px 24px;align-items:flex-start}
+.le16-controls .map-legend{display:flex;flex-wrap:wrap;gap:10px 18px}
+.le16-note strong{color:#fff}
+@media(max-width:900px){.le16-view-switch{display:flex;width:100%;justify-content:space-between}.le16-view-switch .seg-btn{flex:1}.le16-board{width:1120px;min-width:1120px}}
+@media(max-width:620px){.le16-view-switch{padding:5px}.le16-view-switch .seg-btn{padding:9px 10px;font-size:12px}.le16-board{width:1080px;min-width:1080px}}
