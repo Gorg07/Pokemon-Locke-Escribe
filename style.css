@@ -58,3 +58,19 @@
   height: 17px;
   border-radius: 50%;
 }
+
+/* Hoenn v1.4: nombre español + tipo de zona + legibilidad en móvil. */
+.hoenn-map-box{overflow-x:auto;overscroll-behavior-x:contain}
+.hoenn-map-canvas{min-width:650px}
+.hoenn-spanish-labels{position:absolute;inset:0;z-index:2;pointer-events:none}
+.hoenn-es-name{position:absolute;min-height:4.8%;padding:1px 2px;box-sizing:border-box;display:flex;align-items:center;color:#07111e;font:800 clamp(8px,.84vw,12px)/1.05 Arial,Helvetica,sans-serif;letter-spacing:-.12px;overflow-wrap:break-word;box-shadow:0 0 0 1px rgba(0,0,0,.035)}
+.hoenn-es-name.land{background:#d2f5b5}
+.hoenn-es-name.sea{background:#bee6ef}
+.hoenn-map-overlay .hoenn-pin[data-kind="route"]{width:25px;height:9px;border-radius:3px}
+.hoenn-map-overlay .hoenn-pin[data-kind="city"]{width:16px;height:16px;border-radius:50%}
+.hoenn-map-overlay .hoenn-pin[data-kind="special"]{width:14px;height:14px;border-radius:2px}
+.hoenn-kind-controls{display:flex;flex-wrap:wrap;gap:8px 17px;margin:12px 0 2px;color:#c4dbe9;font-size:12px}
+.hoenn-kind-controls label{display:inline-flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
+.hoenn-kind-controls input{accent-color:#70b3da}
+@media(max-width:900px){.hoenn-map-canvas{min-width:650px}}
+@media(max-width:620px){.hoenn-map-canvas{min-width:650px;min-height:0;aspect-ratio:1507/990}.hoenn-es-name{font-size:8px}}
