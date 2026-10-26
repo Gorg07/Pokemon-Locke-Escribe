@@ -1717,3 +1717,33 @@ footer span {
 .atlas-progress{min-width:31px;text-align:center}
 @media(max-width:650px){.atlas-zoom-bar{gap:5px;padding:8px}.atlas-zoom-center{margin-left:0}.atlas-zoom-btn{min-width:32px}.atlas-viewer .atlas-map{min-width:0}.atlas-location-text strong{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.atlas-zoom-btn{transition:none}.atlas-zone rect{transition:none}}
+
+/* v2.1.2 · Atlas reutiliza la cartografía y zonas clicables de BLaDoM aportadas por el usuario. */
+.atlas-viewer .atlas-map{aspect-ratio:900/542;background:#4b9cd6}
+.atlas-map .atlas-map-art{pointer-events:none;image-rendering:pixelated;image-rendering:crisp-edges}
+.atlas-map .atlas-zone rect{fill:#536270;fill-opacity:.18;stroke:rgba(227,240,246,.55);stroke-width:1.1;filter:none;transition:fill .15s,fill-opacity .15s,stroke .15s,stroke-width .15s}
+.atlas-map .atlas-zone text{font:800 9.5px 'DM Sans',Arial,sans-serif;fill:#fff;paint-order:stroke;stroke:#17354f;stroke-width:1.1px;stroke-linejoin:round;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+.atlas-map .atlas-zone.atlas-water text,.atlas-map .atlas-zone.atlas-route text{font-size:10px}
+.atlas-map .atlas-zone.atlas-city text{font-size:12px;stroke-width:1.5px}
+.atlas-map .atlas-zone.atlas-special text{font-size:11px;stroke-width:2px}
+.atlas-map[data-focus="all"] .atlas-zone.state-one rect{fill:#2383d2;fill-opacity:.52;stroke:#c3eaff;stroke-width:1.7}
+.atlas-map[data-focus="all"] .atlas-zone.state-both rect{fill:#1ed28b;fill-opacity:.53;stroke:#d0ffe9;stroke-width:1.7}
+.atlas-map[data-focus="1"] .atlas-zone.state-player rect,
+.atlas-map[data-focus="2"] .atlas-zone.state-player rect{fill:#2cd39e;fill-opacity:.55;stroke:#d9ffec;stroke-width:1.65}
+.atlas-map .atlas-zone.atlas-available rect{fill:#9b8546;fill-opacity:.28;stroke:#ffecac;stroke-dasharray:3 2;stroke-width:1.8}
+.atlas-map .atlas-zone.atlas-failed rect{fill:#b54865;fill-opacity:.43;stroke:#ffd2da;stroke-width:1.8}
+.atlas-map .atlas-zone.atlas-mixed-failed rect{stroke:#ffe9ba;stroke-width:2;stroke-dasharray:4 2}
+.atlas-map .atlas-zone.atlas-dim rect{opacity:.16}
+.atlas-map .atlas-zone.atlas-dim text{opacity:.28}
+.atlas-map .atlas-zone.atlas-dim.active rect{opacity:1}
+.atlas-map .atlas-zone:hover rect,.atlas-map .atlas-zone:focus-visible rect{stroke:#fff;stroke-width:2.5;fill-opacity:.45;filter:drop-shadow(0 0 3px #fff)}
+.atlas-map .atlas-zone.active rect{stroke:#fff;stroke-width:2.6;stroke-dasharray:none;fill-opacity:.55;filter:drop-shadow(0 0 4px #fff)}
+.atlas-map .atlas-zone.active .atlas-active-zone-name{font-size:12px;stroke:#082839;stroke-width:3.6;fill:#fff;paint-order:stroke;pointer-events:none}
+.atlas-map .atlas-zone .atlas-fail-mark{font-size:13px;stroke:#8c2932;stroke-width:2px;fill:#fff}
+.atlas-viewer .atlas-scroll{background:#4097d1}
+.atlas-shell .atlas-hint{line-height:1.55}
+@media(max-width:650px){.atlas-viewer .atlas-map{min-width:0}}
+@media(prefers-reduced-motion:reduce){.atlas-map .atlas-zone rect{transition:none}}
+
+.atlas-map .atlas-zone .atlas-marker{fill:#f9ffff;stroke:#173f5c;stroke-width:1.1;pointer-events:none;filter:drop-shadow(0 0 1px #0e2840)}
+.atlas-map .atlas-zone.atlas-dim .atlas-marker{opacity:.3}
