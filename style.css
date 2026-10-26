@@ -1680,3 +1680,9 @@ footer span {
 .atlas-index{max-height:300px}
 .atlas-selection{grid-column:2;grid-row:1/span 4;border-left:1px solid #365675;border-top:0;margin:0;padding:0 0 0 18px;align-self:stretch}
 @media(max-width:800px){.atlas-side{display:flex}.atlas-selection{margin-top:4px;border-top:1px solid #365675;border-left:0;padding:12px 0 0}}
+
+/* v2.0: avisos de sincronización y confirmaciones de importación */
+.le20-sync-warning{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:18px;border:1px solid #e2a152;background:#382e28;color:#ffebd7}
+.le20-sync-warning strong{color:#fff}
+.le20-confirm{display:flex;gap:11px;align-items:flex-start;padding:12px;background:#203951;border:1px solid #466983;border-radius:9px;color:#f0f7ff;font-size:13px;cursor:pointer}
+.le20-confirm input{width:18px;height:18px;accent-color:#55c3a8;flex-shrink:0}
