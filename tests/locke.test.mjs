@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {
   canonicalZone, locationName, mapStatusLabel, encounterMethod,
   decodePK6, parseSave, calcStats, planCaptureRoutes,
-  getReplayId, interpretReplay, HOENN_ATLAS
+  getReplayId, interpretReplay, HOENN_ATLAS, BOSSES
 } from '../app.js';
 
 // Pruebas sin red, credenciales ni archivos main personales. Se usa PK6 sintético.
@@ -141,4 +141,9 @@ test('replays: lee vencedor, bajas y datos públicos revelados',()=>{
  assert.equal(r.ko.p2,0);
  assert.ok(r.reveals.some(m=>m.side==='p1'&&m.nickname==='Chispa'&&m.moves.includes('Thunderbolt')));
  assert.throws(()=>interpretReplay({log:'|player|p1|Varo\n|win|Varo'}),/dos jugadores/);
+});
+
+
+test('límites de RO_3 y ZA_4: 8 gimnasios y Calle Victoria / Liga',()=>{
+ assert.deepEqual(BOSSES.map(x=>x[1]),[14,16,21,28,30,35,45,46,48,52,53,54,55,59]);
 });
