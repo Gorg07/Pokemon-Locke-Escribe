@@ -100,75 +100,75 @@ function renderCurrentLocation(){
  return `<section class="card current-location-card"><div class="between"><h2>Ubicación de los entrenadores</h2><div class="map-actions"><button type="button" class="button secondary compact" data-action="zone-add">+ Zona SUPER RR</button>${own()&&state.progress.some(x=>x.player_id===own().user_id)?'<button type="button" class="button secondary compact" data-action="location-edit">Asignar mi ubicación</button>':''}</div></div><div class="grid-2 mt-2">${cards}</div><p class="small mt-2">El ID del mapa donde se guarda la partida no es el mismo que el ID de obtención de Pokémon. Puedes asignar su nombre una vez; al importar de nuevo el mismo mapa se conservará. Si cambia el ID, se pedirá verificarlo.</p></section>`;
 }
 const HOENN_ATLAS = [
-  {key:'Ruta 101',label:'101',x:242,y:577,w:54,h:51,kind:'route'},
-  {key:'Ruta 102',label:'102',x:175,y:516,w:26,h:30,kind:'route'},
-  {key:'Ruta 103',label:'103',x:328,y:467,w:170,h:36,kind:'route'},
-  {key:'Ruta 104',label:'104',x:40,y:445,w:44,h:76,kind:'route'},
-  {key:'Ruta 110',label:'110',x:442,y:470,w:49,h:165,kind:'route'},
-  {key:'Ruta 111',label:'111',x:444,y:201,w:54,h:140,kind:'route'},
-  {key:'Ruta 112',label:'112',x:370,y:294,w:90,h:33,kind:'route'},
-  {key:'Ruta 113',label:'113',x:435,y:109,w:137,h:36,kind:'route'},
-  {key:'Ruta 114',label:'114',x:154,y:108,w:105,h:69,kind:'route'},
-  {key:'Ruta 115',label:'115',x:55,y:228,w:54,h:149,kind:'route'},
-  {key:'Ruta 116',label:'116',x:226,y:332,w:223,h:34,kind:'route'},
-  {key:'Ruta 117',label:'117',x:380,y:416,w:60,h:26,kind:'route'},
-  {key:'Ruta 118',label:'118',x:610,y:365,w:132,h:33,kind:'route'},
-  {key:'Ruta 119',label:'119',x:556,y:206,w:40,h:237,kind:'route'},
-  {key:'Ruta 120',label:'120',x:723,y:160,w:59,h:165,kind:'route'},
-  {key:'Ruta 121',label:'121',x:813,y:261,w:170,h:34,kind:'route'},
-  {key:'Ruta 123',label:'123',x:755,y:366,w:140,h:33,kind:'route'},
-  {key:'Ruta 105',label:'105',x:39,y:602,w:51,h:140,kind:'water'},
-  {key:'Ruta 106',label:'106',x:112,y:665,w:108,h:31,kind:'water'},
-  {key:'Ruta 107',label:'107',x:240,y:716,w:113,h:31,kind:'water'},
-  {key:'Ruta 108',label:'108',x:337,y:716,w:84,h:31,kind:'water'},
-  {key:'Ruta 109',label:'109',x:441,y:695,w:50,h:105,kind:'water'},
-  {key:'Ruta 122',label:'122',x:852,y:379,w:51,h:153,kind:'water'},
-  {key:'Ruta 124',label:'124',x:975,y:265,w:143,h:60,kind:'water'},
-  {key:'Ruta 125',label:'125',x:1232,y:253,w:95,h:81,kind:'water'},
-  {key:'Ruta 126',label:'126',x:1036,y:391,w:83,h:111,kind:'water'},
-  {key:'Ruta 127',label:'127',x:1215,y:394,w:99,h:190,kind:'water'},
-  {key:'Ruta 128',label:'128',x:1262,y:603,w:69,h:55,kind:'water'},
-  {key:'Ruta 129',label:'129',x:1247,y:662,w:80,h:35,kind:'water'},
-  {key:'Ruta 130',label:'130',x:1096,y:635,w:101,h:35,kind:'water'},
-  {key:'Ruta 131',label:'131',x:977,y:618,w:98,h:37,kind:'water'},
-  {key:'Ruta 132',label:'132',x:834,y:605,w:101,h:36,kind:'water'},
-  {key:'Ruta 133',label:'133',x:730,y:604,w:103,h:36,kind:'water'},
-  {key:'Ruta 134',label:'134',x:600,y:605,w:103,h:36,kind:'water'},
-  {key:'Pueblo Pardal',label:'Pueblo Pardal',x:300,y:105,w:104,h:42,kind:'city'},
-  {key:'Ciudad Arborada',label:'Ciudad Arborada',x:635,y:102,w:120,h:42,kind:'city'},
-  {key:'Ciudad Lavacalda',label:'Pueblo Lavacalda',x:467,y:305,w:116,h:42,kind:'city'},
-  {key:'Ciudad Calagua',label:'Ciudad Calagua',x:950,y:205,w:108,h:42,kind:'city'},
-  {key:'Ciudad Férrica',label:'Ciudad Férrica',x:55,y:330,w:99,h:42,kind:'city'},
-  {key:'Pueblo Verdegal',label:'Pueblo Verdegal',x:375,y:358,w:105,h:42,kind:'city'},
-  {key:'Ciudad Malvalona',label:'Ciudad Malvalona',x:492,y:368,w:115,h:42,kind:'city'},
-  {key:'Ciudad Petalia',label:'Ciudad Petalia',x:109,y:505,w:107,h:42,kind:'city'},
-  {key:'Pueblo Escaso',label:'Pueblo Escaso',x:239,y:515,w:98,h:42,kind:'city'},
-  {key:'Villa Raíz',label:'Villa Raíz',x:242,y:628,w:94,h:42,kind:'city'},
-  {key:'Pueblo Azuliza',label:'Pueblo Azuliza',x:117,y:710,w:102,h:42,kind:'city'},
-  {key:'Ciudad Portual',label:'Ciudad Portual',x:437,y:619,w:109,h:42,kind:'city'},
-  {key:'Pueblo Oromar',label:'Pueblo Oromar',x:891,y:554,w:110,h:42,kind:'city'},
-  {key:'Ciudad Algaria',label:'Ciudad Algaria',x:1100,y:282,w:110,h:42,kind:'city'},
-  {key:'Arrecípolis',label:'Arrecípolis',x:1040,y:475,w:103,h:42,kind:'city'},
-  {key:'Ciudad Colosalia',label:'Ciudad Colosalia',x:1273,y:548,w:118,h:42,kind:'city'},
-  {key:'Frente Batalla',label:'Frente Batalla',x:1122,y:693,w:108,h:42,kind:'city'},
-  {key:'Bosque Petalia',label:'Bosque Petalia',x:44,y:383,w:44,h:30,kind:'special'},
-  {key:'Cueva Granito',label:'Cueva Granito',x:117,y:749,w:52,h:32,kind:'special'},
-  {key:'Túnel Fervegal',label:'Túnel Fervegal',x:363,y:324,w:52,h:28,kind:'special'},
-  {key:'Cascada Meteoro',label:'Cascada Meteoro',x:109,y:182,w:45,h:30,kind:'special'},
-  {key:'Monte Cenizo',label:'Monte Cenizo',x:340,y:205,w:47,h:31,kind:'special'},
-  {key:'Desierto',label:'Desierto',x:502,y:171,w:45,h:31,kind:'special'},
-  {key:'Senda Ígnea',label:'Senda Ígnea',x:350,y:255,w:45,h:31,kind:'special'},
-  {key:'Monte Pírico',label:'Monte Pírico',x:920,y:440,w:44,h:30,kind:'special'},
-  {key:'Cueva Cardumen',label:'Cueva Cardumen',x:1312,y:207,w:44,h:30,kind:'special'},
-  {key:'Caverna Abisal',label:'Caverna Abisal',x:1313,y:455,w:44,h:30,kind:'special'},
-  {key:'Cueva Ancestral',label:'Cueva Ancestral',x:1112,y:424,w:44,h:30,kind:'special'},
-  {key:'Calle Victoria',label:'Calle Victoria',x:1299,y:500,w:43,h:28,kind:'special'},
-  {key:'Nueva Malvalona',label:'Nueva Malvalona',x:547,y:430,w:43,h:31,kind:'special'},
-  {key:'Malvamar',label:'Malvamar',x:332,y:656,w:43,h:30,kind:'special'},
-  {key:'Pilar Celeste',label:'Pilar Celeste',x:976,y:663,w:43,h:30,kind:'special'},
-  {key:'Isla del Sur',label:'Isla del Sur',x:685,y:710,w:43,h:30,kind:'special'},
-  {key:'Zona Safari',label:'Zona Safari',x:832,y:213,w:47,h:30,kind:'special'},
-  {key:'Cueva Fervergal',label:'Cueva Fervergal',x:299,y:300,w:43,h:29,kind:'special'},
+  {key:'Ruta 101',label:'101',display:'101',x:209,y:618,w:64,h:72,kind:'route'},
+  {key:'Ruta 102',label:'102',display:'102',x:160,y:530,w:82,h:36,kind:'route'},
+  {key:'Ruta 103',label:'103',display:'103',x:320,y:506,w:183,h:44,kind:'route'},
+  {key:'Ruta 104',label:'104',display:'104',x:51,y:446,w:80,h:118,kind:'route'},
+  {key:'Ruta 105',label:'105',display:'105',x:37,y:648,w:82,h:150,kind:'water'},
+  {key:'Ruta 106',label:'106',display:'106',x:133,y:728,w:112,h:42,kind:'water'},
+  {key:'Ruta 107',label:'107',display:'107',x:267,y:777,w:118,h:42,kind:'water'},
+  {key:'Ruta 108',label:'108',display:'108',x:395,y:777,w:108,h:42,kind:'water'},
+  {key:'Ruta 109',label:'109',display:'109',x:465,y:670,w:60,h:165,kind:'water'},
+  {key:'Ruta 110',label:'110',display:'110',x:465,y:510,w:58,h:205,kind:'route'},
+  {key:'Ruta 111',label:'111',display:'111',x:536,y:214,w:64,h:226,kind:'route'},
+  {key:'Ruta 112',label:'112',display:'112',x:381,y:250,w:100,h:42,kind:'route'},
+  {key:'Ruta 113',label:'113',display:'113',x:335,y:91,w:232,h:42,kind:'route'},
+  {key:'Ruta 114',label:'114',display:'114',x:122,y:142,w:72,h:178,kind:'route'},
+  {key:'Ruta 115',label:'115',display:'115',x:34,y:252,w:66,h:188,kind:'route'},
+  {key:'Ruta 116',label:'116',display:'116',x:212,y:332,w:222,h:43,kind:'route'},
+  {key:'Ruta 117',label:'117',display:'117',x:383,y:372,w:165,h:44,kind:'route'},
+  {key:'Ruta 118',label:'118',display:'118',x:579,y:372,w:165,h:44,kind:'route'},
+  {key:'Ruta 119',label:'119',display:'119',x:610,y:226,w:70,h:222,kind:'route'},
+  {key:'Ruta 120',label:'120',display:'120',x:720,y:160,w:72,h:186,kind:'route'},
+  {key:'Ruta 121',label:'121',display:'121',x:896,y:184,w:188,h:44,kind:'route'},
+  {key:'Ruta 122',label:'122',display:'122',x:850,y:300,w:92,h:58,kind:'water'},
+  {key:'Ruta 123',label:'123',display:'123',x:793,y:364,w:185,h:44,kind:'route'},
+  {key:'Ruta 124',label:'124',display:'124',x:1092,y:194,w:182,h:185,kind:'water'},
+  {key:'Ruta 125',label:'125',display:'125',x:1283,y:195,w:130,h:185,kind:'water'},
+  {key:'Ruta 126',label:'126',display:'126',x:1090,y:407,w:176,h:142,kind:'water'},
+  {key:'Ruta 127',label:'127',display:'127',x:1270,y:416,w:150,h:175,kind:'water'},
+  {key:'Ruta 128',label:'128',display:'128',x:1279,y:590,w:126,h:72,kind:'water'},
+  {key:'Ruta 129',label:'129',display:'129',x:1275,y:667,w:126,h:44,kind:'water'},
+  {key:'Ruta 130',label:'130',display:'130',x:1126,y:664,w:128,h:44,kind:'water'},
+  {key:'Ruta 131',label:'131',display:'131',x:979,y:664,w:128,h:44,kind:'water'},
+  {key:'Ruta 132',label:'132',display:'132',x:843,y:664,w:126,h:44,kind:'water'},
+  {key:'Ruta 133',label:'133',display:'133',x:708,y:664,w:126,h:44,kind:'water'},
+  {key:'Ruta 134',label:'134',display:'134',x:574,y:664,w:126,h:44,kind:'water'},
+  {key:'Pueblo Pardal',label:'Pueblo Pardal',display:'Pueblo|Pardal',x:122,y:58,w:96,h:58,kind:'city'},
+  {key:'Ciudad Arborada',label:'Ciudad Arborada',display:'Ciudad|Arborada',x:565,y:57,w:98,h:58,kind:'city'},
+  {key:'Ciudad Lavacalda',label:'Pueblo Lavacalda',display:'Pueblo|Lavacalda',x:276,y:246,w:104,h:58,kind:'city'},
+  {key:'Ciudad Calagua',label:'Ciudad Calagua',display:'Ciudad|Calagua',x:1044,y:160,w:104,h:58,kind:'city'},
+  {key:'Ciudad Férrica',label:'Ciudad Férrica',display:'Ciudad|Férrica',x:36,y:327,w:98,h:58,kind:'city'},
+  {key:'Pueblo Verdegal',label:'Pueblo Verdegal',display:'Pueblo|Verdegal',x:221,y:358,w:102,h:58,kind:'city'},
+  {key:'Ciudad Malvalona',label:'Ciudad Malvalona',display:'Ciudad|Malvalona',x:472,y:344,w:106,h:58,kind:'city'},
+  {key:'Ciudad Petalia',label:'Ciudad Petalia',display:'Ciudad|Petalia',x:82,y:535,w:100,h:58,kind:'city'},
+  {key:'Pueblo Escaso',label:'Pueblo Escaso',display:'Pueblo|Escaso',x:212,y:528,w:98,h:58,kind:'city'},
+  {key:'Villa Raíz',label:'Villa Raíz',display:'Villa|Raíz',x:194,y:647,w:98,h:58,kind:'city'},
+  {key:'Pueblo Azuliza',label:'Pueblo Azuliza',display:'Pueblo|Azuliza',x:119,y:778,w:100,h:58,kind:'city'},
+  {key:'Ciudad Portual',label:'Ciudad Portual',display:'Ciudad|Portual',x:426,y:596,w:104,h:58,kind:'city'},
+  {key:'Pueblo Oromar',label:'Pueblo Oromar',display:'Pueblo|Oromar',x:930,y:625,w:104,h:58,kind:'city'},
+  {key:'Ciudad Algaria',label:'Ciudad Algaria',display:'Ciudad|Algaria',x:1196,y:248,w:104,h:58,kind:'city'},
+  {key:'Arrecípolis',label:'Arrecípolis',display:'Arrecípolis',x:1048,y:462,w:104,h:58,kind:'city'},
+  {key:'Ciudad Colosalia',label:'Ciudad Colosalia',display:'Ciudad|Colosalia',x:1382,y:426,w:108,h:58,kind:'city'},
+  {key:'Frente Batalla',label:'Frente Batalla',display:'Frente|Batalla',x:1120,y:766,w:100,h:58,kind:'city'},
+  {key:'Bosque Petalia',label:'Bosque Petalia',display:'Bosque|Petalia',x:29,y:426,w:82,h:54,kind:'special'},
+  {key:'Cueva Granito',label:'Cueva Granito',display:'Cueva|Granito',x:48,y:814,w:82,h:54,kind:'special'},
+  {key:'Túnel Fervegal',label:'Túnel Fervegal',display:'Túnel|Fervegal',x:252,y:314,w:80,h:54,kind:'special'},
+  {key:'Cascada Meteoro',label:'Cascada Meteoro',display:'Cascada|Meteoro',x:27,y:176,w:84,h:54,kind:'special'},
+  {key:'Monte Cenizo',label:'Monte Cenizo',display:'Monte|Cenizo',x:322,y:191,w:82,h:54,kind:'special'},
+  {key:'Desierto',label:'Desierto',display:'Desierto',x:474,y:145,w:72,h:50,kind:'special'},
+  {key:'Senda Ígnea',label:'Senda Ígnea',display:'Senda|Ígnea',x:373,y:198,w:80,h:54,kind:'special'},
+  {key:'Monte Pírico',label:'Monte Pírico',display:'Monte|Pírico',x:888,y:299,w:76,h:54,kind:'special'},
+  {key:'Cueva Cardumen',label:'Cueva Cardumen',display:'Cueva|Cardumen',x:1330,y:173,w:82,h:54,kind:'special'},
+  {key:'Caverna Abisal',label:'Caverna Abisal',display:'Caverna|Abisal',x:1271,y:572,w:82,h:54,kind:'special'},
+  {key:'Cueva Ancestral',label:'Cueva Ancestral',display:'Cueva|Ancestral',x:998,y:414,w:82,h:54,kind:'special'},
+  {key:'Calle Victoria',label:'Calle Victoria',display:'Calle|Victoria',x:1366,y:503,w:82,h:54,kind:'special'},
+  {key:'Nueva Malvalona',label:'Nueva Malvalona',display:'Nueva|Malvalona',x:507,y:393,w:82,h:54,kind:'special'},
+  {key:'Malvamar',label:'Malvamar',display:'Malvamar',x:272,y:713,w:82,h:54,kind:'special'},
+  {key:'Pilar Celeste',label:'Pilar Celeste',display:'Pilar|Celeste',x:981,y:625,w:82,h:54,kind:'special'},
+  {key:'Isla del Sur',label:'Isla del Sur',display:'Isla del|Sur',x:665,y:788,w:82,h:54,kind:'special'},
+  {key:'Zona Safari',label:'Zona Safari',display:'Zona|Safari',x:846,y:145,w:82,h:54,kind:'special'},
+  {key:'Cueva Fervergal',label:'Cueva Fervergal',display:'Cueva|Fervergal',x:256,y:294,w:82,h:54,kind:'special'},
 ];
 function renderMap(){
  const selected=state.selectedRoute;
@@ -200,25 +200,28 @@ function renderMap(){
   const isSquare=z.kind==='special';
   const cssKind=(z.kind==='water'?'water':z.kind);
   const w=z.w,h=z.h;
-  const label=z.kind==='special'?'◆':z.label;
-  const isTall=h>76&&w<75;
+  const isTall=h>100&&w<80;
   const title=getTitle(z);
-  return `<g class="atlas-zone atlas-${cssKind} ${colorClass(z.key)} ${active?'active':''} ${dim?'atlas-dim':''}" data-route="${esc(z.key)}" tabindex="0" role="button" aria-pressed="${active}" aria-label="${esc(title)}" transform="translate(${z.x} ${z.y})"><title>${esc(title)}</title><rect x="${-w/2}" y="${-h/2}" width="${w}" height="${h}" rx="${isSquare?5:6}"/><text class="${isTall?'atlas-vertical':''}" x="0" y="1" ${isTall?'transform="rotate(-90)"':''}>${esc(label)}</text>${focus==='all'&&atlasStatusClass(z.key,focus)==='atlas-mixed-failed'?`<text class="atlas-fail-mark" x="${w/2-8}" y="${-h/2+8}">×</text>`:''}</g>`;
+  const lines=String(z.display||z.label).split('|');
+  const textBlock=isTall
+   ? `<text class="atlas-vertical" x="0" y="1" transform="rotate(-90)">${esc(lines.join(' '))}</text>`
+   : `<text class="${lines.length>1?'atlas-multiline':''}" x="0" y="${lines.length>1?-(lines.length-1)*7:1}">${lines.map((line,i)=>`<tspan x="0" dy="${i===0?0:13}">${esc(line)}</tspan>`).join('')}</text>`;
+  return `<g class="atlas-zone atlas-${cssKind} ${colorClass(z.key)} ${active?'active':''} ${dim?'atlas-dim':''}" data-route="${esc(z.key)}" tabindex="0" role="button" aria-pressed="${active}" aria-label="${esc(title)}" transform="translate(${z.x} ${z.y})"><title>${esc(title)}</title><rect x="${-w/2}" y="${-h/2}" width="${w}" height="${h}" rx="${isSquare?4:4}"/>${textBlock}${focus==='all'&&atlasStatusClass(z.key,focus)==='atlas-mixed-failed'?`<text class="atlas-fail-mark" x="${w/2-8}" y="${-h/2+8}">×</text>`:''}</g>`;
  };
- const boardSvg=`<div class="atlas-viewer"><div class="atlas-zoom-bar" role="toolbar" aria-label="Zoom del mapa"><button class="atlas-zoom-btn" type="button" data-map-zoom="out" ${atlasZoomValue()<=.75?'disabled':''} aria-label="Alejar el mapa">−</button><output class="atlas-zoom-label" aria-live="polite">${Math.round(atlasZoomValue()*100)}%</output><button class="atlas-zoom-btn" type="button" data-map-zoom="in" ${atlasZoomValue()>=2?'disabled':''} aria-label="Acercar el mapa">+</button><button class="atlas-zoom-btn atlas-zoom-reset" type="button" data-map-zoom="reset">100%</button><button class="atlas-zoom-btn atlas-zoom-center" type="button" data-map-center="1">Centrar zona</button></div><div class="atlas-scroll" tabindex="0" role="region" aria-label="Mapa interactivo de Hoenn. Desplaza horizontalmente si es necesario"><svg class="atlas-map" style="width:${Math.round(1360*atlasZoomValue())}px" viewBox="0 0 1360 780" xmlns="http://www.w3.org/2000/svg" data-focus="${focus}" aria-label="Mapa de rutas, pueblos y lugares especiales de Hoenn"><defs><pattern id="atlas-grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity=".065"/></pattern><linearGradient id="atlas-sea" x2="0.9" y2="1"><stop stop-color="#298ac9"/><stop offset="1" stop-color="#174c83"/></linearGradient><linearGradient id="atlas-land" x2="1" y2="1"><stop stop-color="#2b946d"/><stop offset="1" stop-color="#186c59"/></linearGradient></defs>
-  <rect width="1360" height="780" fill="url(#atlas-sea)"/><rect width="1360" height="780" fill="url(#atlas-grid)"/>
+ const boardSvg=`<div class="atlas-viewer"><div class="atlas-zoom-bar" role="toolbar" aria-label="Zoom del mapa"><button class="atlas-zoom-btn" type="button" data-map-zoom="out" ${atlasZoomValue()<=.75?'disabled':''} aria-label="Alejar el mapa">−</button><output class="atlas-zoom-label" aria-live="polite">${Math.round(atlasZoomValue()*100)}%</output><button class="atlas-zoom-btn" type="button" data-map-zoom="in" ${atlasZoomValue()>=2?'disabled':''} aria-label="Acercar el mapa">+</button><button class="atlas-zoom-btn atlas-zoom-reset" type="button" data-map-zoom="reset">100%</button><button class="atlas-zoom-btn atlas-zoom-center" type="button" data-map-center="1">Centrar zona</button></div><div class="atlas-scroll" tabindex="0" role="region" aria-label="Mapa interactivo de Hoenn. Desplaza horizontalmente si es necesario"><svg class="atlas-map" style="width:${Math.round(1420*atlasZoomValue())}px" viewBox="0 0 1420 860" xmlns="http://www.w3.org/2000/svg" data-focus="${focus}" aria-label="Mapa de rutas, pueblos y lugares especiales de Hoenn"><defs><pattern id="atlas-grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity=".045"/></pattern><linearGradient id="atlas-sea" x2="0.9" y2="1"><stop stop-color="#44a8e6"/><stop offset="1" stop-color="#1870b3"/></linearGradient><linearGradient id="atlas-land" x2="1" y2="1"><stop stop-color="#1e9b4d"/><stop offset="1" stop-color="#148a43"/></linearGradient></defs>
+  <rect width="1420" height="860" fill="url(#atlas-sea)"/><rect width="1420" height="860" fill="url(#atlas-grid)"/>
   <g class="atlas-geography" aria-hidden="true">
-   <path d="M20 118 L46 74 154 74 154 55 368 55 410 72 612 58 700 88 785 93 872 137 939 158 969 208 923 278 899 335 842 386 812 437 735 475 652 485 620 521 528 516 500 557 478 559 422 535 390 551 350 529 300 544 267 515 217 514 173 472 146 431 115 429 106 394 76 390 48 359 30 310 18 262Z" fill="url(#atlas-land)" stroke="#56c29f" stroke-width="3"/>
-   <path d="M5 538 H193 V651 H40 V761 H5Z" fill="url(#atlas-land)" opacity=".93" stroke="#56c29f" stroke-width="2"/>
-   <path d="M210 597 H283 V657 H210Z" fill="url(#atlas-land)" opacity=".93"/>
-   <path d="M1005 345 C1047 333 1110 349 1130 400 L1119 474 1066 502 1015 474Z" fill="url(#atlas-land)" opacity=".85" stroke="#56c29f" stroke-width="2"/>
-   <path d="M1144 549 L1246 529 1308 572 1308 651 1198 656 1148 631Z" fill="url(#atlas-land)" opacity=".9" stroke="#56c29f" stroke-width="2"/>
-   <path d="M1051 638 L1209 638 1232 708 1060 713Z" fill="url(#atlas-land)" opacity=".87" stroke="#56c29f" stroke-width="2"/>
-   <path d="M839 516 L912 513 935 566 831 585Z" fill="url(#atlas-land)" opacity=".78" stroke="#56c29f" stroke-width="2"/>
-   <path d="M653 675 Q713 644 766 672 L759 739 677 732Z" fill="url(#atlas-land)" opacity=".72" stroke="#56c29f" stroke-width="2"/>
+   <path d="M0 0H1420V860H0Z" fill="none"/>
+   <path d="M0 0H958L979 12L975 64L1026 64L1034 97L1095 97L1106 145L1195 146L1197 197L997 197L996 272L820 272L819 398L623 398L622 474L495 474L494 572L159 572L159 474L0 474V0Z" fill="url(#atlas-land)" opacity=".98" stroke="#77d6b0" stroke-width="3"/>
+   <path d="M0 572H485V716H0Z" fill="url(#atlas-land)" opacity=".98" stroke="#77d6b0" stroke-width="3"/>
+   <path d="M1037 272C1083 247 1130 261 1148 307V381C1126 425 1076 431 1037 401Z" fill="url(#atlas-land)" opacity=".98" stroke="#77d6b0" stroke-width="3"/>
+   <path d="M1212 528H1416V674H1212Z" fill="url(#atlas-land)" opacity=".95" stroke="#77d6b0" stroke-width="3"/>
+   <path d="M1062 707H1224L1240 762H1040Z" fill="url(#atlas-land)" opacity=".95" stroke="#77d6b0" stroke-width="3"/>
+   <path d="M900 608C944 602 979 618 988 657L969 694L914 700L891 670Z" fill="url(#atlas-land)" opacity=".95" stroke="#77d6b0" stroke-width="3"/>
+   <path d="M690 795C730 770 787 774 811 812L784 848L712 850Z" fill="url(#atlas-land)" opacity=".95" stroke="#77d6b0" stroke-width="3"/>
   </g>
-  <g class="atlas-contours" aria-hidden="true"><path d="M114 202 Q286 137 413 209 T862 255"/><path d="M135 328 Q318 265 540 318 T883 354"/><path d="M151 454 Q338 405 499 451 T821 445"/></g>
-  <g class="atlas-name" aria-hidden="true"><text x="42" y="42">HOENN</text><text x="192" y="38">REGIÓN 03 · ORAS</text><text x="1090" y="92">MAR DEL ESTE</text></g>
+  <g class="atlas-contours" aria-hidden="true"><path d="M122 205 Q260 149 419 190 T811 208"/><path d="M130 328 Q285 297 533 328 T928 312"/><path d="M142 467 Q270 448 471 470 T820 462"/></g>
+  <g class="atlas-name" aria-hidden="true"><text x="36" y="46">HOENN</text><text x="175" y="42">REGIÓN 03 · ORAS</text><text x="1126" y="82">MAR DEL ESTE</text></g>
   <g class="atlas-zones">${HOENN_ATLAS.map(mapShape).join('')}</g></svg></div></div>`;
  const details=[1,2].map(slot=>{
   const r=routeState(player(slot).user_id,selected),status=r?.status||'unknown';
