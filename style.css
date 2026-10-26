@@ -1764,3 +1764,39 @@ footer span {
 .atlas-columns,.atlas-main,.atlas-viewer{min-width:0;max-width:100%}
 .atlas-main{width:100%}
 .atlas-viewer .atlas-scroll{width:100%;box-sizing:border-box}
+
+
+/* v2.2: bandeja privada de revisión de encuentros (sin especies ni auto-confirmaciones) */
+.rev22-shell{border-color:#3a617b;background:linear-gradient(160deg,#142d44,#102439);min-width:0}
+.rev22-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:15px}
+.rev22-heading h2{font-size:21px;margin:5px 0 6px}
+.rev22-heading .small{max-width:650px;line-height:1.5}
+.rev22-metrics{display:flex;gap:6px;flex-wrap:wrap;max-width:550px}
+.rev22-metrics span{display:flex;align-items:center;gap:6px;padding:7px 9px;border:1px solid #456986;border-radius:9px;background:#1a3b54;color:#bcd6e8;font-size:11px;font-weight:700}
+.rev22-metrics strong{font:800 16px 'DM Sans',sans-serif;color:#fff}
+.rev22-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:10px}
+.rev22-card{padding:12px;background:#182f45;border:1px solid #45637b;border-radius:11px;min-width:0}
+.rev22-card.ambiguous{border-color:#b69a62}
+.rev22-card-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.rev22-card-head>strong{font:800 14px 'Space Grotesk',sans-serif;color:#f1f8ff}
+.rev22-tag{font-size:10px;font-weight:800;letter-spacing:.15px;color:#b4d0e2;background:#24455c;border-radius:6px;padding:4px 6px}
+.rev22-card.ambiguous .rev22-tag{background:#4f432d;color:#f9d79a}
+.rev22-candidate{padding:9px 0;border-top:1px solid #38516a;display:flex;justify-content:space-between;gap:9px;align-items:flex-start;flex-wrap:wrap}
+.rev22-candidate>div:first-child{min-width:0;overflow-wrap:anywhere;font-size:13px}
+.rev22-candidate strong{color:#fff}
+.rev22-buttons{display:flex;gap:6px;flex-wrap:wrap}
+.rev22-buttons .button{font-size:10px;min-height:28px;padding:6px 8px;white-space:normal}
+.rev22-card>p.small{font-size:10px;color:#a3bfd1;line-height:1.5;margin-top:6px}
+.rev22-sub{margin-top:14px;border:1px solid #3b5971;border-radius:10px;padding:10px 12px}
+.rev22-sub summary{cursor:pointer;font-size:13px;font-weight:800;color:#b9e6f0}
+.rev22-eggs{margin-top:10px;display:grid;gap:6px}
+.rev22-egg{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:9px;background:#1a354c;border-radius:8px;font-size:12px}
+.rev22-egg strong{color:#fff}
+.rev22-footer{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;margin:15px 0}
+.rev22-footer span{flex:1;min-width:min(100%,270px)}
+.rev22-empty-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.rev22-empty-grid .button{font-size:11px}
+.rev22-no-data{padding:13px;color:#b5d1dd;background:#19374f;border-radius:9px;font-size:12px}
+.rev22-caution{font-size:11px;line-height:1.6;color:#b7cddd;background:#11283a;border-left:3px solid #68a9c9;padding:9px 12px;border-radius:4px}
+.rev22-caution strong{color:#e4f3ff}
+@media(max-width:650px){.rev22-shell{padding:13px}.rev22-grid{grid-template-columns:1fr}.rev22-heading h2{font-size:19px}.rev22-candidate{display:block}.rev22-buttons{margin-top:7px}}
