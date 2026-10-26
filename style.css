@@ -1559,3 +1559,35 @@ footer span {
 .le16-note strong{color:#fff}
 @media(max-width:900px){.le16-view-switch{display:flex;width:100%;justify-content:space-between}.le16-view-switch .seg-btn{flex:1}.le16-board{width:1120px;min-width:1120px}}
 @media(max-width:620px){.le16-view-switch{padding:5px}.le16-view-switch .seg-btn{padding:9px 10px;font-size:12px}.le16-board{width:1080px;min-width:1080px}}
+
+
+/* Locke Escribe v1.8 · fichas públicas de capturas sin especies del randomizer */
+.enc18-panel{background:linear-gradient(140deg,#182d43,#102337);border:1px solid #36566e}
+.enc18-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.enc18-heading h2{font-size:22px;margin:5px 0}
+.enc18-heading p{max-width:690px}
+.enc18-tabs{display:inline-flex;gap:4px;padding:5px;border-radius:12px;border:1px solid #3b617a;background:#10263a}
+.enc18-tabs button{border:0;border-radius:9px;padding:10px 13px;background:transparent;color:#b6c9da;font-size:12px;font-weight:800;cursor:pointer}
+.enc18-tabs button.active{background:#305674;color:#fff}
+.enc18-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.enc18-route{background:#122a40;border:1px solid #31526c;border-radius:12px;padding:13px;color:#e6f2fd;text-align:left;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-content:start;min-width:0;cursor:pointer;transition:border-color .15s,transform .15s}
+.enc18-route:hover{border-color:#65a8d1;transform:translateY(-1px)}
+.enc18-route.active{border-color:#9be4ef;box-shadow:inset 0 0 0 1px #76cfe1}
+.enc18-route-name{font-size:13px;font-weight:800}
+.enc18-count{font-size:11px;color:#cee5f5;background:#274662;padding:2px 7px;border-radius:50px}
+.enc18-player-grid{grid-column:1/-1;display:grid;grid-template-columns:1fr;gap:6px}
+.enc18-player{display:flex;flex-wrap:wrap;column-gap:6px;align-items:center;font-size:11px;line-height:1.45;background:#182f45;border-left:3px solid #748a9d;padding:7px 8px;border-radius:6px;min-height:42px}
+.enc18-player.captured{border-left-color:#62d5a9;background:#1b3942}
+.enc18-player.failed{border-left-color:#d9787d}
+.enc18-player strong{font-weight:800;color:#eefaff}
+.enc18-player span{color:#c0d4e4}
+.enc18-player small{flex-basis:100%;color:#91b6cc;font-size:10px}
+.enc18-special-bar{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.enc18-special-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.enc18-extra{padding:15px;background:#142d43;border:1px solid #395b71;border-radius:12px;display:flex;flex-direction:column;gap:9px}
+.enc18-extra-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center}
+.enc18-type{display:inline-block;border-radius:8px;font-size:10px;font-weight:800;padding:5px 9px;color:#e1f8f4;background:#265850}
+.enc18-extra h3{font-size:17px}
+.enc18-extra button{align-self:flex-start}
+@media(max-width:1200px){.enc18-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.enc18-special-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:730px){.enc18-grid,.enc18-special-grid{grid-template-columns:1fr}.enc18-heading{display:block}.enc18-tabs{margin-top:12px;width:100%}.enc18-tabs button{flex:1}}
