@@ -1747,3 +1747,20 @@ footer span {
 
 .atlas-map .atlas-zone .atlas-marker{fill:#f9ffff;stroke:#173f5c;stroke-width:1.1;pointer-events:none;filter:drop-shadow(0 0 1px #0e2840)}
 .atlas-map .atlas-zone.atlas-dim .atlas-marker{opacity:.3}
+
+
+/* v2.1.3 · Lectura rápida del atlas original; no oculta la cartografía. */
+.atlas-peek{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:5px 15px;background:linear-gradient(90deg,#163a56,#14304a);padding:10px 14px;border-bottom:1px solid #3f7395;font-size:12px;color:#b9d7ea}
+.atlas-peek strong{font:800 14px 'Space Grotesk',sans-serif;color:#f8fdff}
+.atlas-peek span{line-height:1.5}
+.atlas-nearby{border-top:1px solid #395b75;padding-top:12px;margin-top:5px;display:grid;gap:9px}
+.atlas-nearby-list{display:flex;flex-wrap:wrap;gap:6px}
+.atlas-nearby-list button{border:1px solid #436985;border-radius:7px;background:#233e55;padding:7px 10px;font:700 11px 'DM Sans',sans-serif;color:#e1f1fc;cursor:pointer}
+.atlas-nearby-list button:hover{background:#345a76;border-color:#8ed4fa}
+.atlas-nearby-list button:focus-visible{outline:2px solid #e4f8ff;outline-offset:2px}
+.atlas-zoom-reset{white-space:nowrap}
+@media(max-width:650px){.atlas-peek{padding:10px;gap:4px}.atlas-peek strong{font-size:13px}.atlas-peek span{font-size:11px}}
+/* Prevent the 900px map from stretching the entire mobile page. */
+.atlas-columns,.atlas-main,.atlas-viewer{min-width:0;max-width:100%}
+.atlas-main{width:100%}
+.atlas-viewer .atlas-scroll{width:100%;box-sizing:border-box}
