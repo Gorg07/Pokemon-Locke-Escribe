@@ -41,79 +41,7 @@ function $$(s){return [...document.querySelectorAll(s)]}
 function render(){if(typeof document==='undefined')return;ensurePage();$$('nav a').forEach(a=>a.classList.toggle('active',a.dataset.page===state.page));$('#crumb').textContent={inicio:'RESUMEN',mapa:'MAPA DE HOENN',combates:'COMBATES',tienda:'TIENDA',huevos:'INCUBADORA',historial:'HISTORIAL',ajustes:'CONFIGURACIÓN'}[state.page];$('#conn-label').textContent=CONNECTED ? state.account ? 'Sesión segura · Supabase' : 'Acceso requerido' : 'Vista previa · Sin sincronizar';$('#conn-dot').classList.toggle('online',CONNECTED&&!!state.account);$('#btn-account').textContent=state.account?(own()?.display_name||'✓').charAt(0).toUpperCase():'?';const sections={inicio:renderHome,mapa:renderMap,combates:renderBattles,tienda:renderShop,huevos:renderEggs,historial:renderHistory,ajustes:renderSettings};$('#screen').innerHTML=sections[state.page]();bindPage();}
 function renderHome(){const first = prog(1),second=prog(2);const panels=[first,second].map((p,i)=>{const n=i+1,life=conf('life_limit')-Number(p.deaths||0);if(!state.progress.some(row=>row.player_id===player(n).user_id))return `<article class="card trainer-card ${pcolor(n)}"><div class="trainer-line"><div><div class="eyebrow">ENTRENADOR 0${n}</div><div class="trainer-name">${esc(player(n).display_name||`Jugador ${n}`)}</div></div><span class="badge">Sin partida</span></div><div class="rule-note mt-3">Este jugador todavía no ha importado ningún guardado. Sus vidas, medallas, capturas y Pokéfichas aparecerán cuando se incorpore.</div></article>`;return `<article class="card trainer-card ${pcolor(n)}"><div class="trainer-line"><div><div class="eyebrow">ENTRENADOR 0${n}</div><div class="trainer-name">${esc(pname(n))}</div></div><span class="trainer-badge">${i?'ZAFIRO':'RUBÍ'}</span></div><div class="trainer-grid"><div class="trainer-metric"><small>VIDAS RESTANTES</small><div class="large-stat">${life}<small> / ${conf('life_limit')}</small></div>${bar(life,conf('life_limit'))}</div><div class="trainer-metric"><small>POKÉFICHAS</small><div class="large-stat accent-gold">${balance(player(n).user_id)} <small>PF</small></div></div><div class="trainer-metric"><small>MEDALLAS</small><div class="large-stat">${p.badges||0}<small> / 8</small></div></div><div class="trainer-metric"><small>BAJAS</small><div class="large-stat accent-red">${p.deaths||0}</div></div></div><div class="trainer-bottom"><span>⌖ ${esc(p.map_label||'Mapa interno sin identificar')}</span><span>↻ ${esc(fmt(p.updated_at))}</span></div></article>`}).join('');const gym=Math.min(Number(first.badges||0),Number(second.badges||0)),next=BOSSES[Math.min(gym,7)];return `${detailHead('REGIÓN DE HOENN · DOS ENTRENADORES','Estado del Dualocke','Toda la aventura en un mismo lugar. La información secreta de los equipos nunca aparece en este panel.',`<button class="button" data-action="import">↑ Importar partida</button>`)}<div class="grid-2">${panels}</div><div class="metric-strip section-gap">${[["PRÓXIMO LÍMITE",next[1]+' Nv.','accent-red'],['PRÓXIMO JEFE',next[0],'accent-blue'],['COMBATES REGISTRADOS',state.series.filter(s=>s.status==='finished').length,'accent-gold']].map(([label,value,cl])=>`<div class="card"><div class="kicker">${label}</div><div class="stat-value ${cl}">${esc(value)}</div></div>`).join('')}</div><div class="columns-main section-gap">${card('Progreso de la aventura',BOSSES.map(([name,cap],i)=>`<div class="boss-line"><div class="flex"><span class="monogram">${i+1}</span><div><strong>${esc(name)}</strong><div class="small">Límite: nivel ${cap}</div></div></div><div>${pBadge(i<gym?'Superado':i===gym?'Próximo':'Pendiente',i<gym?'green':i===gym?'amber':'')}</div></div>`).join(''))}${card('Tu siguiente paso',`<p class="muted mb-3">Importa los dos guardados para activar el seguimiento de vidas, medallas, capturas y huevos. Los combates completados pueden añadirse con enlaces de replay.</p><div class="stack"><button class="button secondary full" data-action="import">↑ Subir mi archivo main</button><button class="button secondary full" data-go="combates">⚔ Registrar un BO3</button><button class="button secondary full" data-go="huevos">◌ Abrir un huevo</button><div class="rule-note">40 vidas iniciales, modificables en Ajustes. Las cajas 30 y 31 cuentan como cementerios; los huevos no cuentan como bajas.</div></div>`)}</div>`}
 function routeState(id,zone){return state.routes.find(r=>r.owner_id===id && r.zone_key===zone)}
-// Coordenadas calibradas sobre la imagen CC0 de Ztash (1507 × 990).
-// La posición representa aproximadamente el centro de cada tramo/zona, no
-// sustituye el letrero exacto que da derecho a una captura.
-// Ciudades ancladas a los centros dibujados; rutas siguen el trazado esquemático.
-const HOENN_PINS={
- 'Villa Raíz':[18.4,71.0], 'Pueblo Escaso':[18.4,60.5],
- 'Ciudad Petalia':[8.3,60.5], 'Ciudad Férrica':[5.1,42.0],
- 'Pueblo Azuliza':[11.5,85.6], 'Ciudad Portual':[31.7,69.3],
- 'Ciudad Malvalona':[33.2,45.2], 'Pueblo Verdegal':[18.3,45.5],
- 'Pueblo Pardal':[15.0,15.0], 'Ciudad Lavacalda':[21.8,30.3],
- 'Pueblo Lavacalda':[21.8,30.3], 'Pueblo Oromar':[61.6,65.6],
- 'Ciudad Arborada':[44.9,15.0], 'Ciudad Calagua':[68.1,29.9],
- 'Ciudad Algaria':[85.3,40.8], 'Arrecípolis':[75.0,50.7],
- 'Ciudad Colosalia':[95.0,58.3], 'Frente Batalla':[78.5,75.7],
- 'Ruta 101':[18.4,65.7], 'Ruta 102':[13.1,60.3],
- 'Ruta 103':[24.2,55.5], 'Ruta 104':[5.4,50.9],
- 'Ruta 105':[5.0,71.0], 'Ruta 106':[7.7,82.2],
- 'Ruta 107':[18.4,84.4], 'Ruta 108':[24.2,84.1],
- 'Ruta 109':[31.4,77.1], 'Ruta 110':[31.6,57.8],
- 'Ruta 111':[31.3,31.4], 'Ruta 112':[26.4,30.4],
- 'Ruta 113':[18.5,17.1], 'Ruta 114':[7.4,16.9],
- 'Ruta 115':[5.0,29.2], 'Ruta 116':[12.6,42.4],
- 'Ruta 117':[25.4,45.3], 'Ruta 118':[38.5,45.2],
- 'Ruta 119':[41.2,32.4], 'Ruta 120':[44.8,25.5],
- 'Ruta 121':[57.5,29.9], 'Ruta 122':[69.8,44.0],
- 'Ruta 123':[67.0,52.3], 'Ruta 124':[78.2,33.0],
- 'Ruta 125':[91.3,36.2], 'Ruta 126':[77.0,44.1],
- 'Ruta 127':[85.1,52.3], 'Ruta 128':[85.8,62.9],
- 'Ruta 129':[84.0,68.7], 'Ruta 130':[77.6,67.9],
- 'Ruta 131':[68.5,68.5], 'Ruta 132':[54.3,65.5],
- 'Ruta 133':[47.4,70.0], 'Ruta 134':[38.2,70.3],
- 'Bosque Petalia':[5.6,45.4], 'Cueva Granito':[11.7,90.0],
- 'Cueva Fervergal':[18.0,39.2], 'Túnel Fervegal':[21.4,42.4],
- 'Cascada Meteoro':[6.3,21.7], 'Monte Cenizo':[21.6,22.5],
- 'Desierto':[31.4,25.9], 'Senda Ígnea':[25.3,34.9],
- 'Monte Pírico':[71.0,48.3], 'Cueva Cardumen':[91.5,30.5],
- 'Caverna Abisal':[86.5,61.9], 'Cueva Ancestral':[75.0,50.7],
- 'Calle Victoria':[95.0,55.8], 'Nueva Malvalona':[35.9,51.4],
- 'Malvamar':[26.9,81.0], 'Pilar Celeste':[70.0,73.4],
- 'Isla del Sur':[45.0,88.0], 'Zona Safari':[62.8,34.0]
-};
-// Los rótulos españoles se renderizan en una capa HTML sobre la base CC0.
-// Esto tapa los nombres ingleses sin redistribuir ni editar el archivo original.
-const HOENN_SPANISH_NAMES=[
- ['Pueblo Pardal',13.5,17.2,8.8,'land'],
- ['Ciudad Arborada',43.6,17.1,7.3,'land'],
- ['Pueblo Lavacalda',20.1,32.7,9.2,'land'],
- ['Ciudad Calagua',63.1,31.7,9.1,'land'],
- ['Ciudad Férrica',6.6,43.7,8.8,'land'],
- ['Pueblo Verdegal',16.6,47.6,9.9,'land'],
- ['Ciudad Malvalona',33.4,47.6,9.1,'land'],
- ['Ciudad Algaria',83.4,42.2,9.2,'sea'],
- ['Arrecípolis',73.4,51.9,9.7,'land'],
- ['Ciudad Petalia',6.8,62.2,9.4,'land'],
- ['Pueblo Escaso',20.0,62.5,8.3,'land'],
- ['Villa Raíz',20.0,69.4,8.0,'land'],
- ['Ciudad Portual',33.2,69.4,9.0,'sea'],
- ['Pueblo Oromar',60.0,67.2,9.2,'sea'],
- ['Ciudad Colosalia',93.6,61.5,6.4,'sea'],
- ['Pueblo Azuliza',10.0,87.5,8.8,'sea'],
- ['Frente Batalla',75.3,79.6,9.2,'sea']
-];
-const MAP_IMAGE='https://upload.wikimedia.org/wikipedia/commons/a/a4/Hoenn_Map.png';
-function hoennKind(zone){
- if(/^Ruta \d+$/.test(zone))return 'route';
- if(/^(Ciudad |Pueblo |Villa Raíz|Arrecípolis|Frente Batalla|Liga Pokémon)/.test(zone))return 'city';
- return 'special';
-}
-function renderSpanishNames(){
- return HOENN_SPANISH_NAMES.map(([name,x,y,w,terrain])=>
-   `<span class="hoenn-es-name ${terrain}" style="left:${x}%;top:${y}%;width:${w}%" aria-hidden="true">${esc(name)}</span>`
- ).join('');
-}
+// Atlas de Hoenn. Las posiciones del tablero son propias de la aplicación.
 function publicRouteStatus(zone,slot){return routeState(player(slot).user_id,zone)?.status||'unknown'}
 function zoneStatuses(zone){return [1,2].map(n=>publicRouteStatus(zone,n))}
 function zoneCaptureCount(zone){return zoneStatuses(zone).filter(s=>s==='captured').length}
@@ -139,68 +67,150 @@ function renderCurrentLocation(){
  }).join('');
  return `<section class="card current-location-card"><div class="between"><h2>Ubicación de los entrenadores</h2><div class="map-actions"><button type="button" class="button secondary compact" data-action="zone-add">+ Zona SUPER RR</button>${own()&&state.progress.some(x=>x.player_id===own().user_id)?'<button type="button" class="button secondary compact" data-action="location-edit">Asignar mi ubicación</button>':''}</div></div><div class="grid-2 mt-2">${cards}</div><p class="small mt-2">El ID del mapa donde se guarda la partida no es el mismo que el ID de obtención de Pokémon. Puedes asignar su nombre una vez; al importar de nuevo el mismo mapa se conservará. Si cambia el ID, se pedirá verificarlo.</p></section>`;
 }
-const HOENN_BOARD = [{"key":"Pueblo Pardal","label":"Pueblo Pardal","x":350,"y":115,"w":118,"h":43,"kind":"city","angle":0},{"key":"Ciudad Lavacalda","label":"Pueblo Lavacalda","x":353,"y":324,"w":125,"h":43,"kind":"city","angle":0},{"key":"Ciudad Arborada","label":"Ciudad Arborada","x":759,"y":140,"w":135,"h":43,"kind":"city","angle":0},{"key":"Ciudad Calagua","label":"Ciudad Calagua","x":973,"y":330,"w":128,"h":43,"kind":"city","angle":0},{"key":"Ciudad Férrica","label":"Ciudad Férrica","x":165,"y":386,"w":123,"h":43,"kind":"city","angle":0},{"key":"Pueblo Verdegal","label":"Pueblo Verdegal","x":385,"y":429,"w":128,"h":43,"kind":"city","angle":0},{"key":"Ciudad Malvalona","label":"Ciudad Malvalona","x":568,"y":432,"w":134,"h":43,"kind":"city","angle":0},{"key":"Ciudad Petalia","label":"Ciudad Petalia","x":166,"y":594,"w":115,"h":43,"kind":"city","angle":0},{"key":"Pueblo Escaso","label":"Pueblo Escaso","x":351,"y":618,"w":116,"h":43,"kind":"city","angle":0},{"key":"Villa Raíz","label":"Villa Raíz","x":351,"y":709,"w":108,"h":43,"kind":"city","angle":0},{"key":"Pueblo Azuliza","label":"Pueblo Azuliza","x":158,"y":742,"w":118,"h":43,"kind":"city","angle":0},{"key":"Ciudad Portual","label":"Ciudad Portual","x":569,"y":645,"w":127,"h":43,"kind":"city","angle":0},{"key":"Pueblo Oromar","label":"Pueblo Oromar","x":828,"y":653,"w":122,"h":43,"kind":"city","angle":0},{"key":"Ciudad Algaria","label":"Ciudad Algaria","x":1173,"y":451,"w":125,"h":43,"kind":"city","angle":0},{"key":"Arrecípolis","label":"Arrecípolis","x":1096,"y":562,"w":108,"h":43,"kind":"city","angle":0},{"key":"Ciudad Colosalia","label":"Ciudad Colosalia","x":1250,"y":639,"w":129,"h":43,"kind":"city","angle":0},{"key":"Frente Batalla","label":"Frente Batalla","x":1107,"y":741,"w":121,"h":43,"kind":"city","angle":0},{"key":"Ruta 101","label":"101","x":350,"y":663,"w":30,"h":31,"kind":"route","angle":0},{"key":"Ruta 102","label":"102","x":262,"y":616,"w":57,"h":23,"kind":"route","angle":0},{"key":"Ruta 103","label":"103","x":463,"y":574,"w":70,"h":24,"kind":"route","angle":0},{"key":"Ruta 104","label":"104","x":166,"y":489,"w":27,"h":88,"kind":"route","angle":0},{"key":"Ruta 105","label":"105","x":103,"y":657,"w":24,"h":53,"kind":"route","angle":0},{"key":"Ruta 106","label":"106","x":90,"y":730,"w":45,"h":22,"kind":"route","angle":0},{"key":"Ruta 107","label":"107","x":257,"y":755,"w":57,"h":22,"kind":"route","angle":0},{"key":"Ruta 108","label":"108","x":421,"y":755,"w":58,"h":22,"kind":"route","angle":0},{"key":"Ruta 109","label":"109","x":568,"y":710,"w":29,"h":27,"kind":"route","angle":0},{"key":"Ruta 110","label":"110","x":568,"y":533,"w":26,"h":67,"kind":"route","angle":0},{"key":"Ruta 111","label":"111","x":565,"y":266,"w":26,"h":92,"kind":"route","angle":0},{"key":"Ruta 112","label":"112","x":468,"y":327,"w":63,"h":23,"kind":"route","angle":0},{"key":"Ruta 113","label":"113","x":476,"y":165,"w":69,"h":22,"kind":"route","angle":0},{"key":"Ruta 114","label":"114","x":199,"y":164,"w":66,"h":22,"kind":"route","angle":0},{"key":"Ruta 115","label":"115","x":166,"y":272,"w":26,"h":78,"kind":"route","angle":0},{"key":"Ruta 116","label":"116","x":280,"y":378,"w":72,"h":22,"kind":"route","angle":0},{"key":"Ruta 117","label":"117","x":471,"y":399,"w":54,"h":22,"kind":"route","angle":0},{"key":"Ruta 118","label":"118","x":679,"y":425,"w":63,"h":23,"kind":"route","angle":0},{"key":"Ruta 119","label":"119","x":686,"y":298,"w":24,"h":83,"kind":"route","angle":0},{"key":"Ruta 120","label":"120","x":783,"y":232,"w":26,"h":59,"kind":"route","angle":0},{"key":"Ruta 121","label":"121","x":867,"y":330,"w":58,"h":23,"kind":"route","angle":0},{"key":"Ruta 122","label":"122","x":945,"y":446,"w":24,"h":70,"kind":"route","angle":0},{"key":"Ruta 123","label":"123","x":860,"y":530,"w":68,"h":22,"kind":"route","angle":0},{"key":"Ruta 124","label":"124","x":1070,"y":380,"w":64,"h":22,"kind":"route","angle":0},{"key":"Ruta 125","label":"125","x":1225,"y":349,"w":51,"h":22,"kind":"route","angle":0},{"key":"Ruta 126","label":"126","x":1087,"y":486,"w":24,"h":39,"kind":"route","angle":0},{"key":"Ruta 127","label":"127","x":1218,"y":530,"w":51,"h":22,"kind":"route","angle":0},{"key":"Ruta 128","label":"128","x":1270,"y":585,"w":29,"h":35,"kind":"route","angle":0},{"key":"Ruta 129","label":"129","x":1244,"y":694,"w":62,"h":22,"kind":"route","angle":0},{"key":"Ruta 130","label":"130","x":1044,"y":680,"w":66,"h":22,"kind":"route","angle":0},{"key":"Ruta 131","label":"131","x":933,"y":699,"w":66,"h":22,"kind":"route","angle":0},{"key":"Ruta 132","label":"132","x":808,"y":711,"w":60,"h":22,"kind":"route","angle":0},{"key":"Ruta 133","label":"133","x":695,"y":719,"w":60,"h":22,"kind":"route","angle":0},{"key":"Ruta 134","label":"134","x":633,"y":731,"w":53,"h":22,"kind":"route","angle":0},{"key":"Bosque Petalia","label":"Bosque Petalia","x":104,"y":479,"w":35,"h":34,"kind":"special","angle":0},{"key":"Cueva Granito","label":"Cueva Granito","x":91,"y":767,"w":35,"h":34,"kind":"special","angle":0},{"key":"Túnel Fervegal","label":"Túnel Fervegal","x":288,"y":333,"w":35,"h":34,"kind":"special","angle":0},{"key":"Cascada Meteoro","label":"Cascada Meteoro","x":132,"y":132,"w":35,"h":34,"kind":"special","angle":0},{"key":"Monte Cenizo","label":"Monte Cenizo","x":359,"y":210,"w":35,"h":34,"kind":"special","angle":0},{"key":"Desierto","label":"Desierto","x":608,"y":162,"w":35,"h":34,"kind":"special","angle":0},{"key":"Senda Ígnea","label":"Senda Ígnea","x":437,"y":268,"w":35,"h":34,"kind":"special","angle":0},{"key":"Monte Pírico","label":"Monte Pírico","x":965,"y":477,"w":35,"h":34,"kind":"special","angle":0},{"key":"Cueva Cardumen","label":"Cueva Cardumen","x":1265,"y":394,"w":35,"h":34,"kind":"special","angle":0},{"key":"Caverna Abisal","label":"Caverna Abisal","x":1263,"y":548,"w":35,"h":34,"kind":"special","angle":0},{"key":"Cueva Ancestral","label":"Cueva Ancestral","x":1049,"y":555,"w":35,"h":34,"kind":"special","angle":0},{"key":"Calle Victoria","label":"Calle Victoria","x":1326,"y":610,"w":35,"h":34,"kind":"special","angle":0},{"key":"Nueva Malvalona","label":"Nueva Malvalona","x":626,"y":482,"w":35,"h":34,"kind":"special","angle":0},{"key":"Malvamar","label":"Malvamar","x":475,"y":721,"w":35,"h":34,"kind":"special","angle":0},{"key":"Pilar Celeste","label":"Pilar Celeste","x":949,"y":748,"w":35,"h":34,"kind":"special","angle":0},{"key":"Isla del Sur","label":"Isla del Sur","x":678,"y":768,"w":35,"h":34,"kind":"special","angle":0},{"key":"Zona Safari","label":"Zona Safari","x":931,"y":402,"w":35,"h":34,"kind":"special","angle":0},{"key":"Cueva Fervergal","label":"Cueva Fervergal","x":282,"y":296,"w":35,"h":34,"kind":"special","angle":0}];
-/* Locke Escribe v1.6 — tablero SVG: cada figura es su propia zona interactiva. */
+const HOENN_ATLAS = [
+  {key:'Ruta 101',label:'101',x:242,y:577,w:54,h:51,kind:'route'},
+  {key:'Ruta 102',label:'102',x:165,y:516,w:53,h:30,kind:'route'},
+  {key:'Ruta 103',label:'103',x:336,y:467,w:183,h:36,kind:'route'},
+  {key:'Ruta 104',label:'104',x:40,y:445,w:44,h:76,kind:'route'},
+  {key:'Ruta 110',label:'110',x:442,y:470,w:49,h:165,kind:'route'},
+  {key:'Ruta 111',label:'111',x:444,y:188,w:54,h:201,kind:'route'},
+  {key:'Ruta 112',label:'112',x:370,y:294,w:90,h:33,kind:'route'},
+  {key:'Ruta 113',label:'113',x:435,y:109,w:137,h:36,kind:'route'},
+  {key:'Ruta 114',label:'114',x:154,y:108,w:105,h:69,kind:'route'},
+  {key:'Ruta 115',label:'115',x:55,y:228,w:54,h:149,kind:'route'},
+  {key:'Ruta 116',label:'116',x:226,y:332,w:223,h:34,kind:'route'},
+  {key:'Ruta 117',label:'117',x:422,y:365,w:95,h:31,kind:'route'},
+  {key:'Ruta 118',label:'118',x:610,y:365,w:132,h:33,kind:'route'},
+  {key:'Ruta 119',label:'119',x:567,y:206,w:65,h:237,kind:'route'},
+  {key:'Ruta 120',label:'120',x:723,y:175,w:59,h:194,kind:'route'},
+  {key:'Ruta 121',label:'121',x:831,y:261,w:196,h:34,kind:'route'},
+  {key:'Ruta 123',label:'123',x:715,y:366,w:140,h:33,kind:'route'},
+  {key:'Ruta 105',label:'105',x:39,y:602,w:51,h:140,kind:'water'},
+  {key:'Ruta 106',label:'106',x:112,y:665,w:108,h:31,kind:'water'},
+  {key:'Ruta 107',label:'107',x:240,y:716,w:113,h:31,kind:'water'},
+  {key:'Ruta 108',label:'108',x:337,y:716,w:84,h:31,kind:'water'},
+  {key:'Ruta 109',label:'109',x:441,y:695,w:50,h:105,kind:'water'},
+  {key:'Ruta 122',label:'122',x:852,y:379,w:51,h:153,kind:'water'},
+  {key:'Ruta 124',label:'124',x:975,y:265,w:143,h:60,kind:'water'},
+  {key:'Ruta 125',label:'125',x:1232,y:283,w:95,h:81,kind:'water'},
+  {key:'Ruta 126',label:'126',x:1036,y:391,w:83,h:111,kind:'water'},
+  {key:'Ruta 127',label:'127',x:1215,y:394,w:99,h:190,kind:'water'},
+  {key:'Ruta 128',label:'128',x:1262,y:603,w:69,h:55,kind:'water'},
+  {key:'Ruta 129',label:'129',x:1212,y:638,w:94,h:35,kind:'water'},
+  {key:'Ruta 130',label:'130',x:1096,y:635,w:101,h:35,kind:'water'},
+  {key:'Ruta 131',label:'131',x:977,y:618,w:98,h:37,kind:'water'},
+  {key:'Ruta 132',label:'132',x:834,y:605,w:101,h:36,kind:'water'},
+  {key:'Ruta 133',label:'133',x:730,y:604,w:103,h:36,kind:'water'},
+  {key:'Ruta 134',label:'134',x:600,y:605,w:103,h:36,kind:'water'},
+  {key:'Pueblo Pardal',label:'Pueblo Pardal',x:300,y:105,w:104,h:42,kind:'city'},
+  {key:'Ciudad Arborada',label:'Ciudad Arborada',x:635,y:102,w:120,h:42,kind:'city'},
+  {key:'Ciudad Lavacalda',label:'Pueblo Lavacalda',x:467,y:305,w:116,h:42,kind:'city'},
+  {key:'Ciudad Calagua',label:'Ciudad Calagua',x:950,y:205,w:108,h:42,kind:'city'},
+  {key:'Ciudad Férrica',label:'Ciudad Férrica',x:55,y:330,w:99,h:42,kind:'city'},
+  {key:'Pueblo Verdegal',label:'Pueblo Verdegal',x:375,y:358,w:105,h:42,kind:'city'},
+  {key:'Ciudad Malvalona',label:'Ciudad Malvalona',x:492,y:368,w:115,h:42,kind:'city'},
+  {key:'Ciudad Petalia',label:'Ciudad Petalia',x:109,y:505,w:107,h:42,kind:'city'},
+  {key:'Pueblo Escaso',label:'Pueblo Escaso',x:239,y:515,w:98,h:42,kind:'city'},
+  {key:'Villa Raíz',label:'Villa Raíz',x:242,y:628,w:94,h:42,kind:'city'},
+  {key:'Pueblo Azuliza',label:'Pueblo Azuliza',x:117,y:710,w:102,h:42,kind:'city'},
+  {key:'Ciudad Portual',label:'Ciudad Portual',x:437,y:619,w:109,h:42,kind:'city'},
+  {key:'Pueblo Oromar',label:'Pueblo Oromar',x:891,y:554,w:110,h:42,kind:'city'},
+  {key:'Ciudad Algaria',label:'Ciudad Algaria',x:1100,y:282,w:110,h:42,kind:'city'},
+  {key:'Arrecípolis',label:'Arrecípolis',x:1040,y:475,w:103,h:42,kind:'city'},
+  {key:'Ciudad Colosalia',label:'Ciudad Colosalia',x:1273,y:548,w:118,h:42,kind:'city'},
+  {key:'Frente Batalla',label:'Frente Batalla',x:1122,y:693,w:108,h:42,kind:'city'},
+  {key:'Bosque Petalia',label:'Bosque Petalia',x:44,y:383,w:44,h:30,kind:'special'},
+  {key:'Cueva Granito',label:'Cueva Granito',x:117,y:749,w:52,h:32,kind:'special'},
+  {key:'Túnel Fervegal',label:'Túnel Fervegal',x:340,y:326,w:55,h:30,kind:'special'},
+  {key:'Cascada Meteoro',label:'Cascada Meteoro',x:54,y:152,w:48,h:33,kind:'special'},
+  {key:'Monte Cenizo',label:'Monte Cenizo',x:340,y:205,w:47,h:31,kind:'special'},
+  {key:'Desierto',label:'Desierto',x:512,y:171,w:45,h:31,kind:'special'},
+  {key:'Senda Ígnea',label:'Senda Ígnea',x:350,y:255,w:45,h:31,kind:'special'},
+  {key:'Monte Pírico',label:'Monte Pírico',x:865,y:442,w:48,h:31,kind:'special'},
+  {key:'Cueva Cardumen',label:'Cueva Cardumen',x:1232,y:209,w:47,h:32,kind:'special'},
+  {key:'Caverna Abisal',label:'Caverna Abisal',x:1242,y:486,w:47,h:31,kind:'special'},
+  {key:'Cueva Ancestral',label:'Cueva Ancestral',x:1035,y:425,w:47,h:31,kind:'special'},
+  {key:'Calle Victoria',label:'Calle Victoria',x:1299,y:500,w:43,h:28,kind:'special'},
+  {key:'Nueva Malvalona',label:'Nueva Malvalona',x:547,y:430,w:43,h:31,kind:'special'},
+  {key:'Malvamar',label:'Malvamar',x:332,y:656,w:43,h:30,kind:'special'},
+  {key:'Pilar Celeste',label:'Pilar Celeste',x:976,y:663,w:43,h:30,kind:'special'},
+  {key:'Isla del Sur',label:'Isla del Sur',x:685,y:710,w:43,h:30,kind:'special'},
+  {key:'Zona Safari',label:'Zona Safari',x:832,y:213,w:47,h:30,kind:'special'},
+  {key:'Cueva Fervergal',label:'Cueva Fervergal',x:299,y:300,w:43,h:29,kind:'special'},
+];
 function renderMap(){
- const zones=unique([...ROUTES,...HOENN_BOARD.map(n=>n.key),...state.routes.map(r=>r.zone_key)]).filter(Boolean);
  const selected=state.selectedRoute;
- const search=(state.mapSearch||'').toLocaleLowerCase('es');
- const filter=state.selectedMapFilter||'all';
- const kinds=state.hoennKinds||{city:true,route:true,special:false};
  const focus=['all','1','2'].includes(String(state.selectedMapPlayer||'all'))?String(state.selectedMapPlayer||'all'):'all';
- const visible=z=>(!search||z.toLocaleLowerCase('es').includes(search))&&(filter==='all'||zoneStatuses(z).some(s=>s===(filter==='captured'?'captured':filter==='free'?'free':'unknown')));
- const visibleZones=zones.filter(visible);
- const geometry=new Map(HOENN_BOARD.map(n=>[n.key,n]));
- const boardZones=HOENN_BOARD.filter(n=>kinds[n.kind]||n.key===selected);
- const viewLabel=focus==='all'?'Resumen compartido':`Mapa de ${pname(Number(focus))}`;
- const drawZone=n=>{
-  const isSelected=n.key===selected;
-  const statuses=zoneStatuses(n.key);
-  const stateClass=zoneVisualClass(n.key,focus);
-  const label=n.kind==='route'?`Ruta ${n.label}`:n.label;
-  const tooltip=`${label} · J1: ${mapStatusLabel(statuses[0])} · J2: ${mapStatusLabel(statuses[1])}`;
-  const text=n.kind==='route'?`<text class="le16-route-text" x="0" y="1">${esc(n.label)}</text>`:
-    n.kind==='city'?`<text class="le16-city-text" x="0" y="1">${esc(n.label)}</text>`:'<text class="le16-special-text" x="0" y="1">✦</text>';
-  return `<g class="le16-zone le16-${n.kind} ${stateClass} ${isSelected?'active':''}" data-route="${esc(n.key)}" data-zone-kind="${n.kind}" tabindex="0" role="button" aria-label="${esc(tooltip)}" aria-pressed="${isSelected}" transform="translate(${n.x} ${n.y}) rotate(${n.angle||0})"><title>${esc(tooltip)}</title><rect x="${-n.w/2}" y="${-n.h/2}" width="${n.w}" height="${n.h}" rx="${n.kind==='city'?5:n.kind==='route'?2:3}"/>${text}</g>`;
+ const search=(state.mapSearch||'').trim().toLocaleLowerCase('es');
+ const filter=state.selectedMapFilter||'all';
+ const typeFilter=state.hoennTypeFilter||'all';
+ const atlasByKey=new Map(HOENN_ATLAS.map(z=>[z.key,z]));
+ const zones=unique([...HOENN_ATLAS.map(z=>z.key),...ROUTES.filter(z=>z!=='Zonas SUPER RR (añadir manualmente)'),...state.routes.map(r=>r.zone_key)]);
+ const capturedIn=(name,slot)=>publicRouteStatus(name,slot)==='captured';
+ const statusCount=name=>Number(capturedIn(name,1))+Number(capturedIn(name,2));
+ const visible=z=>{
+  const item=atlasByKey.get(z),count=statusCount(z);
+  const mine=focus==='all'?false:capturedIn(z,Number(focus));
+  if(search&&!z.toLocaleLowerCase('es').includes(search))return false;
+  if(typeFilter!=='all' && (item?.kind||'special')!==typeFilter && !(typeFilter==='route'&&item?.kind==='water'))return false;
+  if(filter==='one'&&count!==1||filter==='both'&&count!==2||filter==='none'&&count!==0)return false;
+  if(filter==='my-captured' && (focus==='all'?count===0:!mine))return false;
+  if(filter==='failed' && ![1,2].some(n=>publicRouteStatus(z,n)==='failed'))return false;
+  return true;
  };
- const selectedData=geometry.get(selected);
- const stats={routes:HOENN_BOARD.filter(n=>n.kind==='route').length,cities:HOENN_BOARD.filter(n=>n.kind==='city').length,specials:HOENN_BOARD.filter(n=>n.kind==='special').length};
- const board=`<div class="le16-board-wrap" role="region" aria-label="Mapa esquemático interactivo de Hoenn" tabindex="0"><svg class="le16-board" data-map-focus="${focus}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 815" aria-label="Mapa de Hoenn con rutas, ciudades y lugares especiales seleccionables">
-  <defs>
-   <pattern id="le16-grid" width="38" height="38" patternUnits="userSpaceOnUse"><path d="M38 0H0V38" fill="none" stroke="#f0fbff" stroke-opacity=".05" stroke-width="1"/></pattern>
-   <linearGradient id="le16-sea" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#46b7ff"/><stop offset="1" stop-color="#1c80c7"/></linearGradient>
-   <linearGradient id="le16-land" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22a843"/><stop offset="1" stop-color="#1f7f37"/></linearGradient>
-   <filter id="le16-softShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#04111b" flood-opacity=".28"/></filter>
-  </defs>
-  <rect width="1400" height="815" fill="url(#le16-sea)" rx="12"/>
-  <rect width="1400" height="815" fill="url(#le16-grid)" rx="12"/>
-  <g class="le16-topography" filter="url(#le16-softShadow)">
-   <path d="M0 76 L210 76 210 48 344 48 344 78 483 78 483 48 806 48 806 76 1160 76 1160 471 1388 471 1388 680 0 680 Z" fill="url(#le16-land)" stroke="#0a5e27" stroke-width="3" opacity=".78"/>
-   <path d="M0 680 H219 V815 H0 Z" fill="url(#le16-land)" stroke="#0a5e27" stroke-width="3" opacity=".78"/>
-   <path d="M1038 485 h88 a15 15 0 0 1 15 15 v110 a15 15 0 0 1 -15 15 h-88 a15 15 0 0 1 -15 -15 v-110 a15 15 0 0 1 15 -15z" fill="url(#le16-land)" stroke="#0a5e27" stroke-width="3" opacity=".78"/>
-   <path d="M1225 618 h104 a15 15 0 0 1 15 15 v90 a15 15 0 0 1 -15 15 h-104 a15 15 0 0 1 -15 -15 v-90 a15 15 0 0 1 15 -15z" fill="url(#le16-land)" stroke="#0a5e27" stroke-width="3" opacity=".78"/>
-   <path d="M1085 700 h112 a15 15 0 0 1 15 15 v78 a15 15 0 0 1 -15 15 h-112 a15 15 0 0 1 -15 -15 v-78 a15 15 0 0 1 15 -15z" fill="url(#le16-land)" stroke="#0a5e27" stroke-width="3" opacity=".78"/>
+ const visibleZones=zones.filter(visible);
+ const visibleSet=new Set(visibleZones);
+ const focusName=focus==='all'?'Ambos jugadores':pname(Number(focus));
+ const colorClass=z=>zoneVisualClass(z,focus);
+ const getTitle=z=>`${z.key}: ${[1,2].map(n=>`${pname(n)}: ${mapStatusLabel(publicRouteStatus(z.key,n))}`).join(' · ')}`;
+ const mapShape=z=>{
+  const active=z.key===selected,dim=!visibleSet.has(z.key);
+  const isSquare=z.kind==='special';
+  const cssKind=(z.kind==='water'?'water':z.kind);
+  const w=z.w,h=z.h;
+  const label=z.kind==='special'?'◆':z.label;
+  const isTall=h>76&&w<75;
+  const title=getTitle(z);
+  return `<g class="atlas-zone atlas-${cssKind} ${colorClass(z.key)} ${active?'active':''} ${dim?'atlas-dim':''}" data-route="${esc(z.key)}" tabindex="0" role="button" aria-pressed="${active}" aria-label="${esc(title)}" transform="translate(${z.x} ${z.y})"><title>${esc(title)}</title><rect x="${-w/2}" y="${-h/2}" width="${w}" height="${h}" rx="${isSquare?5:6}"/><text class="${isTall?'atlas-vertical':''}" x="0" y="1" ${isTall?'transform="rotate(-90)"':''}>${esc(label)}</text></g>`;
+ };
+ const boardSvg=`<div class="atlas-scroll" tabindex="0" role="region" aria-label="Mapa interactivo de Hoenn. Desplaza horizontalmente si es necesario"><svg class="atlas-map" viewBox="0 0 1360 780" xmlns="http://www.w3.org/2000/svg" data-focus="${focus}" aria-label="Mapa de rutas, pueblos y lugares especiales de Hoenn"><defs><pattern id="atlas-grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity=".065"/></pattern><linearGradient id="atlas-sea" x2="0.9" y2="1"><stop stop-color="#298ac9"/><stop offset="1" stop-color="#174c83"/></linearGradient><linearGradient id="atlas-land" x2="1" y2="1"><stop stop-color="#2b946d"/><stop offset="1" stop-color="#186c59"/></linearGradient></defs>
+  <rect width="1360" height="780" fill="url(#atlas-sea)"/><rect width="1360" height="780" fill="url(#atlas-grid)"/>
+  <g class="atlas-geography" aria-hidden="true">
+   <path d="M20 118 L46 74 154 74 154 55 368 55 410 72 612 58 700 88 785 93 872 137 939 158 969 208 923 278 899 335 842 386 812 437 735 475 652 485 620 521 528 516 500 557 478 559 422 535 390 551 350 529 300 544 267 515 217 514 173 472 146 431 115 429 106 394 76 390 48 359 30 310 18 262Z" fill="url(#atlas-land)" stroke="#56c29f" stroke-width="3"/>
+   <path d="M5 538 H193 V651 H40 V761 H5Z" fill="url(#atlas-land)" opacity=".93" stroke="#56c29f" stroke-width="2"/>
+   <path d="M210 597 H283 V657 H210Z" fill="url(#atlas-land)" opacity=".93"/>
+   <path d="M1005 345 C1047 333 1110 349 1130 400 L1119 474 1066 502 1015 474Z" fill="url(#atlas-land)" opacity=".85" stroke="#56c29f" stroke-width="2"/>
+   <path d="M1144 549 L1246 529 1308 572 1308 651 1198 656 1148 631Z" fill="url(#atlas-land)" opacity=".9" stroke="#56c29f" stroke-width="2"/>
+   <path d="M1051 638 L1209 638 1232 708 1060 713Z" fill="url(#atlas-land)" opacity=".87" stroke="#56c29f" stroke-width="2"/>
+   <path d="M839 516 L912 513 935 566 831 585Z" fill="url(#atlas-land)" opacity=".78" stroke="#56c29f" stroke-width="2"/>
+   <path d="M653 675 Q713 644 766 672 L759 739 677 732Z" fill="url(#atlas-land)" opacity=".72" stroke="#56c29f" stroke-width="2"/>
   </g>
-  <g class="le16-terrain-lines" aria-hidden="true"><path d="M58 259 C270 209 409 209 609 259 S1010 298 1356 259"/><path d="M58 371 C251 332 422 332 616 371 S1000 410 1356 371"/><path d="M58 560 C268 525 448 525 660 560 S1044 594 1356 560"/></g>
-  <g class="le16-board-title" aria-hidden="true"><text x="50" y="55">HOENN</text><text x="52" y="76">POKÉNAV / SUPER RANDOM RUBY</text></g>
-  <text class="le16-watermark" x="812" y="26">OMEGA RUBY · ALPHA SAPPHIRE</text>
-  <text class="le16-watermark" x="1210" y="132">OCÉANO ESTE</text>
-  <text class="le16-watermark" x="705" y="790">REGISTRO DE CAPTURAS</text>
-  <g class="le16-zones">${boardZones.map(drawZone).join('')}</g>
- </svg></div>`;
- const details=[1,2].map(n=>{const r=routeState(player(n).user_id,selected);return `<div class="card" style="padding:15px"><div class="between mb-2"><strong>${esc(pname(n))}</strong>${pBadge(mapStatusLabel(r?.status),r?.status==='captured'?'green':'')}</div><div class="small">${r?.status==='captured'?`${esc(r.nickname||'Sin apodo')} · ${r.capture_level?'Nv. '+Number(r.capture_level)+' · ':''}${r.stat_total==null?'Stats por confirmar':r.stat_total+' stats'} · ${esc(encounterMethod(r.encounter_method))}`:'Sin captura normal confirmada'}</div></div>`}).join('');
- const list=visibleZones.map(z=>{const zone=geometry.get(z);return `<button type="button" class="route-item ${selected===z?'selected':''}" data-route="${esc(z)}"><span><strong>${esc(zone?.kind==='route'?z:(zone?.label||z))}</strong><small>${zone?({route:'Ruta numerada',city:'Ciudad / pueblo',special:'Lugar especial'}[zone.kind]):'Disponible en la lista · sin bloque asignado'}</small></span><span class="route-row">${[1,2].map(n=>{const r=routeState(player(n).user_id,z);return `<span class="badge ${r?.status==='captured'?'green':''}">J${n} ${r?.status==='captured'?'✓':r?.status==='free'?'○':'?'}</span>`}).join('')}</span></button>`}).join('');
- const focusButtons=[['all','Resumen'],['1',pname(1)],['2',pname(2)]].map(([val,label])=>`<button type="button" class="seg-btn ${focus===val?'active':''}" data-map-view="${val}" aria-pressed="${focus===val}">${esc(label)}</button>`).join('');
- const legend=focus==='all'
-  ? `<span><i class="map-key none"></i> Sin capturas</span><span><i class="map-key one"></i> Solo uno</span><span><i class="map-key both"></i> Ambos</span>`
-  : `<span><i class="map-key none"></i> Sin capturar por ${esc(pname(Number(focus)))}</span><span><i class="map-key ${focus==='1'?'slot1':'slot2'}"></i> Capturada por ${esc(pname(Number(focus)))}</span><span><i class="map-key both"></i> Capturada por ambos</span>`;
- return `${detailHead('REGIÓN DE HOENN','Mapa de capturas','Tablero funcional para comprobar de un vistazo qué zonas siguen libres y cuáles ya fueron consumidas por uno o por ambos jugadores.')}${renderCurrentLocation()}<div class="le16-full-layout section-gap"><section class="card le16-map-card"><div class="le16-map-head"><div><div class="kicker">POKÉNAV / REGIÓN DE HOENN</div><h2>Tablero de capturas</h2><p class="small">${stats.routes} rutas · ${stats.cities} núcleos · ${stats.specials} lugares especiales · ${viewLabel}</p></div><div class="le16-selected-name"><small>SELECCIONADA</small><strong>${esc(selectedData?(selectedData.kind==='route'?'Ruta '+selectedData.label:selectedData.label):selected)}</strong></div></div><div class="le16-view-switch" role="group" aria-label="Cambiar vista del mapa">${focusButtons}</div>${board}<div class="le16-controls"><div class="hoenn-kind-controls" role="group" aria-label="Tipos de ubicaciones">${[['city','Ciudades'],['route','Rutas'],['special','Lugares especiales']].map(([kind,name])=>`<label><input type="checkbox" data-hoenn-kind="${kind}" ${kinds[kind]?'checked':''}> ${name}</label>`).join('')}</div><div class="map-legend">${legend}</div></div><p class="small le16-note">En <strong>Resumen</strong>, todo aparece gris hasta que una zona se captura: azul si la capturó uno, verde si la capturasteis ambos. En la vista de cada jugador, solo se colorean las zonas capturadas por ese jugador y el resto permanece en gris.</p></section><div class="route-layout le16-layout section-gap"><div class="stack">${card('Zona seleccionada',`<div class="between mb-3"><h2>${esc(selected)}</h2><button class="button secondary compact" data-action="route-edit">Editar estado</button></div><div class="grid-2">${details}</div><p class="small mt-2">Usa esta ficha para confirmar consumos de captura. Lo importante aquí es saber si la zona sigue libre, ya fue usada por uno, o ya fue usada por los dos.</p>`)}</div>${card('Zonas y rutas',`<div class="route-controls"><input id="route-search" class="field" type="search" placeholder="Buscar ruta o zona..." aria-label="Buscar ruta o zona" value="${esc(state.mapSearch||'')}"><select id="map-filter" class="select" aria-label="Filtrar zonas">${[['all','Todas'],['captured','Con captura'],['free','Disponibles'],['unknown','Sin verificar']].map(([val,label])=>`<option value="${val}" ${filter===val?'selected':''}>${label}</option>`).join('')}</select></div><div class="small mb-2">${visibleZones.length} zonas mostradas · ${zones.length} registradas</div><div class="route-list">${list||'<div class="empty">No hay coincidencias</div>'}</div>`)}</div>${renderEncounterTracker()}</div>`;
+  <g class="atlas-contours" aria-hidden="true"><path d="M114 202 Q286 137 413 209 T862 255"/><path d="M135 328 Q318 265 540 318 T883 354"/><path d="M151 454 Q338 405 499 451 T821 445"/></g>
+  <g class="atlas-name" aria-hidden="true"><text x="42" y="42">HOENN</text><text x="192" y="38">REGIÓN 03 · ORAS</text><text x="1090" y="92">MAR DEL ESTE</text></g>
+  <g class="atlas-zones">${HOENN_ATLAS.map(mapShape).join('')}</g></svg></div>`;
+ const details=[1,2].map(slot=>{
+  const r=routeState(player(slot).user_id,selected),status=r?.status||'unknown';
+  return `<div class="atlas-detail-player ${status==='captured'?'captured':''}"><div class="atlas-player-heading"><span class="atlas-avatar">${slot}</span><strong>${esc(pname(slot))}</strong>${pBadge(mapStatusLabel(status),status==='captured'?'green':status==='failed'?'red':'')}</div>${status==='captured'?`<div class="atlas-nickname">${esc(r.nickname||'Apodo pendiente')}</div><div class="atlas-attrs"><span>${r.capture_level?'Nv. '+Number(r.capture_level):'Nivel sin verificar'}</span><span>${esc(encounterMethod(r.encounter_method))}</span><span>${r.stat_total!=null?Number(r.stat_total)+' stats':'Stats sin verificar'}</span></div>`:`<p class="small">${status==='failed'?'Intento fallido: ya no disponible.':status==='free'?'Captura disponible (confirmada).':'Aún no se ha verificado el estado.'}</p>`}</div>`;
+ }).join('');
+ const list=visibleZones.map(zone=>{
+  const z=atlasByKey.get(zone),status=statusCount(zone);
+  return `<button class="atlas-location ${selected===zone?'selected':''}" type="button" data-route="${esc(zone)}"><span class="atlas-location-icon ${z?.kind||'special'}">${z?.kind==='water'?'≈':z?.kind==='city'?'■':z?.kind==='special'?'◆':'▬'}</span><span class="atlas-location-text"><strong>${esc(z?(z.kind==='route'||z.kind==='water'?'Ruta '+z.label:z.label):zone)}</strong><small>${z?(z.kind==='city'?'Ciudad o pueblo':z.kind==='special'?'Lugar especial':z.kind==='water'?'Ruta marítima':'Ruta terrestre'):'Zona personalizada'}</small></span><span class="atlas-progress">${status}/2</span></button>`;
+ }).join('');
+ const sumCaptures=(slot)=>zones.filter(z=>capturedIn(z,slot)).length;
+ const totalBoth=zones.filter(z=>statusCount(z)===2).length;
+ const tabs=[['all','Resumen'],['1',pname(1)],['2',pname(2)]].map(([v,label])=>`<button class="atlas-tab ${focus===v?'active':''}" type="button" data-map-view="${v}" aria-pressed="${focus===v}">${esc(label)}</button>`).join('');
+ const options=(entries,val)=>entries.map(([v,t])=>`<option value="${v}" ${v===val?'selected':''}>${esc(t)}</option>`).join('');
+ return `${detailHead('REGIÓN DE HOENN','Atlas de capturas','Un mapa interactivo para saber dónde habéis utilizado la captura normal, sin revelar especies ni Pokémon posibles.')}${renderCurrentLocation()}
+ <section class="atlas-shell section-gap" aria-label="Atlas de capturas de Hoenn"><div class="atlas-toolbar"><div><div class="kicker">POKÉNAV · RUTAS DE HOENN</div><h2>Explorar Hoenn</h2><p class="small">${zones.length} zonas registradas · ${sumCaptures(1)} de ${esc(pname(1))} · ${sumCaptures(2)} de ${esc(pname(2))} · ${totalBoth} compartidas</p></div><div class="atlas-tabs" role="group" aria-label="Elegir el mapa del jugador">${tabs}</div></div>
+ <div class="atlas-columns"><div class="atlas-main">${boardSvg}<div class="atlas-key"><span><i class="k-none"></i> Sin confirmar captura</span><span><i class="k-one"></i> ${focus==='all'?'Capturada por uno':'Capturada por este jugador'}</span>${focus==='all'?'<span><i class="k-both"></i> Capturada por ambos</span>':''}</div><p class="atlas-hint">En gris hasta registrar la captura. Los colores permiten distinguir rápidamente las zonas utilizadas; consulta la ficha para ver su estado exacto. Las figuras son las áreas clicables.</p></div>
+ <aside class="atlas-side" aria-label="Buscar y consultar zonas"><div class="atlas-search"><label for="route-search" class="small">Buscar ubicación</label><input id="route-search" type="search" class="field" value="${esc(state.mapSearch||'')}" placeholder="Ej. Ruta 101, Bosque Petalia"></div><div class="atlas-filter-row"><select class="select" id="atlas-type-filter" aria-label="Tipo de zona">${options([['all','Todos los tipos'],['route','Rutas terrestres'],['water','Rutas de agua'],['city','Ciudades y pueblos'],['special','Lugares especiales']],typeFilter)}</select><select class="select" id="map-filter" aria-label="Estado de captura">${options([['all','Todos los estados'],['none','Ninguna captura'],['one','Solo uno'],['both','Ambos'],['my-captured','Capturadas en vista'],['failed','Intento fallido']],filter)}</select></div><div class="atlas-count">${visibleZones.length} ubicaciones encontradas</div><div class="atlas-index">${list||'<p class="empty">No hay zonas con esos filtros.</p>'}</div><div class="atlas-selection"><div class="atlas-selection-head"><div><span class="kicker">ZONA SELECCIONADA</span><h3>${esc(atlasByKey.get(selected)&&['route','water'].includes(atlasByKey.get(selected).kind)?'Ruta '+atlasByKey.get(selected).label:(atlasByKey.get(selected)?.label||selected))}</h3></div><button class="button compact secondary" type="button" data-action="route-edit">Editar</button></div>${details}</div></aside></div></section>
+ ${renderEncounterTracker()}`;
 }
 
 /* Registro público: no renderiza especies, habilidades, movimientos, IV ni Pokémon todavía en huevo. */
 function renderEncounterTracker(){
  const tab=state.encounterTab==='special'?'special':'routes';
- const allZones=unique([...ROUTES.filter(z=>z!=='Zonas SUPER RR (añadir manualmente)'),...HOENN_BOARD.map(n=>n.key),...state.routes.map(r=>r.zone_key)]).filter(Boolean);
+ const allZones=unique([...ROUTES.filter(z=>z!=='Zonas SUPER RR (añadir manualmente)'),...HOENN_ATLAS.map(n=>n.key),...state.routes.map(r=>r.zone_key)]).filter(Boolean);
  const normal=allZones.map(zone=>{
   const rows=[1,2].map(slot=>{
    const r=routeState(player(slot).user_id,zone),status=r?.status||'unknown';
@@ -226,7 +236,7 @@ function renderShop(){const cats=unique(state.catalog.map(i=>i.category));const 
 function renderEggs(){const mine=own();const playerId=mine?.user_id;const owns=(state.pokemon||[]).filter(p=>p.owner_id===playerId && p.is_egg&&p.present&&!p.claimed);const otherIds=[1,2];return `${detailHead('INCUBADORA · SUPER RR','Huevos ponderados','La probabilidad de cada huevo varía según las vidas y la calidad de las plantillas. Nunca se revela su contenido.',`<span class="badge amber">Sorteo irreversible</span>`)}<div class="grid-2 mb-3">${otherIds.map(n=>`<div class="card"><div class="kicker">${esc(pname(n))}</div><div class="between mt-2"><div><div class="stat-value">${credits(player(n).user_id,'egg')}</div><div class="small">Créditos para abrir</div></div><div class="shop-icon">◌</div></div></div>`).join('')}</div><div class="egg-layout">${card('Tu siguiente huevo',`<div class="egg-podium"><div class="egg-art" aria-hidden="true"></div><div class="egg-result">${state.claims.filter(c=>c.player_id===playerId)[0]?`Caja ${state.claims.filter(c=>c.player_id===playerId).slice(-1)[0].box_num} · Posición ${state.claims.filter(c=>c.player_id===playerId).slice(-1)[0].slot_num}`:'Identidad desconocida'}</div><p class="small mt-2">${mine?`Huevos pendientes: ${owns.length}`:'Inicia sesión para consultar tus huevos'}</p></div><button class="button full mt-3" data-action="draw-egg">Sortear un huevo</button><div class="notice mt-3">Una vez confirmado el sorteo, no podrás repetirlo para escoger otro. Solo se muestra la ubicación.</div>`)}${card('Cómo se decide',`<ol class="steps"><li>Se comprueban las vidas restantes de ambos jugadores.</li><li>Se evalúan las seis mejores criaturas vivas de cada uno.</li><li>Se valora cada huevo elegible por su BST y distribución estadística, sin penalizar Ausente.</li><li>El jugador en desventaja recibe más posibilidades de huevos fuertes, sin garantizar ninguno.</li><li>El sistema guarda caja y posición del elegido sin revelar especie, IV ni naturaleza.</li></ol><div class="rule-note">Quedan excluidos los huevos cuyo Pokémon supera 601 BST, salvo Slaking. También los que ya se hayan asignado.</div>`)}</div><div class="section-gap">${card('Historial de sorteos',state.claims.length?`<div class="table-wrap"><table class="data-table"><thead><tr><th>Jugador</th><th>Resultado</th><th>Fecha</th></tr></thead><tbody>${state.claims.map(c=>`<tr><td>${esc(state.players.find(p=>p.user_id===c.player_id)?.display_name||'Jugador')}</td><td>Caja ${c.box_num}, posición ${c.slot_num}</td><td>${fmt(c.created_at)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Ningún huevo sorteado todavía.</div>')}</div>`}
 function renderHistory(){const entries=[...state.economy.map(x=>({when:x.created_at,heading:`${Number(x.amount)>0?'+':''}${x.amount} PF · ${x.kind}`,desc:state.players.find(p=>p.user_id===x.player_id)?.display_name||'Jugador'})),...state.series.map(s=>({when:s.created_at,heading:'Enfrentamiento BO3 · '+(s.status==='finished'?'finalizado':'en curso'),desc:'Pokémon Showdown'})),...state.progress.filter(p=>p.updated_at).map(p=>({when:p.updated_at,heading:'Partida actualizada',desc:p.trainer_name||'Entrenador'}))].sort((a,b)=>String(b.when).localeCompare(String(a.when)));return `${detailHead('REGISTRO DE EVENTOS','Historial compartido','Evolución de partidas, ganancias, compras y combates registrados en la web.')}<div class="card">${entries.length?`<div class="timeline">${entries.slice(0,120).map(e=>`<div class="event"><h3>${esc(e.heading)}</h3><p>${esc(e.desc)} · ${fmt(e.when)}</p></div>`).join('')}</div>`:'<div class="empty">Todavía no hay actividad registrada.</div>'}</div>`}
 function renderSettings(){return `${detailHead('REGLAS Y ACCESO','Configuración','Parámetros centrales del Dualocke. Los cambios afectan a cálculos posteriores sin alterar compras ya realizadas.')}<div class="grid-2">${card('Reglas generales',`<form id="rules-form"><div class="config-row"><div><strong>Vidas iniciales</strong><div class="small">Por jugador, editables después</div></div><input class="field" type="number" name="life_limit" min="1" max="999" value="${conf('life_limit')}"></div><div class="config-row"><div><strong>Pokéfichas por medalla</strong></div><input class="field" type="number" name="gym_pf" min="0" value="${conf('gym_pf')}"></div><div class="config-row"><div><strong>Pokéfichas por KO</strong></div><input class="field" type="number" name="ko_pf" min="0" value="${conf('ko_pf')}"></div><div class="config-row"><div><strong>BST máximo normal</strong><div class="small">Slaking siempre es excepción</div></div><input class="field" type="number" name="cap_bst" min="1" value="${conf('cap_bst')}"></div><div class="config-row"><div><strong>Precio de huevo</strong></div><input class="field" type="number" name="egg_price" min="1" value="${conf('egg_price')}"></div><button class="button full mt-3" type="submit">Guardar reglas</button></form>`)}${card('Conexión',`<div class="rule-note mb-3">${CONNECTED?'Proyecto Supabase configurado.':'Vista previa: configura URL pública y clave anon en app.js; ejecuta database.sql en Supabase.'}</div><div class="stack"><p class="small">Cuenta actual: <strong>${esc(state.account?.email||'Sin sesión')}</strong></p><p class="small">Jugador asociado: <strong>${esc(own()?.display_name||'Pendiente')}</strong></p><button class="button secondary" data-action="account">${state.account?'Cerrar sesión':'Iniciar sesión'}</button><button class="button secondary" data-action="import">Subir un archivo main</button><button class="button ghost" data-action="export">Exportar datos visibles (JSON)</button></div><div class="line"></div><p class="small">Privacidad real: las especies, habilidades, movimientos y huevos de cada jugador se guardan en una tabla con Row Level Security. Ninguna cuenta puede consultar la tabla privada del rival.</p>`)}</div><div class="section-gap">${card('Reglas de progresión',`<div class="table-wrap"><table class="data-table"><thead><tr><th>Enfrentamiento</th><th>Límite nivel</th></tr></thead><tbody>${BOSSES.map(([n,c])=>`<tr><td>${esc(n)}</td><td>${c}</td></tr>`).join('')}</tbody></table></div><div class="rule-note mt-3">Los niveles de jefes son límites obligatorios. Excederlos no resta automáticamente vidas. Las cajas 30/31 son el cementerio.</div>`)}</div>`}
-function bindPage(){$$('[data-action]').forEach(b=>b.onclick=()=>actions(b.dataset.action));$$('[data-go]').forEach(b=>b.onclick=()=>location.hash=b.dataset.go);$$('[data-route]').forEach(b=>{b.onclick=()=>{state.selectedRoute=b.dataset.route;render()};if(b.tagName.toLowerCase()==='g')b.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();b.dispatchEvent(new MouseEvent('click',{bubbles:true}))}}});$('#route-search')?.addEventListener('input',e=>{const pos=e.target.selectionStart;state.mapSearch=e.target.value;render();const f=$('#route-search');f?.focus();f?.setSelectionRange(pos,pos)});$('#map-filter')?.addEventListener('change',e=>{state.selectedMapFilter=e.target.value;render()});$$('[data-hoenn-kind]').forEach(ch=>ch.onchange=()=>{state.hoennKinds={...(state.hoennKinds||{city:true,route:true,special:false}),[ch.dataset.hoennKind]:ch.checked};render()});$$('[data-map-view]').forEach(b=>b.onclick=()=>{state.selectedMapPlayer=b.dataset.mapView;render()});$$('[data-encounter-tab]').forEach(b=>b.onclick=()=>{state.encounterTab=b.dataset.encounterTab;render();document.querySelector('.enc18-panel')?.scrollIntoView({block:'nearest'})});$$('[data-special-edit]').forEach(b=>b.onclick=()=>editSpecialEncounter(b.dataset.specialEdit));$$('[data-special-remove]').forEach(b=>b.onclick=()=>removeSpecialEncounter(b.dataset.specialRemove));$('#shop-search')?.addEventListener('input',e=>{const pos=e.target.selectionStart;state.shopQuery=e.target.value;render();const f=$('#shop-search');f?.focus();f?.setSelectionRange(pos,pos)});$('#shop-cat')?.addEventListener('change',e=>{state.selectedCategory=e.target.value;render()});$$('[data-buy]').forEach(b=>b.onclick=()=>buyItem(b.dataset.buy));$('#replay-form')?.addEventListener('submit',importReplay);$('#rules-form')?.addEventListener('submit',saveRules);}
+function bindPage(){$$('[data-action]').forEach(b=>b.onclick=()=>actions(b.dataset.action));$$('[data-go]').forEach(b=>b.onclick=()=>location.hash=b.dataset.go);$$('[data-route]').forEach(b=>{b.onclick=()=>{const scroll=$('.atlas-scroll')?.scrollLeft||0;state.selectedRoute=b.dataset.route;render();if($('.atlas-scroll'))$('.atlas-scroll').scrollLeft=scroll};if(b.tagName.toLowerCase()==='g')b.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();b.dispatchEvent(new MouseEvent('click',{bubbles:true}))}}});$('#route-search')?.addEventListener('input',e=>{const pos=e.target.selectionStart;state.mapSearch=e.target.value;render();const f=$('#route-search');f?.focus();f?.setSelectionRange(pos,pos)});$('#map-filter')?.addEventListener('change',e=>{state.selectedMapFilter=e.target.value;render()});$('#atlas-type-filter')?.addEventListener('change',e=>{state.hoennTypeFilter=e.target.value;render()});$$('[data-hoenn-kind]').forEach(ch=>ch.onchange=()=>{state.hoennKinds={...(state.hoennKinds||{city:true,route:true,special:false}),[ch.dataset.hoennKind]:ch.checked};render()});$$('[data-map-view]').forEach(b=>b.onclick=()=>{state.selectedMapPlayer=b.dataset.mapView;render()});$$('[data-encounter-tab]').forEach(b=>b.onclick=()=>{state.encounterTab=b.dataset.encounterTab;render();document.querySelector('.enc18-panel')?.scrollIntoView({block:'nearest'})});$$('[data-special-edit]').forEach(b=>b.onclick=()=>editSpecialEncounter(b.dataset.specialEdit));$$('[data-special-remove]').forEach(b=>b.onclick=()=>removeSpecialEncounter(b.dataset.specialRemove));$('#shop-search')?.addEventListener('input',e=>{const pos=e.target.selectionStart;state.shopQuery=e.target.value;render();const f=$('#shop-search');f?.focus();f?.setSelectionRange(pos,pos)});$('#shop-cat')?.addEventListener('change',e=>{state.selectedCategory=e.target.value;render()});$$('[data-buy]').forEach(b=>b.onclick=()=>buyItem(b.dataset.buy));$('#replay-form')?.addEventListener('submit',importReplay);$('#rules-form')?.addEventListener('submit',saveRules);}
 /* --- Supabase REST + GoTrue: no secrets stored in GitHub Pages --- */
 async function api(path,{method='GET',body,auth=true,headers={}}={}){
   if(!CONNECTED)throw Error('Falta configurar Supabase');
