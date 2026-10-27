@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {
   canonicalZone, locationName, mapStatusLabel, encounterMethod,
   decodePK6, parseSave, calcStats, planCaptureRoutes,
-  getReplayId, interpretReplay, HOENN_ATLAS, BOSSES
+  getReplayId, interpretReplay, HOENN_ATLAS, BOSSES, loadDex
 } from '../app.js';
 
 // Pruebas sin red, credenciales ni archivos main personales. Se usa PK6 sintético.
@@ -143,6 +143,20 @@ test('replays: lee vencedor, bajas y datos públicos revelados',()=>{
  assert.throws(()=>interpretReplay({log:'|player|p1|Varo\n|win|Varo'}),/dos jugadores/);
 });
 
+
+test('Pokédex ORAS local: importa sin peticiones a Showdown y conserva nombres y BST',async()=>{
+ const previousFetch=globalThis.fetch;
+ globalThis.fetch=()=>{throw Error('No se permite descargar la Pokédex para importar main')};
+ try{
+  const dex=await loadDex();
+  assert.equal(Object.keys(dex).length,721);
+  assert.deepEqual(dex[25],{num:25,name:'Pikachu',baseStats:{hp:35,atk:55,def:40,spa:50,spd:50,spe:90}});
+  assert.equal(dex[289].name,'Slaking');
+  assert.equal(Object.values(dex[289].baseStats).reduce((a,b)=>a+b,0),670);
+  assert.equal(dex[721].name,'Volcanion');
+  assert.equal(await loadDex(),dex);
+ }finally{globalThis.fetch=previousFetch}
+});
 
 test('límites RO_2.0 para gimnasios: resto pendiente',()=>{
   assert.deepEqual(BOSSES.map(x=>x[1]),[18,21,27,36,39,46,59,60,48,52,53,54,55,59]);

@@ -8,6 +8,7 @@ const CONNECTED = !SUPABASE_URL.includes('TU-PROYECTO') && !SUPABASE_ANON_KEY.in
 
 /* Gimnasios RO_2.0: la Liga y Calle Victoria siguen pendientes de confirmar. */
 import {ORAS_BASE_STATS,getOrasBaseStats} from './oras-base-stats.js';
+import {ORAS_SPECIES_NAMES} from './oras-species-names.js';
 
 const BOSSES = [
  ['Petra',18], ['Marcial',21], ['Érico',27], ['Candela',36],
@@ -666,7 +667,18 @@ function calcStats(base,level,ivs,nature){if(!base||!level)return null;const nam
 function dexRating(pk,mon){if(!mon)return null;const b=getOrasBaseStats(pk.species,mon.baseStats)||{};const bst=Object.values(b).reduce((a,v)=>a+Number(v),0);if(!bst)return null;const av=bst/6,dev=Object.values(b).reduce((a,v)=>a+Math.abs(v-av),0)/6;const efficiency=Math.max(0,1-dev/160);const ivs=pk.ivs||[15,15,15,15,15,15];const ivScore=ivs.reduce((a,v)=>a+v,0)/(31*6);const bstScore=Math.min(1,Math.max(0,(bst-180)/490));const quality=100*(0.70*bstScore+0.15*efficiency+0.10*0.5+0.05*ivScore);
   return {bst,quality:Math.round(quality*100)/100};
 }
-async function loadDex(){if(state.dexReady)return;const res=await fetch('https://play.pokemonshowdown.com/data/pokedex.json');if(!res.ok)throw Error('No se pudo cargar el catálogo estadístico de especies');const data=await res.json();const byNum={};for(const v of Object.values(data)){if(!v.num||v.num>721||v.num<1||!v.baseStats)continue;if(!byNum[v.num]||!v.forme)byNum[v.num]=v;}state.dex=byNum;state.dexReady=true;}
+async function loadDex(){
+  if(state.dexReady)return state.dex;
+  const byNum={};
+  for(let num=1;num<=721;num++){
+    const name=ORAS_SPECIES_NAMES[num],baseStats=getOrasBaseStats(num);
+    if(!name||!baseStats)throw Error(`Faltan datos locales de la especie #${num}`);
+    byNum[num]={num,name,baseStats};
+  }
+  state.dex=byNum;
+  state.dexReady=true;
+  return state.dex;
+}
 async function sha256Hex(buffer){
  if(!globalThis.crypto?.subtle)throw Error('Necesitas HTTPS o localhost para verificar la huella del guardado.');
  const bytes=new Uint8Array(await crypto.subtle.digest('SHA-256',buffer));
@@ -828,4 +840,4 @@ if(typeof document!=='undefined'){
     if(CONNECTED){if(state.session){try{await loadShared()}catch(err){if(/invalid.*refresh|jwt expired|sesión caducada|refresh token|\b401\b/i.test(String(err.message))){toast('Sesión caducada; vuelve a iniciar sesión.','error');state.session=null;sessionStorage.removeItem('dualocke_session');loginModal()}/* Otros errores ya se muestran con el aviso persistente de sincronización. */}}else loginModal()}
   });
 }
-export {parseSave,decodePK6,calcStats,interpretReplay,getReplayId,locationName,planCaptureRoutes,canonicalZone,mapStatusLabel,encounterMethod,HOENN_ATLAS,BOSSES};
+export {parseSave,decodePK6,calcStats,interpretReplay,getReplayId,locationName,planCaptureRoutes,canonicalZone,mapStatusLabel,encounterMethod,HOENN_ATLAS,BOSSES,loadDex};
