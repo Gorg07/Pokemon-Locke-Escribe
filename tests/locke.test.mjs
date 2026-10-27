@@ -144,6 +144,6 @@ test('replays: lee vencedor, bajas y datos públicos revelados',()=>{
 });
 
 
-test('límites de RO_3 y ZA_4: 8 gimnasios y Calle Victoria / Liga',()=>{
- assert.deepEqual(BOSSES.map(x=>x[1]),[14,16,21,28,30,35,45,46,48,52,53,54,55,59]);
+test('límites RO_2.0 para gimnasios: resto pendiente',()=>{
+  assert.deepEqual(BOSSES.map(x=>x[1]),[18,21,27,36,39,46,59,60,48,52,53,54,55,59]);
 });
