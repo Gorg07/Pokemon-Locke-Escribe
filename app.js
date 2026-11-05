@@ -47,7 +47,48 @@ function own(){return state.players.find(x=>x.user_id===state.account?.id)}
 function detailHead(eye,title,sub,action=''){return `<div class="page-heading"><div><div class="eyebrow">${eye}</div><h1>${title}</h1><p>${sub}</p></div>${action}</div>`}
 function card(title,body,classes=''){return `<section class="card ${classes}"><div class="card-head"><h2>${title}</h2></div>${body}</section>`}
 function pBadge(v,clazz=''){return `<span class="badge ${clazz}">${esc(v)}</span>`}
-function pcolor(n){return n===1?'red':'blue'}
+// El color representa la ROM, no el orden del usuario en Supabase.
+// Brunmega puede incluir caracteres decorativos entre «Brun» y «mega».
+function editionForName(value){
+ const name=String(value??'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es');
+ if(/brun.*mega/.test(name))return 'ruby';
+ if(/(?:^|[^a-z])(?:varo|alvaro)(?=$|[^a-z])/.test(name))return 'sapphire';
+ return null;
+}
+function playerEdition(n){
+ return editionForName(player(n).display_name)||editionForName(prog(n).trainer_name)||(n===1?'ruby':'sapphire');
+}
+function pcolor(n){return playerEdition(n)==='ruby'?'red':'blue'}
+// Ajusta etiquetas y marcas visuales sin modificar el orden ni los datos de los jugadores.
+function decoratePlayerColors(){
+ $$('.trainer-card .trainer-badge').forEach((badge,i)=>{
+   badge.textContent=playerEdition(i+1)==='ruby'?'RUBÍ':'ZAFIRO';
+ });
+ const decorate=(selector)=> $$(selector).forEach((element,i)=>element.classList.add(`edition-${playerEdition(i+1)}`));
+ decorate('.location-player');
+ decorate('.atlas-detail-player');
+ $$('.atlas-tab[data-map-view]').forEach(tab=>{
+   const slot=Number(tab.dataset.mapView);
+   if(slot===1||slot===2)tab.classList.add(`edition-${playerEdition(slot)}`);
+ });
+ $$('.atlas-mini-states').forEach(group=>{
+   [...group.children].slice(0,2).forEach((element,i)=>element.classList.add(`edition-${playerEdition(i+1)}`));
+ });
+ $$('.enc18-player-grid').forEach(group=>{
+   [...group.children].slice(0,2).forEach((element,i)=>element.classList.add(`edition-${playerEdition(i+1)}`));
+ });
+ const map=$('.atlas-map');
+ if(!map)return;
+ const one=$('.atlas-key .k-one');
+ if(!one)return;
+ if(map.dataset.focus==='all'){
+   one.parentElement.innerHTML='<i class="k-ruby"></i> Solo Rubí';
+   one.parentElement.insertAdjacentHTML('afterend','<span><i class="k-sapphire"></i> Solo Zafiro</span>');
+ }else{
+   one.className=`k-${playerEdition(Number(map.dataset.focus))}`;
+ }
+}
+
 function ensurePage(){const valid=['inicio','mapa','combates','tienda','huevos','historial','ajustes'];state.page=valid.includes(location.hash.slice(1))?location.hash.slice(1):'inicio';$$('nav a');}
 function $$(s){return [...document.querySelectorAll(s)]}
 function render(){
@@ -64,6 +105,7 @@ function render(){
  if(atlasOld)state.atlasScrollLeft=atlasOld.scrollLeft;
  const warning=state.syncError?`<div class="notice le20-sync-warning" role="alert"><strong>Datos no sincronizados.</strong> No importes ni registres nuevas operaciones hasta recuperar la conexión. Error: ${esc(state.syncError)} <button type="button" class="button secondary compact" data-action="retry-sync">Reintentar</button></div>`:'';
  $('#screen').innerHTML=warning+sections[state.page]();
+ decoratePlayerColors();
  bindPage();
  const atlasNext=$('.atlas-scroll');
  if(atlasNext)atlasNext.scrollLeft=state.atlasScrollLeft||0;
@@ -83,10 +125,10 @@ function zoneCaptureCount(zone){return zoneStatuses(zone).filter(s=>s==='capture
 function zoneVisualClass(zone,focus='all'){
  const statuses=zoneStatuses(zone), captured=[statuses[0]==='captured',statuses[1]==='captured'];
  const capturedCount=captured.filter(Boolean).length;
- if(focus==='all')return capturedCount===2?'state-both':capturedCount===1?'state-one':'state-none';
+ if(focus==='all')return capturedCount===2?'state-both':capturedCount===1?`state-one edition-${playerEdition(captured[0]?1:2)}`:'state-none';
  const slot=Math.max(1,Math.min(2,Number(focus)||1));
  if(!captured[slot-1])return `state-none focus-slot-${slot}`;
- return `state-player focus-slot-${slot} ${capturedCount===2?'state-both':'state-one'}`;
+ return `state-player focus-slot-${slot} edition-${playerEdition(slot)} ${capturedCount===2?'state-both':'state-one'}`;
 }
 function mapStatusLabel(status){return status==='captured'?'Capturada':status==='failed'?'Fallida':status==='free'?'Disponible':'Sin verificar'}
 /* v2.1: estados públicos del atlas; sin datos privados ni tablas de encuentros. */
@@ -880,4 +922,4 @@ if(typeof document!=='undefined'){
     if(CONNECTED){if(state.session){try{await loadShared()}catch(err){if(/invalid.*refresh|jwt expired|sesión caducada|refresh token|\b401\b/i.test(String(err.message))){toast('Sesión caducada; vuelve a iniciar sesión.','error');state.session=null;sessionStorage.removeItem('dualocke_session');loginModal()}/* Otros errores ya se muestran con el aviso persistente de sincronización. */}}else loginModal()}
   });
 }
-export {parseSave,decodePK6,calcStats,interpretReplay,getReplayId,locationName,planCaptureRoutes,canonicalZone,mapStatusLabel,encounterMethod,HOENN_ATLAS,BOSSES,loadDex};
+export {parseSave,decodePK6,calcStats,interpretReplay,getReplayId,locationName,planCaptureRoutes,canonicalZone,mapStatusLabel,encounterMethod,HOENN_ATLAS,BOSSES,loadDex,editionForName};

@@ -1829,3 +1829,29 @@ footer span {
 .v23-record{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;background:#193b53;border-radius:7px;padding:9px 11px;font-size:12px}
 .v23-record span{color:#c2ddeb;overflow-wrap:anywhere}
 @media(max-width:650px){.v23-adventure{padding:13px}.v23-archive-detail{padding:11px}.v23-create{display:grid}.v23-run-actions{width:100%}.v23-run-actions .button{flex:1}}
+
+
+/* Ediciones de cada entrenador: Rubí = rojo, Zafiro = azul.
+   La interfaz conserva el verde para las capturas de ambos y los avisos de error. */
+.trainer-card.red .progress > span{background:linear-gradient(90deg,#b83f4e,#ed6d65)}
+.location-player.edition-ruby{border-left:3px solid var(--red)}
+.location-player.edition-sapphire{border-left:3px solid var(--blue)}
+.atlas-tab.edition-ruby.active{background:#8b3e4b}
+.atlas-tab.edition-sapphire.active{background:#24638c}
+.atlas-detail-player.edition-ruby{border-left:3px solid var(--red)}
+.atlas-detail-player.edition-sapphire{border-left:3px solid var(--blue)}
+.atlas-detail-player.edition-ruby .atlas-avatar{background:#954450}
+.atlas-detail-player.edition-sapphire .atlas-avatar{background:#2b6d9d}
+.atlas-mini-state.captured.edition-ruby{background:#903e4b;border-color:#ed6d65;color:#fff3f2}
+.atlas-mini-state.captured.edition-sapphire{background:#245f89;border-color:#5fbcf7;color:#e9f7ff}
+.enc18-player.captured.edition-ruby{border-left-color:var(--red)}
+.enc18-player.captured.edition-sapphire{border-left-color:var(--blue)}
+.atlas-key .k-ruby{background:#d6505d}
+.atlas-key .k-sapphire{background:#328fd4}
+/* Prioridad sobre los colores genéricos del mapa, definidos en v2.1. */
+.atlas-map[data-focus="all"] .atlas-zone.state-one.edition-ruby rect,
+.atlas-map[data-focus="1"] .atlas-zone.state-player.edition-ruby rect,
+.atlas-map[data-focus="2"] .atlas-zone.state-player.edition-ruby rect{fill:#d6505d;fill-opacity:.56;stroke:#ffb6bf;stroke-width:1.8}
+.atlas-map[data-focus="all"] .atlas-zone.state-one.edition-sapphire rect,
+.atlas-map[data-focus="1"] .atlas-zone.state-player.edition-sapphire rect,
+.atlas-map[data-focus="2"] .atlas-zone.state-player.edition-sapphire rect{fill:#328fd4;fill-opacity:.56;stroke:#b8e7ff;stroke-width:1.8}
