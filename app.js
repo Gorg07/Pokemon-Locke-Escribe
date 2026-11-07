@@ -82,8 +82,9 @@ function decoratePlayerColors(){
  const one=$('.atlas-key .k-one');
  if(!one)return;
  if(map.dataset.focus==='all'){
-   one.parentElement.innerHTML='<i class="k-ruby"></i> Solo Rubí';
-   one.parentElement.insertAdjacentHTML('afterend','<span><i class="k-sapphire"></i> Solo Zafiro</span>');
+   const legend=one.parentElement;
+   legend.innerHTML='<i class="k-ruby"></i> Solo Rubí';
+   legend.insertAdjacentHTML('afterend','<span><i class="k-sapphire"></i> Solo Zafiro</span>');
  }else{
    one.className=`k-${playerEdition(Number(map.dataset.focus))}`;
  }
@@ -876,6 +877,16 @@ async function buyTrainingService(itemId){
 }
 
 if(typeof document!=='undefined'){
+  // Las fichas del registro de capturas abren su editor directamente.
+  // El índice del atlas conserva la selección habitual de zonas.
+  document.addEventListener('click',event=>{
+    const card=event.target.closest?.('.enc18-route[data-route]');
+    if(!card)return;
+    event.preventDefault();
+    event.stopPropagation();
+    state.selectedRoute=canonicalZone(card.dataset.route);
+    editRoute().catch(err=>toast('No se pudo abrir la captura: '+err.message,'error'));
+  },true);
   // Las recompensas especiales no se introducen como objetos en PKHeX.
   const buyOrdinaryItem=buyItem;
   buyItem=async function(itemId){
