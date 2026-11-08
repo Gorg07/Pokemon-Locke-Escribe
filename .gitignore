@@ -1,0 +1,21 @@
+# Archivos de trabajo locales: no publicar en GitHub Pages.
+*.patch
+*.zip
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+
+# Archivos privados de ROM/partida y bases locales. Nunca publicarlos.
+*.log
+*.cxi
+*.sav
+*.pk6
+*.pkx
+*.3ds
+*.cia
+*.sqlite
+*.sqlite3
+/main

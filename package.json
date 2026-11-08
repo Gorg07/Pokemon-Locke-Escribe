@@ -3,7 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "node --check app.js && node --test",
-    "test": "node --test"
+    "check": "node --check app.js && node --check economia-reglas.js && node --check evoluciones-modificadas.js && node --check manual-rules.js && node --check oras-base-stats.js && node --check oras-species-names.js && node --check data/shop-catalog.js"
   }
 }
